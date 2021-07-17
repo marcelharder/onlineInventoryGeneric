@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DropItem } from 'src/app/_models/dropItem';
-import { modelProductParams  } from 'src/app/_models/modelValveParams';
+import { modelProductParams  } from 'src/app/_models/modelProductParams';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { Valve } from 'src/app/_models/Valve';
 import { AlertifyService } from 'src/app/_services/alertify.service';

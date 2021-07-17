@@ -33,7 +33,7 @@ namespace api.DAL.data
             if(await context.Locations.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("DAL/data/locationSeedData.json");
-            var emp = JsonConvert.DeserializeObject<List<Class_Locations >>(userData);
+            var emp = JsonConvert.DeserializeObject<List<Class_Locations>>(userData);
             foreach (var item in emp)
             {
                context.Locations.Add(item);
@@ -56,7 +56,7 @@ namespace api.DAL.data
         {
             if(await context.Products.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/productsInHospital.json");
+            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/productsInLocation.json");
             var emp = JsonConvert.DeserializeObject<List<Class_Product>>(userData);
             foreach (var item in emp)
             {

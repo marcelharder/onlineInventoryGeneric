@@ -29,7 +29,7 @@
         <div *ngIf="companyAdminLogged && loggedIn()" class="dropdown ml-2 mr-2" dropdown>
           <a class="dropdown-toggle"  dropdownToggle>| Settings </a>
           <div class="dropdown-menu mt-3" *dropdownMenu>
-            <a class="dropdown-item" href="#" [routerLink]="['/companysettings/1']" queryParamsHandling="preserve">Hospitals</a>
+            <a class="dropdown-item" href="#" [routerLink]="['/companysettings/1']" queryParamsHandling="preserve">Locations</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" [routerLink]="['/companysettings/2']" queryParamsHandling="preserve">Products</a>
           </div>
@@ -48,7 +48,7 @@
         <div *ngIf="companyAdminLogged && loggedIn()" class="dropdown ml-2 mr-2" dropdown>
           <a class="dropdown-toggle"  dropdownToggle>| Products </a>
           <div class="dropdown-menu mt-3" *dropdownMenu>
-            <a class="dropdown-item" href="#" [routerLink]="['/companyadmin']">In Hospitals</a>
+            <a class="dropdown-item" href="#" [routerLink]="['/companyadmin']">In Locations</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" [routerLink]="['/search']">Search on serial#</a>
           </div>
@@ -73,28 +73,19 @@
         </form>
 
 
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"> <a class="nav-link text-dark" [routerLink]="['/']">Home</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']"> <a class="nav-link text-dark" [routerLink]="['/about']">| About</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="!loggedIn()"> <a class="nav-link text-dark" [routerLink]="['/selectValve']">| PPM</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/superuser']">| ManageValves</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/settings']">| Settings</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/tutorials']">| Tutorial</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/statistics']">| Statistics</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged || companyHQLogged"> <a class="nav-link text-dark" [routerLink]="['/messages']">| Messages</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="normalLogged"> <a class="nav-link text-dark" [routerLink]="['/selectValve']">| Select Valve</a> </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="normalLogged"> <a class="nav-link text-dark" [routerLink]="['/surgeon']">| No of Valves</a> </li>
-         
-          
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="companyAdminLogged"> <a class="nav-link text-dark" [routerLink]="['/messages']">| Messages</a> </li>
-
-        </ul>
-
-
-
-
-
-      </div>
-    </div>
-  </nav>
+  <ul class="navbar-nav flex-grow">
+    <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"> <a class="nav-link text-dark" [routerLink]="['/']">Home</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']"> <a class="nav-link text-dark" [routerLink]="['/about']">| About</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/superuser']">| ManageProducts</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/settings']">| Settings</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/tutorials']">| Tutorial</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged"> <a class="nav-link text-dark" [routerLink]="['/statistics']">| Statistics</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="specialLogged || companyHQLogged"> <a class="nav-link text-dark" [routerLink]="['/messages']">| Messages</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="normalLogged"> <a class="nav-link text-dark" [routerLink]="['/selectValve']">| Select Valve</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="normalLogged"> <a class="nav-link text-dark" [routerLink]="['/surgeon']">| No of Products</a> </li>
+    <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="companyAdminLogged"> <a class="nav-link text-dark" [routerLink]="['/messages']">| Messa </a> </li>
+  </ul>
+  </div>
+ </div>
+ </nav>
 </header>

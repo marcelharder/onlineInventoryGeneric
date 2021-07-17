@@ -5,7 +5,7 @@ import { Valve } from '../_models/Valve';
 import { TypeOfValve } from '../_models/TypeOfValve';
 import { ExpiringProducts } from '../_models/ExpiringProducts';
 import { ValveTransfer } from '../_models/ValveTransfer';
-import { modelProductParams  } from '../_models/modelValveParams';
+import { modelProductParams  } from '../_models/modelProductParams';
 import { map } from 'rxjs/operators';
 import { PaginatedResult } from '../_models/pagination';
 import { AlertifyService } from './alertify.service';
@@ -19,7 +19,7 @@ export class ValveService {
 
     getValves(soort: number, position: number) { return this.http.get<Valve[]>(this.baseUrl + 'valvesBySoort/' + soort + '/' + position); }
     
-    getSuggestedValves(userId: string,v: modelValveParams, page?: number, itemsPerPage?: number) {
+    getSuggestedValves(userId: string,v: modelProductParams, page?: number, itemsPerPage?: number) {
         const paginatedResult: PaginatedResult<Valve[]> = new PaginatedResult<Valve[]>();
         let params = new HttpParams();
         if (page != null && itemsPerPage != null) {

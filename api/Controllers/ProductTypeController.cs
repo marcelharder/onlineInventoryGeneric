@@ -145,7 +145,9 @@ namespace api.Controllers
             var result = await _vc.getAllTPProducts(type,position);
             return Ok(result);
         }
-         [AllowAnonymous]
+       
+       
+        [AllowAnonymous]
         [Route("api/productsTypesByVTP/{vendor}/{type}/{position}")]
         [HttpGet]
         public async Task<IActionResult> getAllProducts(string vendor,string type, string position){
