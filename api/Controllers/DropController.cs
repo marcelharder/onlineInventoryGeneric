@@ -48,7 +48,7 @@ namespace api.Controllers
             return help;
         }
 
-        [Route("api/options_valve_location")]
+        [Route("api/options_product_location")]
         public List<Class_Item> getLocationOptions()
         {
             var help = new List<Class_Item>();
@@ -81,7 +81,7 @@ namespace api.Controllers
 
         }
 
-        [Route("api/options_valve_type")]
+        [Route("api/options_product_type")]
         public List<Class_Item> getTypeOptions()
         {
             var help = new List<Class_Item>();

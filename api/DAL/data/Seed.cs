@@ -42,25 +42,25 @@ namespace api.DAL.data
         }
         public static async Task SeedValveTypes(dataContext context)
         {
-            if(await context.ValveCodes.AnyAsync()) return;
+            if(await context.ProductTypes.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("DAL/data/valveTypeData.json");
-            var emp = JsonConvert.DeserializeObject<List<Class_TypeOfValve>>(userData);
+            var emp = JsonConvert.DeserializeObject<List<Class_ProductType>>(userData);
             foreach (var item in emp)
             {
-               context.ValveCodes.Add(item);
+               context.ProductTypes.Add(item);
             }
             await context.SaveChangesAsync();
         }
         public static async Task SeedValvesInHospital(dataContext context)
         {
-            if(await context.Valves.AnyAsync()) return;
+            if(await context.Products.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("DAL/data/valvesInHospital.json");
-            var emp = JsonConvert.DeserializeObject<List<Class_Valve>>(userData);
+            var emp = JsonConvert.DeserializeObject<List<Class_Product>>(userData);
             foreach (var item in emp)
             {
-               context.Valves.Add(item);
+               context.Products.Add(item);
             }
             await context.SaveChangesAsync();
         }

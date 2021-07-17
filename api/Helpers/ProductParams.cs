@@ -1,6 +1,6 @@
 namespace api.Helpers
 {
-    public class ValveParams
+    public class ProductParams 
     {
         public int HospitalNo { get; set; }
         public int Soort { get; set; }

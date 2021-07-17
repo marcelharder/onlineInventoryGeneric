@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DropItem } from 'src/app/_models/dropItem';
-import { modelValveParams } from 'src/app/_models/modelValveParams';
+import { modelProductParams  } from 'src/app/_models/modelValveParams';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { Valve } from 'src/app/_models/Valve';
 import { AlertifyService } from 'src/app/_services/alertify.service';
@@ -45,7 +45,7 @@ export class LookInOVIComponent implements OnInit {
   optionsPositions: Array<DropItem> = [];
 
 
-  valveParams: modelValveParams = {
+  valveParams: modelProductParams  = {
     BioPref: 0,
     Size: 0, // NB this is the measured Size
     Soort: 0,

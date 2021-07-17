@@ -67,13 +67,13 @@ export class AddProductComponent implements OnInit {
   displayAdd(){if(this.showAdd === 1){return true;}}
 
   loadDrops() {
-    if (localStorage.options_valve_type === undefined) {
+    if (localStorage.options_product_type === undefined) {
       this.drop.getValveTypeOptions().subscribe((next) => {
         this.typeOfValve = next;
-        localStorage.setItem('options_valve_type', JSON.stringify(next));
+        localStorage.setItem('options_product_type', JSON.stringify(next));
       });
     } else {
-      this.typeOfValve = JSON.parse(localStorage.options_valve_type);
+      this.typeOfValve = JSON.parse(localStorage.options_product_type);
     }
 
     if (localStorage.implant_location === undefined) {

@@ -15,12 +15,12 @@ namespace api.Controllers
     [Route("api/users/{userId}/[controller]")]
     public class GraphController : ControllerBase
     {
-        IValve _valve;
+        IProduct _product;
         dataContext _context;
         SpecialMaps _special;
-        public GraphController(IValve valve, dataContext context, SpecialMaps special)
+        public GraphController(IProduct valve, dataContext context, SpecialMaps special)
         {
-            _valve = valve;
+            _product = valve;
             _context = context;
             _special = special;
         }
@@ -35,8 +35,8 @@ namespace api.Controllers
             {
                 string[] sizes = new string[] { "19", "21", "23", "25", "27", "29", "31", "33" };
 
-                var mech = await _valve.getAorticMechanicalSizes(hospitalId);
-                var bio = await _valve.getAorticBioSizes(hospitalId);
+                var mech = await _product.getAorticMechanicalSizes(hospitalId);
+                var bio = await _product.getAorticBioSizes(hospitalId);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -51,8 +51,8 @@ namespace api.Controllers
             {
                 string[] sizes = new string[] { "19", "21", "23", "25", "27", "29", "31", "33" };
 
-                var mech = await _valve.getMitralMechanicalSizes(hospitalId);
-                var bio = await _valve.getMitralBioSizes(hospitalId);
+                var mech = await _product.getMitralMechanicalSizes(hospitalId);
+                var bio = await _product.getMitralBioSizes(hospitalId);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -67,8 +67,8 @@ namespace api.Controllers
             {
                 string[] sizes = new string[] { "19", "21", "23", "25", "27", "29", "31", "33" };
 
-                var mech = await _valve.getConduitSizes(hospitalId);
-                //var bio = await _valve.getMitralBioSizes(hospitalId);
+                var mech = await _product.getConduitSizes(hospitalId);
+                //var bio = await _product.getMitralBioSizes(hospitalId);
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -83,8 +83,8 @@ namespace api.Controllers
             {
                 string[] sizes = new string[] { "19", "21", "23", "25", "27", "29", "31", "33" };
 
-                var mech = await _valve.getRingSizes(hospitalId);
-                //var bio = await _valve.getMitralBioSizes(hospitalId);
+                var mech = await _product.getRingSizes(hospitalId);
+                //var bio = await _product.getMitralBioSizes(hospitalId);
 
                 for (int i = 0; i < 8; i++)
                 {

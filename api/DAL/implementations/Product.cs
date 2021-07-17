@@ -12,25 +12,25 @@ using api.Helpers;
 namespace api.DAL.Implementations
 {
 
-    public class Valve : IValve
+    public class Product : IProduct
     {
         private dataContext _context;
         private SpecialMaps _special;
         private IHospital _hospital;
-        public Valve(dataContext context, SpecialMaps special, IHospital hospital)
+        public Product(dataContext context, SpecialMaps special, IHospital hospital)
         {
             _context = context;
             _special = special;
             _hospital = hospital;
         }
-        public async Task<ValveForReturnDTO> getValveById(int id)
+        public async Task<ProductForReturnDTO> getValveById(int id)
         {
-            var result = await _context.Valves.FirstOrDefaultAsync(x => x.ValveId == id);
+            var result = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
             return await _special.mapToValveForReturnAsync(result);
         }
-        public async Task<ValveForReturnDTO> getValveBySerial(string serial, string whoWantsToKnow)
+        public async Task<ProductForReturnDTO> getValveBySerial(string serial, string whoWantsToKnow)
         {
-            var result = await _context.Valves.FirstOrDefaultAsync(x => x.Serial_no == serial);
+            var result = await _context.Products.FirstOrDefaultAsync(x => x.Serial_no == serial);
             if (result == null) { return null; }
             else
             {
@@ -57,9 +57,9 @@ namespace api.DAL.Implementations
                 }
             }
         }
-        public async Task<List<Class_Valve>> getValvesBySoort(int soort, int position)
+        public async Task<List<Class_Product>> getValvesBySoort(int soort, int position)
         {
-            ValveParams vp = new ValveParams();
+            ProductParams  vp = new ProductParams();
             vp.HospitalNo = await _special.getCurrentUserHospitalId();
             vp.Soort = soort;
             vp.Position = position;
@@ -68,27 +68,27 @@ namespace api.DAL.Implementations
             return await methodXAsync(vp);
         }
         public async Task<bool> SaveAll() { return await _context.SaveChangesAsync() > 0; }
-        public void Add(Class_Valve v) { _context.Valves.Add(v); }
-        public void updateValve(ValveForReturnDTO p) { _context.Valves.Update(_special.mapToValveFromReturn(p)); }
-        public async Task<Class_Valve> valveBasedOnTypeOfValve(int id)
+        public void Add(Class_Product v) { _context.Products.Add(v); }
+        public void updateValve(ProductForReturnDTO p) { _context.Products.Update(_special.mapToValveFromReturn(p)); }
+        public async Task<Class_Product> valveBasedOnTypeOfValve(int id)
         {
-            var selectedValveCode = await _context.ValveCodes.FirstOrDefaultAsync(x => x.No == id);
+            var selectedValveCode = await _context.ProductTypes.FirstOrDefaultAsync(x => x.No == id);
             var val = await _special.getValveFromValveCodeAsync(selectedValveCode);
             return val;
         }
-        public List<Class_Valve> getValvesByHospitalAndCode(int hospital, string model_code)
+        public List<Class_Product> getValvesByHospitalAndCode(int hospital, string model_code)
         {
-            var result = _context.Valves.Where(x => x.Model_code == model_code).AsQueryable();
+            var result = _context.Products.Where(x => x.Model_code == model_code).AsQueryable();
             result = result.Where(s => s.Hospital_code == hospital);
             result = result.Where(s => s.implanted == 0);
             result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
             result.OrderBy(c => c.Expiry_date);
             return result.ToList();
         }
-        public List<Class_Valve> getAlmostExpiringProductsThreeMonths(string hospital, DateTime compareDate, int currentVendor)
+        public List<Class_Product> getAlmostExpiringProductsThreeMonths(string hospital, DateTime compareDate, int currentVendor)
         {
 
-            var result = _context.Valves.Where(x => x.Hospital_code == Convert.ToInt32(hospital)).AsQueryable();
+            var result = _context.Products.Where(x => x.Hospital_code == Convert.ToInt32(hospital)).AsQueryable();
             if (result.Count() != 0)
             {
                 result = result.Where(s => s.implanted == 0);
@@ -101,9 +101,9 @@ namespace api.DAL.Implementations
             return null;
 
         }
-        public async Task<List<Class_Valve>> getAllProductsByVendor(int hospital, int vendor)
+        public async Task<List<Class_Product>> getAllProductsByVendor(int hospital, int vendor)
         {
-            var result = _context.Valves.Where(x => x.Hospital_code == hospital).AsQueryable();
+            var result = _context.Products.Where(x => x.Hospital_code == hospital).AsQueryable();
             result = result.Where(s => s.implanted == 0);
             result = result.Where(s => s.Vendor_code == vendor.ToString());
             result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
@@ -124,7 +124,7 @@ namespace api.DAL.Implementations
                     var test = getAlmostExpiringProductsThreeMonths(h.HospitalNo, getCompareDate(months), currentVendor);
                     if (test != null)
                     {
-                        foreach (Class_Valve cv in test)
+                        foreach (Class_Product cv in test)
                         {
                             expiringValves.Add(await _special.mapValveToExpiringProduct(cv, months));
                         }
@@ -150,14 +150,14 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Mechanical");
                 result = result.Where(s => s.Implant_position == "Aortic");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -183,14 +183,14 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
                 result = result.Where(s => s.Implant_position == "Aortic");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -216,14 +216,14 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
                 result = result.Where(s => s.Implant_position == "Mitral");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -249,14 +249,14 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
                 result = result.Where(s => s.Implant_position == "Mitral");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -282,13 +282,13 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Valved_Conduit");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -314,13 +314,13 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Valves.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Annuloplasty_Ring");
 
                 // get the valves sizes
-                foreach (Class_Valve cv in result)
+                foreach (Class_Product cv in result)
                 {
                     if (cv.Size == "19") { size_19++; };
                     if (cv.Size == "21") { size_21++; };
@@ -341,7 +341,7 @@ namespace api.DAL.Implementations
         {
             var help = new List<Class_Transfer_forReturn>();
             var result = _context.Transfers.AsQueryable();
-            result = result.Where(s => s.ValveId == ValveId);
+            result = result.Where(s => s.ProductId == ValveId);
             foreach (Class_Transfer ct in result) { help.Add(_special.mapToTransfersToReturn(ct)); }
             return help;
         }
@@ -366,8 +366,8 @@ namespace api.DAL.Implementations
          public async Task<int> removeValve(int Id)
         {
             var help = 0;
-            var result = await _context.Valves.FirstOrDefaultAsync(x => x.ValveId == Id);
-            _context.Valves.Remove(result);
+            var result = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == Id);
+            _context.Products.Remove(result);
 
             if (await SaveAll())
             {
@@ -387,15 +387,15 @@ namespace api.DAL.Implementations
             return updateResult;
         }
 
-        public async Task<List<Class_Valve>> getValvesForSOAAsync(ValveParams v)
+        public async Task<List<Class_Product>> getValvesForSOAAsync(ProductParams  v)
         {
             // v.HospitalNo = await _special.getCurrentUserHospitalId();
             return await methodXAsync(v);
         }
 
-        private async Task<List<Class_Valve>> methodXAsync(ValveParams v)
+        private async Task<List<Class_Product>> methodXAsync(ProductParams  v)
         {
-            var result = new List<Class_Valve>();
+            var result = new List<Class_Product>();
             await Task.Run(() =>
             {
                 var soort = v.Soort;
@@ -419,7 +419,7 @@ namespace api.DAL.Implementations
                     case 2: _position = "Mitral"; break;
                     case 3: _position = "Other"; break;
                 }
-                var resultx = _context.Valves.Where(x => x.Type == help).AsQueryable();
+                var resultx = _context.Products.Where(x => x.Type == help).AsQueryable();
                 resultx = resultx.Where(s => s.Hospital_code == _currentHospital);
                 resultx = resultx.Where(s => s.Implant_position == _position);
                 resultx = resultx.Where(s => s.implanted == 0);
@@ -434,21 +434,21 @@ namespace api.DAL.Implementations
 
         public async Task<string> markValveAsImplantedAsync(int id, int procedureId)
         {
-            var valve = await _context.Valves.FirstOrDefaultAsync(x => x.ValveId == id);
+            var valve = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
             valve.implanted = 1;
             valve.Procedure_id = procedureId;
             valve.Implant_date = DateTime.Now;
-            _context.Valves.Update(valve);
+            _context.Products.Update(valve);
             if (await SaveAll()) { return "updated"; }
             return "";
 
         }
         // depending on the patient data this method returns the suggested valves
-        public async Task<PagedList<Class_Valve>> getSuggestedValves(SelectParams sp)
+        public async Task<PagedList<Class_Product>> getSuggestedValves(SelectParams sp)
         {
             if (sp.BioPref == "1")
             {
-                var result = await _context.Valves
+                var result = await _context.Products
                 .Where(x => x.Hospital_code == sp.HospitalNo)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)
@@ -456,28 +456,28 @@ namespace api.DAL.Implementations
                 .Where(s => s.Type == "Biological")
                 .Where(s => s.Expiry_date > DateTime.UtcNow)
                 .OrderBy(c => c.Expiry_date).ToListAsync();
-                foreach (Class_Valve cv in result) { cv.TFD = await calculateIndexedFTD(sp.Height, sp.Weight, cv.TFD); }
-                return PagedList<Class_Valve>.Create(result, sp.PageNumber, sp.PageSize);
+                foreach (Class_Product cv in result) { cv.TFD = await calculateIndexedFTD(sp.Height, sp.Weight, cv.TFD); }
+                return PagedList<Class_Product>.Create(result, sp.PageNumber, sp.PageSize);
             }
             else
             {
-                var result = await _context.Valves
+                var result = await _context.Products
                 .Where(x => x.Hospital_code == sp.HospitalNo)
                 .Where(s => s.Implant_position == sp.Position)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)
                 .Where(s => s.Expiry_date > DateTime.UtcNow)
                 .OrderBy(c => c.Expiry_date).ToListAsync();
-                foreach (Class_Valve cv in result) { cv.TFD = await calculateIndexedFTD(sp.Height, sp.Weight, cv.TFD); }
-                return PagedList<Class_Valve>.Create(result, sp.PageNumber, sp.PageSize);
+                foreach (Class_Product cv in result) { cv.TFD = await calculateIndexedFTD(sp.Height, sp.Weight, cv.TFD); }
+                return PagedList<Class_Product>.Create(result, sp.PageNumber, sp.PageSize);
             }
         }
 
         
 
-        public async Task<List<Class_Valve>> getAllAorticValves(int hospitalId)
+        public async Task<List<Class_Product>> getAllAorticValves(int hospitalId)
         {
-            var result = await _context.Valves.Where(x => x.Hospital_code == hospitalId)
+            var result = await _context.Products.Where(x => x.Hospital_code == hospitalId)
              .Where(s => s.implanted == 0)
              .Where(s => s.Implant_position == "Aortic")
              .Where(s => s.Expiry_date > DateTime.UtcNow)
@@ -485,9 +485,9 @@ namespace api.DAL.Implementations
             return result;
         }
 
-        public async Task<List<Class_Valve>> getAllMitralValves(int hospitalId)
+        public async Task<List<Class_Product>> getAllMitralValves(int hospitalId)
         {
-            var result = await _context.Valves.Where(x => x.Hospital_code == hospitalId)
+            var result = await _context.Products.Where(x => x.Hospital_code == hospitalId)
            .Where(s => s.implanted == 0)
            .Where(s => s.Implant_position == "Mitral")
            .Where(s => s.Expiry_date > DateTime.UtcNow)
@@ -498,8 +498,8 @@ namespace api.DAL.Implementations
         public async Task<string> getTFD(string pc, string size)
         {
             // get the TFD from the valvecode
-            var f = await _context.ValveCodes.Include(a => a.Valve_size).FirstOrDefaultAsync(x => x.uk_code == pc);
-            var a = f.Valve_size.ToList();
+            var f = await _context.ProductTypes.Include(a => a.Product_size).FirstOrDefaultAsync(x => x.uk_code == pc);
+            var a = f.Product_size.ToList();
             var b = a.Find(a => a.Size == Convert.ToInt32(size));
             return b.EOA.ToString();
         }

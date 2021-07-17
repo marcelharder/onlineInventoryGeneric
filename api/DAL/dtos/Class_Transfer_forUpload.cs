@@ -11,6 +11,6 @@ namespace api.DAL.dtos
         public string Reason { get; set; }
         public string DepartureCode { get; set; }
         public string ArrivalCode { get; set; }
-        public int ValveId { get; set; }
+        public int ProductId { get; set; }
     }
 }

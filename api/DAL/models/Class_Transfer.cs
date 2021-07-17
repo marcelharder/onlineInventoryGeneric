@@ -10,7 +10,7 @@ namespace api.DAL.models
         public string Reason { get; set; }
         public string DepartureCode { get; set; }
         public string ArrivalCode { get; set; }
-        public Class_Valve Valve { get; set; }
-        public int ValveId { get; set; }
+        public Class_Product Product { get; set; }
+        public int ProductId { get; set; }
     }
 }

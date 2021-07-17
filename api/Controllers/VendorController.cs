@@ -18,12 +18,12 @@ namespace api.Controllers
     {
 
         private IVendor _vendor;
-        private IValveCode _code;
+        private IProductType _code;
         private Cloudinary _cloudinary;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         public VendorController(
             IVendor vendor, 
-            IValveCode code, 
+            IProductType code, 
             IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _vendor = vendor;
@@ -51,7 +51,7 @@ namespace api.Controllers
         }
 
         [Route("api/vendor/fullProducts/{id}")]
-        public async Task<List<Class_TypeOfValve>> getVendor03(int id)
+        public async Task<List<Class_ProductType>> getVendor03(int id)
         {
             var help = await _code.getTypeOfValvesPerCountry(id);
             return help;

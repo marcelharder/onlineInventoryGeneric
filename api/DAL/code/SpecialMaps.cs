@@ -236,11 +236,11 @@ namespace api.DAL.Code
         }
 
         #endregion
-        #region <!-- valve mappings -->
-        public async Task<Class_Valve> getValveFromValveCodeAsync(Class_TypeOfValve selectedValveCode)
+        #region <!-- product mappings -->
+        public async Task<Class_Product> getValveFromValveCodeAsync(Class_ProductType selectedValveCode)
         {
             // a new valve is created here with a valvetype as basis
-            var help = new Class_Valve();
+            var help = new Class_Product();
             help.No = await getNewValveNumberAsync();// dit is een uniek identifying number
             help.Description = selectedValveCode.Description;
             help.Vendor_code = selectedValveCode.Vendor_code;
@@ -262,11 +262,11 @@ namespace api.DAL.Code
 
             return help;
         }
-        public async Task<ValveForReturnDTO> mapToValveForReturnAsync(Class_Valve valve)
+        public async Task<ProductForReturnDTO> mapToValveForReturnAsync(Class_Product valve)
         {
 
-            var help = new ValveForReturnDTO();
-            help.valveId = valve.ValveId;
+            var help = new ProductForReturnDTO();
+            help.valveId = valve.ProductId;
             help.No = valve.No;
             help.Vendor_name = await getVendorNameFromVendorCodeAsync(valve.Vendor_code);
             help.Description = valve.Description;
@@ -289,10 +289,10 @@ namespace api.DAL.Code
 
             return help;
         }
-        public Class_Valve mapToValveFromReturn(ValveForReturnDTO p)
+        public Class_Product mapToValveFromReturn(ProductForReturnDTO p)
         {
-            var help = new Class_Valve();
-            help.ValveId = p.valveId;
+            var help = new Class_Product();
+            help.ProductId = p.valveId;
             help.No = p.No;
             help.Description = p.Description;
             help.Vendor_code = p.Vendor_code;
@@ -316,12 +316,12 @@ namespace api.DAL.Code
         }
 
       
-        public async Task<ExpiringProduct> mapValveToExpiringProduct(Class_Valve cv, int months)
+        public async Task<ExpiringProduct> mapValveToExpiringProduct(Class_Product cv, int months)
         {
             var help = new ExpiringProduct();
             var ch = await this.getHospital(cv.Hospital_code);
 
-            help.id = cv.ValveId;
+            help.id = cv.ProductId;
             help.hospital = ch.Naam;
             help.timePeriod = months.ToString() + " months";
             help.description = cv.Description;
@@ -334,7 +334,6 @@ namespace api.DAL.Code
             return help;
         }
         #endregion
-      
         #region <!-- user mappings -->
         public async Task<UserForReturnDTO> getUserforReturnDTOAsync(User u)
         {
@@ -422,7 +421,7 @@ namespace api.DAL.Code
             help.DepartureCode = result.DepartureCode;
             help.DepTime = result.DepTime;
             help.Reason = result.Reason;
-            help.ValveId = result.ValveId;
+            help.ValveId = result.ProductId;
             help.Id = result.Id;
             return help;
 
@@ -435,7 +434,7 @@ namespace api.DAL.Code
             current_transfer.DepartureCode = p.DepartureCode;
             current_transfer.DepTime = p.DepTime;
             current_transfer.Reason = p.Reason;
-            current_transfer.ValveId = p.ValveId;
+            current_transfer.ProductId = p.ProductId;
             return current_transfer;
         }
         #endregion
@@ -476,8 +475,8 @@ namespace api.DAL.Code
         {
             var help = 0;
             var l = new List<int>();
-            var totalNumberOfValves = await _context.Valves.ToListAsync();
-            foreach (Class_Valve v in totalNumberOfValves) { l.Add(v.No); }
+            var totalNumberOfValves = await _context.Products.ToListAsync();
+            foreach (Class_Product v in totalNumberOfValves) { l.Add(v.No); }
             help = totalNumberOfValves.Count + 1;
             while (l.Contains(help)) { help = help + 1; }
             return help;
@@ -514,7 +513,7 @@ namespace api.DAL.Code
         }
         /* public async Task<string[]> getValveSizesAsync(string Product_code)
         {
-            var selectedValveCode = await _context.ValveCodes.FirstOrDefaultAsync(x => x.uk_code == Product_code);
+            var selectedValveCode = await _context.ProductTypes.FirstOrDefaultAsync(x => x.uk_code == Product_code);
             
             
             

@@ -1,4 +1,4 @@
-export interface modelValveParams {
+export interface modelProductParams  {
 
     BioPref: number;
     Soort: number;

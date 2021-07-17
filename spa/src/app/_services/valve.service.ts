@@ -5,7 +5,7 @@ import { Valve } from '../_models/Valve';
 import { TypeOfValve } from '../_models/TypeOfValve';
 import { ExpiringProducts } from '../_models/ExpiringProducts';
 import { ValveTransfer } from '../_models/ValveTransfer';
-import { modelValveParams } from '../_models/modelValveParams';
+import { modelProductParams  } from '../_models/modelValveParams';
 import { map } from 'rxjs/operators';
 import { PaginatedResult } from '../_models/pagination';
 import { AlertifyService } from './alertify.service';

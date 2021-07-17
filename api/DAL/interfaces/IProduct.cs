@@ -7,28 +7,28 @@ using api.Helpers;
 
 namespace api.DAL.Interfaces
 {
-    public interface IValve
+    public interface IProduct
     {
-        Task<List<Class_Valve>> getValvesBySoort(int soort, int position);
-        Task<List<Class_Valve>> getAllAorticValves(int hospitalId);
-        Task<List<Class_Valve>> getAllMitralValves(int hospitalId);
-        List<Class_Valve> getValvesByHospitalAndCode(int hospital, string model_code);
-        Task<ValveForReturnDTO> getValveBySerial(string serial, string whoWantsToKnow);
-        Task<ValveForReturnDTO> getValveById(int id);
+        Task<List<Class_Product>> getValvesBySoort(int soort, int position);
+        Task<List<Class_Product>> getAllAorticValves(int hospitalId);
+        Task<List<Class_Product>> getAllMitralValves(int hospitalId);
+        List<Class_Product> getValvesByHospitalAndCode(int hospital, string model_code);
+        Task<ProductForReturnDTO> getValveBySerial(string serial, string whoWantsToKnow);
+        Task<ProductForReturnDTO> getValveById(int id);
 
         Task<string> getTFD(string model, string size);
         Task<double> calculateIndexedFTD(int weight, int height, double tfd);
 
         Task<string> markValveAsImplantedAsync(int id, int procedureId);
-        void updateValve(ValveForReturnDTO p);
-        void Add(Class_Valve v);
+        void updateValve(ProductForReturnDTO p);
+        void Add(Class_Product v);
         Task<bool> SaveAll();
 
 
-        Task<List<Class_Valve>> getValvesForSOAAsync(ValveParams v);
+        Task<List<Class_Product>> getValvesForSOAAsync(ProductParams  v);
 
-        Task<Class_Valve> valveBasedOnTypeOfValve(int id);
-        Task<List<Class_Valve>> getAllProductsByVendor(int hospital, int vendor);
+        Task<Class_Product> valveBasedOnTypeOfValve(int id);
+        Task<List<Class_Product>> getAllProductsByVendor(int hospital, int vendor);
         Task<List<ExpiringProduct>> getValveExpiry(int months);
 
         #region // methods that get the sizes or display in the graphs
@@ -50,7 +50,7 @@ namespace api.DAL.Interfaces
 
         #endregion
         #region // determines the selection process
-        Task<PagedList<Class_Valve>> getSuggestedValves(SelectParams sp);
+        Task<PagedList<Class_Product>> getSuggestedValves(SelectParams sp);
         Task<int> removeValve(int id);
         #endregion
 

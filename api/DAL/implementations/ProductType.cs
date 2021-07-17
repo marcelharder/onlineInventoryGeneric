@@ -10,13 +10,13 @@ using api.DAL.dtos;
 namespace api.DAL.Implementations
 {
 
-      public class ValveCode : IValveCode
+      public class ProductType : IProductType
     {
         SpecialMaps _special;
         IUserRepository _user;
         dataContext _context;
 
-        public ValveCode(SpecialMaps special, IUserRepository user, dataContext context)
+        public ProductType(SpecialMaps special, IUserRepository user, dataContext context)
         {
             _special = special;
             _user = user;
@@ -26,19 +26,19 @@ namespace api.DAL.Implementations
 
         public async Task<string> getModelCode(int code)
         {
-            var result = await _context.ValveCodes.FirstOrDefaultAsync(a => a.No == code);
+            var result = await _context.ProductTypes.FirstOrDefaultAsync(a => a.No == code);
             return result.Model_code;
         }
 
-        public async Task<List<Class_TypeOfValve>> getTypeOfValvesPerCountry(int id)
+        public async Task<List<Class_ProductType>> getTypeOfValvesPerCountry(int id)
         {
-            var help = new List<Class_TypeOfValve>();
+            var help = new List<Class_ProductType>();
             var currentCountry = await getCurrentCountryAsync();
             await Task.Run(() =>
              {
-                 var result = _context.ValveCodes.Where(a => a.Vendor_code == id.ToString()).AsQueryable();
+                 var result = _context.ProductTypes.Where(a => a.Vendor_code == id.ToString()).AsQueryable();
                  // and now select on the current country
-                 foreach (Class_TypeOfValve cl in result)
+                 foreach (Class_ProductType cl in result)
                  {
                      var cArray = cl.countries.Split(',');
                      if (cArray.Contains(currentCountry)) { help.Add(cl); }
@@ -53,8 +53,8 @@ namespace api.DAL.Implementations
             var currentCountry = await getCurrentCountryAsync();
             var l = new List<Class_Item>();
 
-            var allValveCodesFromThisCompany = _context.ValveCodes.Where(x => x.Vendor_code == companyId.ToString()).AsQueryable();
-            foreach (Class_TypeOfValve x in allValveCodesFromThisCompany) 
+            var allValveCodesFromThisCompany = _context.ProductTypes.Where(x => x.Vendor_code == companyId.ToString()).AsQueryable();
+            foreach (Class_ProductType x in allValveCodesFromThisCompany) 
             {
                 var countryArray = x.countries.Split(',');
                 if (countryArray.Contains(currentCountry))
@@ -88,32 +88,32 @@ namespace api.DAL.Implementations
             return currentCountry;
         }
 
-        public async Task<Class_TypeOfValve> getDetails(int code) {
-            var result = await _context.ValveCodes.Include(a => a.Valve_size).FirstOrDefaultAsync(a => a.No == code);
+        public async Task<Class_ProductType> getDetails(int code) {
+            var result = await _context.ProductTypes.Include(a => a.Product_size).FirstOrDefaultAsync(a => a.No == code);
             return result;
         }
-        public async Task<Class_TypeOfValve> getDetailsByValveTypeId(int id)
+        public async Task<Class_ProductType> getDetailsByValveTypeId(int id)
         {
-            var result = await _context.ValveCodes.Include(a => a.Valve_size).FirstOrDefaultAsync(a => a.ValveTypeId == id);
+            var result = await _context.ProductTypes.Include(a => a.Product_size).FirstOrDefaultAsync(a => a.ValveTypeId == id);
             return result;
         }
 
-        public async Task<string> saveDetails(Class_TypeOfValve tov){
-            var result = _context.ValveCodes.Update(tov);
+        public async Task<string> saveDetails(Class_ProductType tov){
+            var result = _context.ProductTypes.Update(tov);
             if(await _context.SaveChangesAsync() > 0){return "product details updated";}
             return "failed";
         }
 
         public async Task<bool> SaveAll() { return await _context.SaveChangesAsync() > 0; }
-        public void Add(Class_TypeOfValve v) { _context.ValveCodes.Add(v); }
+        public void Add(Class_ProductType v) { _context.ProductTypes.Add(v); }
 
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
         }
-        public async Task<List<Class_TypeOfValve>> getAllProducts()
+        public async Task<List<Class_ProductType>> getAllProducts()
         {
-            return await _context.ValveCodes.Include(a => a.Valve_size).ToListAsync();
+            return await _context.ProductTypes.Include(a => a.Product_size).ToListAsync();
         }
         public async Task<string> deleteSize(int id, int sizeId)
         {
@@ -129,43 +129,28 @@ namespace api.DAL.Implementations
         {
              _context.Update(entity);
         }
-        public async Task<Class_Valve_Size> GetSize(int id)
+        public async Task<Class_Product_Size> GetSize(int id)
         {
             return await _context.Valve_sizes.FirstOrDefaultAsync(a => a.SizeId == id);
         }
-        public async Task<Class_TypeOfValve> getDetailsByProductCode(string product_code)
+        public async Task<Class_ProductType> getDetailsByProductCode(string product_code)
         {
-              var result = await _context.ValveCodes.Include(a => a.Valve_size)
+              var result = await _context.ProductTypes.Include(a => a.Product_size)
               .FirstOrDefaultAsync(a => a.uk_code == product_code);
             return result;
         }
-        public async Task<List<ValveCodeSizesDTO>> GetValveCodeSizes(int id)
-        {
-            var result = await getDetailsByValveTypeId(id);
-            var h = new List<ValveCodeSizesDTO>();
-            var l = new List<Class_Valve_Size>();
-            l = result.Valve_size.ToList();
-            foreach(Class_Valve_Size cv in l){
-               var dto = new ValveCodeSizesDTO();
-               dto.size = cv.Size;
-               dto.eoa = cv.EOA;
-               h.Add(dto);
-            }
-            //order by size
-            h = h.OrderBy(a => a.size).ToList();
-            return h;
-        }
+       
 
         public async Task<List<Class_Item>> getAllTPProducts(string type, string position)
         {
             var l = new List<Class_Item>();
             Class_Item c;
-           var result = await _context.ValveCodes
+           var result = await _context.ProductTypes
            .Where(a => a.Type == type)
            .Where(b => b.Implant_position == position)
            .ToListAsync();
 
-           foreach(Class_TypeOfValve ci in result){
+           foreach(Class_ProductType ci in result){
                c = new Class_Item();
                c.Value = ci.ValveTypeId;
                c.Description = ci.Description;
@@ -174,17 +159,17 @@ namespace api.DAL.Implementations
            return l;
         }
 
-        public async Task<List<Class_TypeOfValve>> getAllProductsByVTP(string vendor, string type, string position)
+        public async Task<List<Class_ProductType>> getAllProductsByVTP(string vendor, string type, string position)
         {
            
-           var ap = await _context.ValveCodes
-           .Include(a => a.Valve_size)
+           var ap = await _context.ProductTypes
+           .Include(a => a.Product_size)
            .Where(a => a.Vendor_code == vendor)
            .Where(a => a.Type == type)
            .Where(b => b.Implant_position == position)
            .ToListAsync();
 
-           foreach(Class_TypeOfValve cv in ap){ cv.Valve_size = cv.Valve_size.OrderBy(a => a.Size).ToList(); }
+           foreach(Class_ProductType cv in ap){ cv.Product_size = cv.Product_size.OrderBy(a => a.Size).ToList(); }
  
            return ap;
         }
