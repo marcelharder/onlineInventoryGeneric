@@ -32,7 +32,7 @@ namespace api.DAL.data
         {
             if(await context.Locations.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/hospitalSeedData.json");
+            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/locationSeedData.json");
             var emp = JsonConvert.DeserializeObject<List<Class_Locations >>(userData);
             foreach (var item in emp)
             {
@@ -40,11 +40,11 @@ namespace api.DAL.data
             }
             await context.SaveChangesAsync();
         }
-        public static async Task SeedValveTypes(dataContext context)
+        public static async Task SeedProductTypes(dataContext context)
         {
             if(await context.ProductTypes.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/valveTypeData.json");
+            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/productTypeData.json");
             var emp = JsonConvert.DeserializeObject<List<Class_ProductType>>(userData);
             foreach (var item in emp)
             {
@@ -52,11 +52,11 @@ namespace api.DAL.data
             }
             await context.SaveChangesAsync();
         }
-        public static async Task SeedValvesInHospital(dataContext context)
+        public static async Task SeedProductsInLocation(dataContext context)
         {
             if(await context.Products.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/valvesInHospital.json");
+            var userData = await System.IO.File.ReadAllTextAsync("DAL/data/productsInHospital.json");
             var emp = JsonConvert.DeserializeObject<List<Class_Product>>(userData);
             foreach (var item in emp)
             {

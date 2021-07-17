@@ -108,7 +108,7 @@ export class AddValveComponent implements OnInit {
         //    "Implant_position": "",
         //    "Procedure_id": 0,
         //    "implanted": 0,
-        //    "Hospital_code": 0
+        //    "Location_code": 0
         // };
         // this.details = 1;
     }

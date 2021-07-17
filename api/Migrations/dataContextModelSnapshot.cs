@@ -109,7 +109,7 @@ namespace api.Migrations
                     b.Property<DateTime>("Expiry_date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Hospital_code")
+                    b.Property<int>("Location_code")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")

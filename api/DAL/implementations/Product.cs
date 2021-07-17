@@ -79,7 +79,7 @@ namespace api.DAL.Implementations
         public List<Class_Product> getValvesByHospitalAndCode(int hospital, string model_code)
         {
             var result = _context.Products.Where(x => x.Model_code == model_code).AsQueryable();
-            result = result.Where(s => s.Hospital_code == hospital);
+            result = result.Where(s => s.Location_code == hospital);
             result = result.Where(s => s.implanted == 0);
             result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
             result.OrderBy(c => c.Expiry_date);
@@ -88,7 +88,7 @@ namespace api.DAL.Implementations
         public List<Class_Product> getAlmostExpiringProductsThreeMonths(string hospital, DateTime compareDate, int currentVendor)
         {
 
-            var result = _context.Products.Where(x => x.Hospital_code == Convert.ToInt32(hospital)).AsQueryable();
+            var result = _context.Products.Where(x => x.Location_code == Convert.ToInt32(hospital)).AsQueryable();
             if (result.Count() != 0)
             {
                 result = result.Where(s => s.implanted == 0);
@@ -103,7 +103,7 @@ namespace api.DAL.Implementations
         }
         public async Task<List<Class_Product>> getAllProductsByVendor(int hospital, int vendor)
         {
-            var result = _context.Products.Where(x => x.Hospital_code == hospital).AsQueryable();
+            var result = _context.Products.Where(x => x.Location_code == hospital).AsQueryable();
             result = result.Where(s => s.implanted == 0);
             result = result.Where(s => s.Vendor_code == vendor.ToString());
             result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
@@ -150,7 +150,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Mechanical");
@@ -183,7 +183,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
@@ -216,7 +216,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
@@ -249,7 +249,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Biological");
@@ -282,7 +282,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Valved_Conduit");
@@ -314,7 +314,7 @@ namespace api.DAL.Implementations
 
             await Task.Run(() =>
             {
-                var result = _context.Products.Where(x => x.Hospital_code == hospitalId).AsQueryable();
+                var result = _context.Products.Where(x => x.Location_code == hospitalId).AsQueryable();
                 result = result.Where(s => s.implanted == 0);
                 result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
                 result = result.Where(s => s.Type == "Annuloplasty_Ring");
@@ -420,7 +420,7 @@ namespace api.DAL.Implementations
                     case 3: _position = "Other"; break;
                 }
                 var resultx = _context.Products.Where(x => x.Type == help).AsQueryable();
-                resultx = resultx.Where(s => s.Hospital_code == _currentHospital);
+                resultx = resultx.Where(s => s.Location_code == _currentHospital);
                 resultx = resultx.Where(s => s.Implant_position == _position);
                 resultx = resultx.Where(s => s.implanted == 0);
                 if (size != 0) { resultx = resultx.Where(s => s.Size == size.ToString()); }
@@ -449,7 +449,7 @@ namespace api.DAL.Implementations
             if (sp.BioPref == "1")
             {
                 var result = await _context.Products
-                .Where(x => x.Hospital_code == sp.HospitalNo)
+                .Where(x => x.Location_code == sp.HospitalNo)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)
                 .Where(s => s.Implant_position == sp.Position)
@@ -462,7 +462,7 @@ namespace api.DAL.Implementations
             else
             {
                 var result = await _context.Products
-                .Where(x => x.Hospital_code == sp.HospitalNo)
+                .Where(x => x.Location_code == sp.HospitalNo)
                 .Where(s => s.Implant_position == sp.Position)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)
@@ -477,7 +477,7 @@ namespace api.DAL.Implementations
 
         public async Task<List<Class_Product>> getAllAorticValves(int hospitalId)
         {
-            var result = await _context.Products.Where(x => x.Hospital_code == hospitalId)
+            var result = await _context.Products.Where(x => x.Location_code == hospitalId)
              .Where(s => s.implanted == 0)
              .Where(s => s.Implant_position == "Aortic")
              .Where(s => s.Expiry_date > DateTime.UtcNow)
@@ -487,7 +487,7 @@ namespace api.DAL.Implementations
 
         public async Task<List<Class_Product>> getAllMitralValves(int hospitalId)
         {
-            var result = await _context.Products.Where(x => x.Hospital_code == hospitalId)
+            var result = await _context.Products.Where(x => x.Location_code == hospitalId)
            .Where(s => s.implanted == 0)
            .Where(s => s.Implant_position == "Mitral")
            .Where(s => s.Expiry_date > DateTime.UtcNow)

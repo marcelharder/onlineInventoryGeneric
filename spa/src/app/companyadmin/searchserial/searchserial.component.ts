@@ -42,7 +42,7 @@ export class SearchserialComponent implements OnInit {
     implant_position: '',
     procedure_id: 0,
     implanted: 0,
-    hospital_code: 0
+    Location_code: 0
   };
   selectedHospital: Hospital = {
     id: 0,
@@ -91,7 +91,7 @@ export class SearchserialComponent implements OnInit {
       this.valveService.getValveTransfers(+this.auth.decodedToken.nameid, this.selectedValve.valveId)
       .subscribe((nex)=>{ this.transfers = nex; })
 
-      this.hosService.getDetails(this.selectedValve.hospital_code).subscribe((res) => {
+      this.hosService.getDetails(this.selectedValve.Location_code).subscribe((res) => {
         this.selectedHospital = res;
         this.gen.getCountryName(this.selectedHospital.country).subscribe((c) => {this.country = c; });
 

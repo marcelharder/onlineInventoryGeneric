@@ -65,7 +65,7 @@ namespace api.Migrations
                     Implant_position = table.Column<string>(nullable: true),
                     Procedure_id = table.Column<int>(nullable: false),
                     implanted = table.Column<int>(nullable: false),
-                    Hospital_code = table.Column<int>(nullable: false),
+                    Location_code = table.Column<int>(nullable: false),
                     Implant_date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

@@ -22,7 +22,7 @@ namespace api.DAL.dtos
         public string Implant_position { get; set; }
         public int Procedure_id { get; set; }
         public int implanted { get; set; }
-        public int Hospital_code { get; set; }
+        public int Location_code { get; set; }
         public DateTime Implant_date { get; set; }
     }
 }

@@ -20,6 +20,6 @@ export interface Valve {
     implant_position: string;
     procedure_id: number;
     implanted: number;
-    hospital_code: number;
+    Location_code: number;
 }
 

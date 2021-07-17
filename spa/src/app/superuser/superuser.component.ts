@@ -37,7 +37,7 @@ export class SuperuserComponent implements OnInit {
         implant_position: '',
         procedure_id: 0,
         implanted: 0,
-        hospital_code: 0,
+        Location_code: 0,
     };
 
     procl = 0;
@@ -153,8 +153,8 @@ export class SuperuserComponent implements OnInit {
         const id = $event;
         this.vs.getValve(id).subscribe((next) => {
             this.valveInParent = next;
-            // save the hospital_code to the authservice in Behavior subject
-            this.hospital.getHospitalFromHospitalCode(this.valveInParent.hospital_code).subscribe(
+            // save the Location_code to the authservice in Behavior subject
+            this.hospital.getHospitalFromHospitalCode(this.valveInParent.Location_code).subscribe(
                 (nex) => {
                     this.auth.changeCurrentHospital(nex);
                 }, (error) => { console.log(error); });

@@ -42,7 +42,7 @@ export class SuitableAOValvesComponent implements OnInit {
     implant_position: '',
     procedure_id: 0,
     implanted: 0,
-    hospital_code: 0,
+    Location_code: 0,
   };
 
 

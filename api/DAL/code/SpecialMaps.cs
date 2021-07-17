@@ -257,7 +257,7 @@ namespace api.DAL.Code
             help.Implant_position = selectedValveCode.Implant_position;
             help.Procedure_id = 0;
             help.implanted = 0;
-            help.Hospital_code = await getCurrentUserHospitalId();
+            help.Location_code = await getCurrentUserHospitalId();
             help.Implant_date = new DateTime();
 
             return help;
@@ -284,7 +284,7 @@ namespace api.DAL.Code
             help.Implant_position = valve.Implant_position;
             help.Procedure_id = valve.Procedure_id;
             help.implanted = valve.implanted;
-            help.Hospital_code = valve.Hospital_code;
+            help.Location_code = valve.Location_code;
             help.Implant_date = valve.Implant_date;
 
             return help;
@@ -309,7 +309,7 @@ namespace api.DAL.Code
             help.Implant_position = p.Implant_position;
             help.Procedure_id = p.Procedure_id;
             help.implanted = p.implanted;
-            help.Hospital_code = p.Hospital_code;
+            help.Location_code = p.Location_code;
             help.Implant_date = p.Implant_date;
 
             return help;
@@ -319,7 +319,7 @@ namespace api.DAL.Code
         public async Task<ExpiringProduct> mapValveToExpiringProduct(Class_Product cv, int months)
         {
             var help = new ExpiringProduct();
-            var ch = await this.getHospital(cv.Hospital_code);
+            var ch = await this.getHospital(cv.Location_code);
 
             help.id = cv.ProductId;
             help.hospital = ch.Naam;

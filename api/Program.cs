@@ -26,8 +26,8 @@ namespace api
             await context.Database.MigrateAsync();
             await Seed.SeedUsers(context);
             await Seed.SeedHospitals(context);
-            await Seed.SeedValvesInHospital(context);
-            await Seed.SeedValveTypes(context);
+            await Seed.SeedProductsInLocation(context);
+            await Seed.SeedProductTypes(context);
             await Seed.SeedVendors(context);
                      
             }
