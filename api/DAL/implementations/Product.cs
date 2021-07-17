@@ -16,12 +16,12 @@ namespace api.DAL.Implementations
     {
         private dataContext _context;
         private SpecialMaps _special;
-        private IHospital _hospital;
-        public Product(dataContext context, SpecialMaps special, IHospital hospital)
+        private ILocation _location;
+        public Product(dataContext context, SpecialMaps special, ILocation location)
         {
             _context = context;
             _special = special;
-            _hospital = hospital;
+            _location = location;
         }
         public async Task<ProductForReturnDTO> getValveById(int id)
         {
@@ -116,10 +116,10 @@ namespace api.DAL.Implementations
             var currentVendor = await _special.getCurrentVendorAsync();
             if (currentVendor != 0)
             { // filter out users that are not vendor employees
-                var listOfHospitals = new List<Class_Hospital>();
-                listOfHospitals = await _hospital.getSphListFull();
+                var listOfLocations = new List<Class_Locations >();
+                listOfLocations = await _location.getSphListFull();
 
-                foreach (Class_Hospital h in listOfHospitals)
+                foreach (Class_Locations  h in listOfLocations)
                 {
                     var test = getAlmostExpiringProductsThreeMonths(h.HospitalNo, getCompareDate(months), currentVendor);
                     if (test != null)

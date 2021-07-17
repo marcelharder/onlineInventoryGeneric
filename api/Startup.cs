@@ -61,7 +61,7 @@ namespace api
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
-            services.AddScoped<IHospital, Hospital>();
+            services.AddScoped<ILocation, Location>();
             services.AddScoped<IProductType, ProductType>();
             services.AddScoped<IProduct, Product>();
             services.AddScoped<IVendor, Vendor>();

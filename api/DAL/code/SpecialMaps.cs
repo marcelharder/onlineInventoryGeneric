@@ -41,12 +41,12 @@ namespace api.DAL.Code
             _testje = testje;
 
         }
-        public async Task<Class_Hospital> getHospital(int id)
+        public async Task<Class_Locations > getHospital(int id)
         {
             var help = id.ToString();
             var _id = "";
             if (help.Length == 1) { _id = "0" + help; } else { _id = help; }
-            return await _context.Hospitals.FirstOrDefaultAsync(h => h.HospitalNo == _id);
+            return await _context.Locations.FirstOrDefaultAsync(h => h.HospitalNo == _id);
         }
 
         #region <!-- country stuff -->   

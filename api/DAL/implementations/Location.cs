@@ -10,12 +10,12 @@ using api.Helpers;
 
 namespace api.DAL.Implementations
 {
-    public class Hospital : IHospital
+    public class Location : ILocation
     {
         private SpecialMaps _special;
         private IUserRepository _user;
         private dataContext _context;
-        public Hospital(SpecialMaps special, IUserRepository user, dataContext context)
+        public Location(SpecialMaps special, IUserRepository user, dataContext context)
         {
             _special = special;
             _user = user;
@@ -48,9 +48,9 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Hospitals.AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
-            foreach (Class_Hospital x in result)
+            foreach (Class_Locations x in result)
             {
                 var vendorArray = x.vendors.Split(',');
                 if (vendorArray.Contains(currentVendor))
@@ -63,34 +63,34 @@ namespace api.DAL.Implementations
             }
             return l;
         }
-        public async Task<List<Class_Hospital>> getSphListFull()
+        public async Task<List<Class_Locations >> getSphListFull()
         {
-            var l = new List<Class_Hospital>();
+            var l = new List<Class_Locations >();
             var currentUserId = _special.getCurrentUserId();
             var rep = await _user.GetUser(currentUserId);
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Hospitals.AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
-            foreach (Class_Hospital x in result)
+            foreach (Class_Locations  x in result)
             {
                 var vendorArray = x.vendors.Split(',');
                 if (vendorArray.Contains(currentVendor)) { l.Add(x); }
             }
             return l;
         }
-        public async Task<List<Class_Hospital>> getNegSphListFull()
+        public async Task<List<Class_Locations >> getNegSphListFull()
         {
-            var l = new List<Class_Hospital>();
+            var l = new List<Class_Locations >();
             var currentUserId = _special.getCurrentUserId();
             var rep = await _user.GetUser(currentUserId);
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Hospitals.AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
-            foreach (Class_Hospital x in result)
+            foreach (Class_Locations  x in result)
             {
                 var vendorArray = x.vendors.Split(',');
                 if (!vendorArray.Contains(currentVendor)) { l.Add(x); }
@@ -100,7 +100,7 @@ namespace api.DAL.Implementations
         public async Task<string> addVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Hospitals.FirstOrDefaultAsync(x => x.Id == hospital_id);
+            var selectedHospital = await _context.Locations.FirstOrDefaultAsync(x => x.Id == hospital_id);
             var vendors = selectedHospital.vendors;
 
             // make array from string
@@ -111,7 +111,7 @@ namespace api.DAL.Implementations
             // make string again from list
             selectedHospital.vendors = string.Join(",", l);
 
-            _context.Hospitals.Update(selectedHospital);
+            _context.Locations.Update(selectedHospital);
             if (await _context.SaveChangesAsync() > 0)
             {
                 result = "updated";
@@ -125,7 +125,7 @@ namespace api.DAL.Implementations
         public async Task<string> removeVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Hospitals.FirstOrDefaultAsync(x => x.Id == hospital_id);
+            var selectedHospital = await _context.Locations.FirstOrDefaultAsync(x => x.Id == hospital_id);
             var vendors = selectedHospital.vendors;
 
 
@@ -139,7 +139,7 @@ namespace api.DAL.Implementations
             // make string again from list
             selectedHospital.vendors = string.Join(",", l);
 
-            _context.Hospitals.Update(selectedHospital);
+            _context.Locations.Update(selectedHospital);
             if (await _context.SaveChangesAsync() > 0)
             {
                 result = "removed";
@@ -151,14 +151,14 @@ namespace api.DAL.Implementations
             return result;
         }
 
-        public async Task<Class_Hospital> getDetails(int id)
+        public async Task<Class_Locations > getDetails(int id)
         {
             return await _special.getHospital(id);
         }
 
-        public async Task<string> saveDetails(Class_Hospital hos)
+        public async Task<string> saveDetails(Class_Locations  hos)
         {
-            var result = _context.Hospitals.Update(hos);
+            var result = _context.Locations.Update(hos);
             if (await _context.SaveChangesAsync() > 0) { return "updated"; }
             return "failed";
         }
@@ -181,9 +181,9 @@ namespace api.DAL.Implementations
             var l = new List<Class_Item>();
             await Task.Run(() =>
             {
-                var result = _context.Hospitals.AsQueryable();
+                var result = _context.Locations.AsQueryable();
                 result = result.Where(s => s.Country == _code);
-                foreach (Class_Hospital x in result)
+                foreach (Class_Locations  x in result)
                 {
                     var help = new Class_Item();
                     help.Value = Convert.ToInt32(x.HospitalNo);
@@ -198,9 +198,9 @@ namespace api.DAL.Implementations
             var l = new List<Class_Item>();
             await Task.Run(() =>
             {
-                var result = _context.Hospitals.AsQueryable();
+                var result = _context.Locations.AsQueryable();
                
-                foreach (Class_Hospital x in result)
+                foreach (Class_Locations  x in result)
                 {
                     var help = new Class_Item();
                     help.Value = Convert.ToInt32(x.HospitalNo);
@@ -230,9 +230,9 @@ namespace api.DAL.Implementations
         {
             var h = hospital_id.ToString().makeSureTwoChar();
 
-            if(await _context.Hospitals.AnyAsync(a => a.HospitalNo == h)){
+            if(await _context.Locations.AnyAsync(a => a.HospitalNo == h)){
 
-             var help = await _context.Hospitals.FirstOrDefaultAsync(a => a.HospitalNo == h);
+             var help = await _context.Locations.FirstOrDefaultAsync(a => a.HospitalNo == h);
              if(help.rp == null) return false;
              if(help.rp.Equals("1"))return true;
 

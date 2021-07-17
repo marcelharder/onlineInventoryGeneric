@@ -12,14 +12,14 @@ namespace api.Controllers
 
     [ApiController]
     [Authorize]
-    public class HospitalController : ControllerBase
+    public class LocationController : ControllerBase
     {
-        private IHospital _hospital;
+        private ILocation _location;
         private SpecialMaps _special;
         private IUserRepository _user;
-        public HospitalController(IHospital hospital, IUserRepository user, SpecialMaps special)
+        public LocationController(ILocation location, IUserRepository user, SpecialMaps special)
         {
-            _hospital = hospital;
+            _location = location;
             _user = user;
             _special = special;
         }
@@ -27,49 +27,49 @@ namespace api.Controllers
         [HttpGet("api/hospital/vendors")]
         public async Task<List<Class_Item>> getVendorsInHospital()
         {
-            var help = await _hospital.getHospitalVendors();
+            var help = await _location.getHospitalVendors();
             return help;
         }
         [HttpGet("api/sphlist")]
         public async Task<List<Class_Item>> getQuestion01()
         {
-            var help = await _hospital.getSphList();
+            var help = await _location.getSphList();
             return help;
         }
         [HttpGet("api/addVendor/{vendor}/{hospital_id}")]
         public async Task<string> getQuestion05(string vendor, int hospital_id)
         {
-            var help = await _hospital.addVendor(vendor, hospital_id);
+            var help = await _location.addVendor(vendor, hospital_id);
             return help;
         }
         [HttpGet("api/removeVendor/{vendor}/{hospital_id}")]
         public async Task<string> getQuestion06(string vendor, int hospital_id)
         {
-            var help = await _hospital.removeVendor(vendor, hospital_id);
+            var help = await _location.removeVendor(vendor, hospital_id);
             return help;
         }
         [HttpGet("api/sphlist_full")]
-        public async Task<List<Class_Hospital>> getQuestion02()
+        public async Task<List<Class_Locations >> getQuestion02()
         {
-            var help = await _hospital.getSphListFull();
+            var help = await _location.getSphListFull();
             return help;
         }
         [HttpGet("api/neg_sphlist_full")]
-        public async Task<List<Class_Hospital>> getQuestion03()
+        public async Task<List<Class_Locations >> getQuestion03()
         {
-            var help = await _hospital.getNegSphListFull();
+            var help = await _location.getNegSphListFull();
             return help;
         }
         [HttpGet("api/getHospitalDetails/{id}")]
-        public async Task<Class_Hospital> getQuestion07(int id)
+        public async Task<Class_Locations > getQuestion07(int id)
         {
-            var help = await _hospital.getDetails(id);
+            var help = await _location.getDetails(id);
             return help;
         }
         [HttpPost("api/saveHospitalDetails")]
-        public async Task<string> postQuestion07(Class_Hospital hos)
+        public async Task<string> postQuestion07(Class_Locations  hos)
         {
-            var help = await _hospital.saveDetails(hos);
+            var help = await _location.saveDetails(hos);
             return help;
         }
         [HttpPost("api/changeHospital/{hospitalID}")]
@@ -78,7 +78,7 @@ namespace api.Controllers
         {
             // find the correct user now
             User currentUser = _user.findCurrentUser(cv);
-            var help = await _hospital.changeHospitalForCurrentUser(hospitalID, currentUser);
+            var help = await _location.changeHospitalForCurrentUser(hospitalID, currentUser);
             return help;
         }
 
@@ -87,20 +87,20 @@ namespace api.Controllers
         {
             // code here is '47' for instance
 
-            return await _hospital.hospitalsInCountry(code);
+            return await _location.hospitalsInCountry(code);
         }
 
 
         [HttpGet("api/allHospitals")]
         public async Task<List<Class_Item>> getAllHospitalsAsync()
         {
-          return await _hospital.getAllHospitals();
+          return await _location.getAllHospitals();
         }
         [HttpGet("api/isOVIPlace")]
         public async Task<IActionResult> getOVI() {
               // find the currentHospital now
             var currentHospital = _special.getCurrentUserHospitalId();
-            var t = await _hospital.isThisHospitalOVI(await currentHospital);
+            var t = await _location.isThisHospitalOVI(await currentHospital);
             var result = "0";
             if(t){result = "1";} else {result = "0";}
             return Ok(result); }

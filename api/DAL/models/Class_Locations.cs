@@ -1,6 +1,6 @@
 ﻿namespace api.DAL.models
 {
-    public class Class_Hospital
+    public class Class_Locations
     {
         public virtual int Id { get; set; }
         public string Naam { get; set; }

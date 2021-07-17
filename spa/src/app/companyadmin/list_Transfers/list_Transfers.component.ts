@@ -51,7 +51,7 @@ export class List_TransfersComponent implements OnInit {
 
   loadDrops(country: string) {
     // get the hospitals in the current country
-    const d = JSON.parse(localStorage.getItem('options_departure_Hospital'));
+    const d = JSON.parse(localStorage.getItem('options_departure_location'));
     if (d == null || d.length === 0) {
       this.hos.getListOfHospitalsPerCountry(country).subscribe((response) => {
 
@@ -61,17 +61,17 @@ export class List_TransfersComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             if (this.optionsDepartureHospital.includes({value: 0, description: 'Store'}) === false) { this.optionsDepartureHospital.unshift({value: 0, description: 'Store'});  };
 
-            localStorage.setItem('options_departure_Hospital', JSON.stringify(response));
+            localStorage.setItem('options_departure_location', JSON.stringify(response));
 
             this.optionsDestinationHospital =  this.optionsDepartureHospital;
 
             // If needed extra options can be inserted here
 
-            localStorage.setItem('options_destination_Hospital', JSON.stringify(response));
+            localStorage.setItem('options_destination_location', JSON.stringify(response));
         });
     } else {
-        this.optionsDepartureHospital = JSON.parse(localStorage.getItem('options_departure_Hospital'));
-        this.optionsDestinationHospital = JSON.parse(localStorage.getItem('options_destination_Hospital'));
+        this.optionsDepartureHospital = JSON.parse(localStorage.getItem('options_departure_location'));
+        this.optionsDestinationHospital = JSON.parse(localStorage.getItem('options_destination_location'));
     }
 
   }

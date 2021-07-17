@@ -9,7 +9,7 @@ namespace api.DAL
         public dataContext(DbContextOptions<dataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Class_ProductType> ProductTypes { get; set; }
-        public DbSet<Class_Hospital> Hospitals { get; set; }
+        public DbSet<Class_Locations> Locations { get; set; }
         public DbSet<Class_Vendors> Vendors { get; set; }
         public DbSet<reorder_policy> ReorderPolicy { get; set; }
         public DbSet<rep> Reps { get; set; }

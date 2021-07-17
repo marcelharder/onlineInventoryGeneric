@@ -30,13 +30,13 @@ namespace api.DAL.data
         }
         public static async Task SeedHospitals(dataContext context)
         {
-            if(await context.Hospitals.AnyAsync()) return;
+            if(await context.Locations.AnyAsync()) return;
 
             var userData = await System.IO.File.ReadAllTextAsync("DAL/data/hospitalSeedData.json");
-            var emp = JsonConvert.DeserializeObject<List<Class_Hospital>>(userData);
+            var emp = JsonConvert.DeserializeObject<List<Class_Locations >>(userData);
             foreach (var item in emp)
             {
-               context.Hospitals.Add(item);
+               context.Locations.Add(item);
             }
             await context.SaveChangesAsync();
         }
