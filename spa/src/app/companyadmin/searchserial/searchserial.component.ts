@@ -76,12 +76,7 @@ export class SearchserialComponent implements OnInit {
     private auth: AuthService,
     private gen: GeneralService) { }
 
-  ngOnInit() {
-   
-  }
-
-  
-
+  ngOnInit() {  }
   SearchOnSerial() {
     this.searchStarted = 1;
     this.valveService.getValveBySerial(this.serial, '1').subscribe((next) => {
@@ -101,7 +96,4 @@ export class SearchserialComponent implements OnInit {
 
   searchButtonPressed() {if (this.searchStarted === 1) {return true; }}
   valveIsFound() {if (this.valveFound === 1) {return true; }}
-
-  
-
 }

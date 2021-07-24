@@ -1,4 +1,4 @@
-import { valveSize } from "./valveSize";
+import { valveSize } from './valveSize';
 
 export interface TypeOfValve {
     valveTypeId: number;

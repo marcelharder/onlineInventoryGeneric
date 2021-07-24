@@ -18,7 +18,7 @@ export class ValveService {
     constructor(private http: HttpClient, private alertify:AlertifyService, private auth: AuthService) { }
 
     getValves(soort: number, position: number) { return this.http.get<Valve[]>(this.baseUrl + 'valvesBySoort/' + soort + '/' + position); }
-    
+
     getSuggestedValves(userId: string,v: modelProductParams, page?: number, itemsPerPage?: number) {
         const paginatedResult: PaginatedResult<Valve[]> = new PaginatedResult<Valve[]>();
         let params = new HttpParams();
@@ -47,7 +47,7 @@ export class ValveService {
     }
     getAllAorticValves(id: number){return this.http.get<Valve[]>(this.baseUrl + 'getAllAorticValves/' + id);}
     getAllMitralValves(id: number){return this.http.get<Valve[]>(this.baseUrl + 'getAllMitralValves/' + id);}
-    
+
     getValve(id: number) { return this.http.get<Valve>(this.baseUrl + 'valveById/' + id); }
     getValveType(id: number) { return this.http.get<TypeOfValve>(this.baseUrl + 'productByNo/' + id); }
 
@@ -61,7 +61,7 @@ export class ValveService {
 
     saveValve(item: Valve) { return this.http.post(this.baseUrl + 'updatevalve', item, { responseType: 'text' as 'json' }); }
     deleteValve(id: number){ return this.http.delete<string>(this.baseUrl + 'deleteValve/' + id, { responseType: 'text' as 'json' })}
-    
+
     getValvesByHospitalAndValveCodeId(hospital: number, code: number) { return this.http.get<Valve[]>(this.baseUrl + 'valvesByHospitalAndValveId/' + hospital + '/' + code); }
     getNewValveBasedOnValveType(id: number) { return this.http.get<Valve>(this.baseUrl + 'valveBasedOnTypeOfValve/' + id); }
     getValveExpiry(id: number) { return this.http.get<ExpiringProducts[]>(this.baseUrl + 'valveExpiry/' + id); }

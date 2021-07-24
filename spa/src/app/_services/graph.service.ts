@@ -15,5 +15,5 @@ export class GraphService {
     getMitral(id: number) {return this.http.get<GraphItem[]>(this.baseUrl + 'users/' + id + '/graph/2'); }
     getRings(id: number) {return this.http.get<GraphItem[]>(this.baseUrl + 'users/' + id + '/graph/3'); }
     getConduits(id: number) {return this.http.get<GraphItem[]>(this.baseUrl + 'users/' + id + '/graph/4'); }
-    
+
    }

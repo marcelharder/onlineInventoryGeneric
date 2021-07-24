@@ -17,7 +17,7 @@ export class EditProductComponent implements OnInit {
   @Input() vc: TypeOfValve;
   uploader: FileUploader;
   @Output() povOut: EventEmitter<number> = new EventEmitter();
-  ImagePath = "";
+  ImagePath = '';
   baseUrl = environment.apiUrl;
   showAdd = 0; newsize = 0; neweoa = 0.0;
   valvesize: valveSize = {sizeId:0, size:0, eoa: 0.0, ppm: '0'};
@@ -45,9 +45,9 @@ export class EditProductComponent implements OnInit {
     }, (error) => { console.log(error); });
   }
   addSize(){
-    this.alertify.message("open the add window"); 
+    this.alertify.message('open the add window');
     this.showAdd = 1;
-    this.alertify.message("opening window");
+    this.alertify.message('opening window');
   }
   saveSize(){
      // close the add window
@@ -57,25 +57,25 @@ export class EditProductComponent implements OnInit {
      this.prod.addValveSize(this.vc.valveTypeId, this.valvesize).subscribe((next)=>{
           // get the changed valveType
       this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{
-        this.newsize = 0; 
+        this.newsize = 0;
         this.neweoa = 0.0;
-        this.alertify.message("uploading size");
+        this.alertify.message('uploading size');
         this.vc = next;
       });
-   
-       
-       
+
+
+
 
      })
-     
+
   }
   deleteSize(id:number){
     this.prod.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
-      this.alertify.message("size removed ...");
+      this.alertify.message('size removed ...');
       // get the changed valveType
       this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{this.vc = next});
     })
-   
+
   }
 
   displayAdd(){if(this.showAdd === 1){return true;}}

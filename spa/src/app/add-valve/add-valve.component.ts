@@ -9,7 +9,7 @@ import { ValveService } from '../_services/valve.service';
 import { HospitalService } from '../_services/hospital.service';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
-import { valveSize } from "../_models/valveSize";
+import { valveSize } from '../_models/valveSize';
 import { ProductService } from '../_services/product.service';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -75,7 +75,7 @@ export class AddValveComponent implements OnInit {
                this.valveSizes = this.valveSizes.sort((n1, n2)=> n1 - n2);
             })
             // get the selected product, this selectedProduct
-       
+
             this.vs.getValveBasedOnValveCode(p).subscribe((next) => {
                 this.valveInParent = next;
                 this.details = 1;

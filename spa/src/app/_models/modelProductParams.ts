@@ -8,5 +8,5 @@ export interface modelProductParams  {
     Height: number;
     Weight: number;
     LifeStyle: number;
-    
+
 }

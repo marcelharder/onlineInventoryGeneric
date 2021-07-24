@@ -88,7 +88,7 @@ export class ListUserComponent implements OnInit {
       this.drop.getCompanyOptions().subscribe((next) => { this.companies = next; });
       this.drop.getAllHospitals().subscribe((next) => {this.optionsAH = next;});
   }
-  
+
 
   loadUsers() {
     this.userService.getUsers(this.authService.decodedToken.nameid, this.pagination.currentPage, this.pagination.itemsPerPage).subscribe((res: PaginatedResult<User[]>) => {
@@ -154,7 +154,7 @@ export class ListUserComponent implements OnInit {
    this.ch = 0;
 
     if (!this.userIsVendor()) {
-      if (this.currentHospital === undefined || this.currentHospital === "") {
+      if (this.currentHospital === undefined || this.currentHospital === '') {
         this.alertify.error('Please enter the hospital where this person works');
         this.showChangeHospital();
       }

@@ -23,12 +23,12 @@ export class AddProductComponent implements OnInit {
 
   constructor(private drop: DropService, private prodService: ProductService, private alertify: AlertifyService) { }
 
-  ngOnInit() { 
-    
+  ngOnInit() {
+
     this.prodService.getValveSizes(this.vc.valveTypeId).subscribe((next)=>{
       this.ValveCodeSizes = next;
     });
-    
+
    this.loadDrops(); }
 
   updateProductDetails() {
@@ -41,7 +41,7 @@ export class AddProductComponent implements OnInit {
   addSize(){
     // open the add window
     this.showAdd = 1;
-    this.alertify.message("opening window");
+    this.alertify.message('opening window');
   }
   saveSize(){
      // close the add window
@@ -50,19 +50,19 @@ export class AddProductComponent implements OnInit {
      this.valvesize.eoa = this.neweoa;
      this.prodService.addValveSize(this.vc.valveTypeId, this.valvesize).subscribe((next)=>{
        this.ValveCodeSizes.push(next);
-       this.newsize = 0; 
+       this.newsize = 0;
        this.neweoa = 0.0;
-       this.alertify.message("uploading size");
+       this.alertify.message('uploading size');
      })
-     
+
   }
   deleteSize(id:number){
     this.prodService.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
-      this.alertify.message("size removed ...");
-      var index = this.ValveCodeSizes.findIndex(a => a.sizeId === id);
+      this.alertify.message('size removed ...');
+      let index = this.ValveCodeSizes.findIndex(a => a.sizeId === id);
        this.ValveCodeSizes.splice[index];
     })
-   
+
   }
   displayAdd(){if(this.showAdd === 1){return true;}}
 

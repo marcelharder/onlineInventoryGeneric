@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class VendorService {
-    
+
     baseUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
@@ -44,7 +44,7 @@ export class VendorService {
     getVendorContactPerson(vendorId: number){ return this.http.get<number>(this.baseUrl + 'vendorContact/' + vendorId);}
 
     getProductByVendor(vendorId: number) { return this.http.get<DropItem[]>(this.baseUrl + 'vendor/valvecodes/' + vendorId); }
-    
+
     getAllFullProducts(vendorId: number) { return this.http.get<TypeOfValve[]>(this.baseUrl + 'vendor/fullProducts/' + vendorId); }
 
 }

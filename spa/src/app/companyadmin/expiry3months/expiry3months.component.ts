@@ -17,7 +17,7 @@ export class Expiry3monthsComponent implements OnInit {
 
   constructor(private alertify: AlertifyService, private route: ActivatedRoute) { }
   ngOnInit() {
-  
+
     this.route.data.subscribe(data => {
       if (data.products.length === 0) {
         // hide panel and show that there is nothing to see ..
@@ -33,8 +33,8 @@ export class Expiry3monthsComponent implements OnInit {
       }
     });
 
-    
-   
+
+
 
   }
   selectDetails(id: number) { }

@@ -27,13 +27,13 @@ export class LookInOVIComponent implements OnInit {
   weightOptions: Array<DropItem> = [];
   sizesOptions: Array<DropItem> = [];
   pagination: Pagination;
-  AproductRequested = "";
-  MproductRequested = "";
-  HospitalName = "";
+  AproductRequested = '';
+  MproductRequested = '';
+  HospitalName = '';
   selectedPosition = 0;
   bsa = 0.0;
 
-  ImagePath = "";
+  ImagePath = '';
 
   moderatePPM = 0;
   severePPM = 0;
@@ -49,7 +49,7 @@ export class LookInOVIComponent implements OnInit {
     BioPref: 0,
     Size: 0, // NB this is the measured Size
     Soort: 0,
-    Position: "",
+    Position: '',
     Height: 0,
     Weight: 0,
     Age: 0,
@@ -63,7 +63,7 @@ export class LookInOVIComponent implements OnInit {
     private alertify:AlertifyService) { }
 
   ngOnInit() {
-    this.Title = "Hospital valves";
+    this.Title = 'Hospital valves';
     this.loadDrops();
   }
 
@@ -72,7 +72,7 @@ export class LookInOVIComponent implements OnInit {
     if (this.preference) { this.valveParams.BioPref = 1; } else { this.valveParams.BioPref = 0; }
     if (this.lifeStyle) { this.valveParams.LifeStyle = 1; } else { this.valveParams.LifeStyle = 0; }
     this.valveParams.Size = this.selectedSize;
-    this.valveParams.Position = "Aortic";
+    this.valveParams.Position = 'Aortic';
     this.valveParams.Height = this.selectedHeight;
     this.valveParams.Weight = this.selectedWeight;
 
@@ -81,16 +81,16 @@ export class LookInOVIComponent implements OnInit {
       this.pagination = next.pagination;
 
       if (this.aorticvalves.length === 0) {
-        this.AproductRequested = "No aortic valves are available for implant in " + this.HospitalName;
+        this.AproductRequested = 'No aortic valves are available for implant in ' + this.HospitalName;
       } else {
-        this.gen.getBSA(+this.selectedHeight, +this.selectedWeight).subscribe((next)=>{
-           this.bsa = next;
-           this.AproductRequested = "These aortic valves are available for implant in " + this.HospitalName;
+        this.gen.getBSA(+this.selectedHeight, +this.selectedWeight).subscribe((nex)=>{
+           this.bsa = nex;
+           this.AproductRequested = 'These aortic valves are available for implant in ' + this.HospitalName;
            this.aorticvalves.forEach(element => {
             if (element.tfd > .85) { element.ppm = 'none' } else {
-              if (element.tfd <= .85 && element.tfd >= .65) { element.ppm = "moderate" }
+              if (element.tfd <= .85 && element.tfd >= .65) { element.ppm = 'moderate' }
               else {
-                if (element.tfd < .65) { element.ppm = "severe" }
+                if (element.tfd < .65) { element.ppm = 'severe' }
               }
             }
           });
@@ -104,16 +104,16 @@ export class LookInOVIComponent implements OnInit {
     if (this.preference) { this.valveParams.BioPref = 1; } else { this.valveParams.BioPref = 0; }
     if (this.lifeStyle) { this.valveParams.LifeStyle = 1; } else { this.valveParams.LifeStyle = 0; }
     this.valveParams.Size = this.selectedSize;
-    this.valveParams.Position = "Mitral";
+    this.valveParams.Position = 'Mitral';
     this.valveParams.Height = this.selectedHeight;
     this.valveParams.Weight = this.selectedWeight;
 
     this.vs.getSuggestedValves(this.auth.decodedToken.nameid, this.valveParams, 1, 10).subscribe((next: PaginatedResult<Valve[]>) => {
       this.mitralvalves = next.result;
       if (this.mitralvalves.length === 0) {
-        this.MproductRequested = "No mitral valves are available for implant in " + this.HospitalName;
+        this.MproductRequested = 'No mitral valves are available for implant in ' + this.HospitalName;
       } else {
-        this.MproductRequested = "These mitral valves are available for implant in " + this.HospitalName;
+        this.MproductRequested = 'These mitral valves are available for implant in ' + this.HospitalName;
       }
       this.pagination = next.pagination;
 
@@ -121,33 +121,33 @@ export class LookInOVIComponent implements OnInit {
   }
 
   findPossibleValves() {
-    if (this.selectedPosition.toString() === "1") {
+    if (this.selectedPosition.toString() === '1') {
       // make sure that the height and weight are filled
-      if (this.selectedHeight != 0 && this.selectedWeight != 0) {
-        if (this.selectedSize != 0) { this.loadAoValves(); }
+      if (this.selectedHeight !== 0 && this.selectedWeight != 0) {
+        if (this.selectedSize !== 0) { this.loadAoValves(); }
         // make sure that the size filled
-        else { this.alertify.error("Please enter valve size ..."); }
+        else { this.alertify.error('Please enter valve size ...'); }
       } else {
-        this.alertify.error("Please enter height and weight first ...");
+        this.alertify.error('Please enter height and weight first ...');
       }
     };
-    if (this.selectedPosition.toString() === "2") {
-      if (this.selectedSize != 0) { this.loadMValves(); }
+    if (this.selectedPosition.toString() === '2') {
+      if (this.selectedSize !== 0) { this.loadMValves(); }
       // make sure that the size filled
-      else { this.alertify.error("Please enter valve size ..."); }
+      else { this.alertify.error('Please enter valve size ...'); }
     };
-    if (this.selectedPosition.toString() === "3") {
-      if (this.selectedHeight != 0 && this.selectedWeight != 0) {
-        if (this.selectedSize != 0) { this.loadAoValves(); }
+    if (this.selectedPosition.toString() === '3') {
+      if (this.selectedHeight !== 0 && this.selectedWeight != 0) {
+        if (this.selectedSize !== 0) { this.loadAoValves(); }
         // make sure that the size filled
-        else { this.alertify.error("Please enter valve size ..."); }
+        else { this.alertify.error('Please enter valve size ...'); }
       } else {
-        this.alertify.error("Please enter height and weight first ...");
+        this.alertify.error('Please enter height and weight first ...');
       }
 
       if (this.selectedSize != 0) { this.loadMValves(); }
       // make sure that the size filled
-      else { this.alertify.error("Please enter valve size ..."); }
+      else { this.alertify.error('Please enter valve size ...'); }
     };
 
   }
@@ -160,14 +160,14 @@ export class LookInOVIComponent implements OnInit {
   showAdvice() { if (this.showA === '1') { return true; } }
 
   onPositionChange() {
-    if (this.selectedPosition.toString() === '0') { this.showAo = 0; this.showM = 0; this.AproductRequested = ""; this.MproductRequested = ""; }
-    if (this.selectedPosition.toString() === '1') { this.showAo = 1; this.showM = 0; this.AproductRequested = "Aortic  valves"; this.MproductRequested = ""; }
-    if (this.selectedPosition.toString() === '2') { this.showAo = 0; this.showM = 1; this.MproductRequested = "Mitral valves"; this.AproductRequested = ""; }
-    if (this.selectedPosition.toString() === '3') { this.showAo = 1; this.showM = 1; this.AproductRequested = "Aortic  valves"; this.MproductRequested = "Mitral valves"; }
+    if (this.selectedPosition.toString() === '0') { this.showAo = 0; this.showM = 0; this.AproductRequested = ''; this.MproductRequested = ''; }
+    if (this.selectedPosition.toString() === '1') { this.showAo = 1; this.showM = 0; this.AproductRequested = 'Aortic  valves'; this.MproductRequested = ''; }
+    if (this.selectedPosition.toString() === '2') { this.showAo = 0; this.showM = 1; this.MproductRequested = 'Mitral valves'; this.AproductRequested = ''; }
+    if (this.selectedPosition.toString() === '3') { this.showAo = 1; this.showM = 1; this.AproductRequested = 'Aortic  valves'; this.MproductRequested = 'Mitral valves'; }
   }
 
   calculateBSA(height: number, weight: number): number {
-    var help = 0;
+    let help = 0;
      this.gen.getBSA(height, weight).subscribe((next)=>{
         help = next;
      })
@@ -175,21 +175,21 @@ export class LookInOVIComponent implements OnInit {
   }
 
   loadDrops() {
-    this.optionsPositions.push({ value: 0, description: "Choose" });
-    this.optionsPositions.push({ value: 1, description: "Aortic" });
-    this.optionsPositions.push({ value: 2, description: "Mitral" });
-    this.optionsPositions.push({ value: 3, description: "Aortic and Mitral" });
+    this.optionsPositions.push({ value: 0, description: 'Choose' });
+    this.optionsPositions.push({ value: 1, description: 'Aortic' });
+    this.optionsPositions.push({ value: 2, description: 'Mitral' });
+    this.optionsPositions.push({ value: 3, description: 'Aortic and Mitral' });
 
 
 
-    var i = 0;
-    this.sizesOptions.push({ value: 0, description: "Choose" });
+    let i = 0;
+    this.sizesOptions.push({ value: 0, description: 'Choose' });
     for (i = 16; i < 35; i++) { this.sizesOptions.push({ value: i, description: i.toString() }); }
 
-    this.weightOptions.push({ value: 0, description: "Choose" });
+    this.weightOptions.push({ value: 0, description: 'Choose' });
     for (i = 45; i < 160; i++) { this.weightOptions.push({ value: i, description: i.toString() }); }
 
-    this.heightOptions.push({ value: 0, description: "Choose" });
+    this.heightOptions.push({ value: 0, description: 'Choose' });
     for (i = 150; i < 210; i++) { this.heightOptions.push({ value: i, description: i.toString() }); }
 
 

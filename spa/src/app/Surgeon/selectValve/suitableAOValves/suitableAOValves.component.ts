@@ -17,8 +17,8 @@ export class SuitableAOValvesComponent implements OnInit {
   ppm = '';
   list = 1;
   details = 0;
-  hospitalName = "";
-  ImagePath = "";
+  hospitalName = '';
+  ImagePath = '';
 
   pd: Valve = {
     valveId: 0,
@@ -53,7 +53,7 @@ export class SuitableAOValvesComponent implements OnInit {
 
   ngOnInit() {
     this.auth.currentHospital.subscribe((next) => { this.hospitalName = next; });
-   
+
   }
 
   showDetails() { if (this.details === 1) { return true; } }
@@ -63,13 +63,13 @@ export class SuitableAOValvesComponent implements OnInit {
   moderatePPM(inp: string) { if (inp === 'moderate') { return true } }
 
   calculate_eoai(): string{
-    var help = 0.0;
+    let help = 0.0;
     help = this.pd.tfd/this.bsa;
     return help.toFixed(2);
   }
   calculate_ed(): string{
-    var help = 0.0;
-    var help_1 = this.pd.tfd / Math.PI;
+    let help = 0.0;
+    let help_1 = this.pd.tfd / Math.PI;
     help = 20 * Math.sqrt(help_1);
     // 20 * V (eoa/pi)
     return help.toFixed(2);
@@ -78,22 +78,22 @@ export class SuitableAOValvesComponent implements OnInit {
   selectDetails(id: number) {
     this.list = 0;
     this.details = 1;
-   
+
     this.valveService.getValve(id).subscribe((next)=>{
       this.pd = next;
-      this.title = "Details of the " + this.pd.description + " valve";
+      this.title = 'Details of the ' + this.pd.description + ' valve';
       this.ImagePath = this.pd.image;
 
 
      }, (error)=>{this.alertify.error(error)})
-  
-   
+
+
   }
 
   hideDetails() {
     this.list = 1;
     this.details = 0;
-    this.title = "These aortic valves are available for implant in " + this.hospitalName;
+    this.title = 'These aortic valves are available for implant in ' + this.hospitalName;
     ;
   }
 

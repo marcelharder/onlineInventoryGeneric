@@ -22,14 +22,14 @@ export class SelectValveTypeDetailsComponent implements OnInit {
   ngOnInit() {
     this.ImagePath = this.pro.image;
     if(this.pro.model_code === 'PVS-67'){
-      this.optionsInfo = 
+      this.optionsInfo =
       [
         'The Perceval valve has different sizing unlike other valves',
         'For the Perceval bioprosthesis, each size covers a range of',
         ' 2 annular diameters, therefore the EOA varies ',
         ' from 2,07 to 2,20 cm2 for the S size; ',
-        ' from 2,47 to 2,63 cm2 for the M size; ', 
-        ' from 2,81 to 2,95 cm2 for L size and ', 
+        ' from 2,47 to 2,63 cm2 for the M size; ',
+        ' from 2,81 to 2,95 cm2 for L size and ',
         ' from 3,11 to 3,43 for the XL size ',
         ' ',
         ' ',
@@ -38,7 +38,7 @@ export class SelectValveTypeDetailsComponent implements OnInit {
         ' '
       ];
     }
-   
+
 
   }
 
@@ -46,10 +46,10 @@ export class SelectValveTypeDetailsComponent implements OnInit {
      if(this.pro.model_code === 'PVS-67'){
      this.openModal(template);
      }
-     else{this.alertify.message("No additional info on " + this.pro.description);}
+     else{this.alertify.message('No additional info on ' + this.pro.description);}
     }
 
-  openModal(template: TemplateRef<any>) { this.modalRef = this.modalService.show(template); }  
+  openModal(template: TemplateRef<any>) { this.modalRef = this.modalService.show(template); }
 
   severePPMCCS(inp: string) { if (inp === 'severe') { return true } }
   nonePPMCCS(inp: string) { if (inp === 'none') { return true } }

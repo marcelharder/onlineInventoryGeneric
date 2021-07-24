@@ -33,10 +33,10 @@ export class UserService {
                 return paginatedResult;
             }));
     }
-   
+
     saveUser(userId: number, item: User) { return this.http.post(this.baseUrl + 'updateuser/' + userId, item); }
     deleteUser(id: number){return this.http.delete(this.baseUrl + 'deleteuser/' + id, {responseType: 'text' as 'json'})}
-    
+
     getCountries(){return this.http.get<DropItem[]>(this.baseUrl + 'countries');}
 
     getMessages(id: number, page?, itemsPerPage?, messageContainer?) {

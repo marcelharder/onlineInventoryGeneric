@@ -9,7 +9,7 @@ import { ProductService } from 'src/app/_services/product.service';
   styleUrls: ['./selectValveTypeList.component.css']
 })
 export class SelectValveTypeListComponent implements OnInit {
-  
+
   @Input() pro:TypeOfValve[];
   @Output() selout: EventEmitter<number> = new EventEmitter();
 
@@ -20,5 +20,5 @@ export class SelectValveTypeListComponent implements OnInit {
 
   SearchD(id: number){this.selout.emit(id);}
 
-  
+
 }

@@ -7,7 +7,7 @@ import { GraphItem } from 'src/app/_models/graphItem';
   styleUrls: ['./comboChart.component.css']
 })
 export class ComboChartComponent implements OnInit {
- 
+
  @Input() data: any;
 
   @Input() title: string;

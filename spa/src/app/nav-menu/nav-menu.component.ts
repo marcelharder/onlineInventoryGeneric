@@ -21,9 +21,9 @@ export class NavMenuComponent implements OnInit {
 
     loginFailed = false;
 
-    constructor(public auth: AuthService, 
+    constructor(public auth: AuthService,
         private alertify: AlertifyService,
-        private gen: GeneralService, 
+        private gen: GeneralService,
         private router: Router) { }
 
     collapse() {
@@ -52,8 +52,8 @@ export class NavMenuComponent implements OnInit {
                     break;
                 case 'surgeon':
                     this.normalLogged = true;
-                    this.gen.getHospital().subscribe((next) => {
-                        this.auth.changeCurrentHospital(next.naam);});
+                    this.gen.getHospital().subscribe((nex) => {
+                        this.auth.changeCurrentHospital(nex.naam);});
                     break;
                 case 'superuser':
                     this.specialLogged = true;

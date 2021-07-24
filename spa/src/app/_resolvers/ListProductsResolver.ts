@@ -10,7 +10,7 @@ import { ProductService } from '../_services/product.service';
 
 @Injectable()
 export class ListProductsResolver implements Resolve<TypeOfValve[]> {
-   
+
     constructor(private productService: ProductService,
         private router: Router,
         private alertify: AlertifyService,

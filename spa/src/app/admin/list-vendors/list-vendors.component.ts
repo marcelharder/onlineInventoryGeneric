@@ -20,13 +20,13 @@ export class ListVendorsComponent implements OnInit {
   database_no: '',spare2: '',active: '',spare4: '', reps:''};
   details = 0;
 
-  constructor(private route: ActivatedRoute, 
-    private vendorService:VendorService, 
-    private authService:AuthService, 
+  constructor(private route: ActivatedRoute,
+    private vendorService:VendorService,
+    private authService:AuthService,
     private alertify:AlertifyService) { }
 
   ngOnInit() {
-    this.route.data.subscribe((data) => { 
+    this.route.data.subscribe((data) => {
      this.pagination = data.vendors.pagination;
       this.listOfVendors = data.vendors.result; })
   }
@@ -39,8 +39,8 @@ export class ListVendorsComponent implements OnInit {
     }, (error) => { this.alertify.error(error); });
   }
   displayDetails(){if(this.details === 1){return true;}}
-  
-  returnFromEditDetails(test: string){if(test === "1"){this.details = 0;}}
+
+  returnFromEditDetails(test: string){if(test === '1'){this.details = 0;}}
 
   showDetails(id: string){
     // get details of this valve type
@@ -53,7 +53,7 @@ export class ListVendorsComponent implements OnInit {
     this.loadVendors();
   }
 
-  
+
 
 
 }

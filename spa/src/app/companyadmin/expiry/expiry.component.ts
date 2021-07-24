@@ -12,12 +12,12 @@ export class ExpiryComponent implements OnInit {
   products: Array<ExpiringProducts> = [];
   country = 'Latvia';
   timePeriod = '';
-  
+
   ListPanel = 0;
 
   constructor(private alertify: AlertifyService, private route: ActivatedRoute) { }
   ngOnInit() {
-   
+
     this.route.data.subscribe(data => {
       if (data.products.length === 0) {
         // hide panel and show that there is nothing to see ..
@@ -32,7 +32,7 @@ export class ExpiryComponent implements OnInit {
         this.country = this.products[0].country;
       }
     });
-   
+
 
   }
   selectDetails(id: number) { }

@@ -45,9 +45,9 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      const num: number = 0;
-      var i: number;
-      var help = [] as any;
+      const num = 0;
+      let i: number;
+      let help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }
       this.dataFromAPI = help;
     })
@@ -60,9 +60,9 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      const num: number = 0;
-      var i: number;
-      var help = [] as any;
+      const num = 0;
+      let i: number;
+      let help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }
       this.dataFromAPI = help;
     })
@@ -74,9 +74,9 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      var num: number = 0;
-      var i: number;
-      var help = [] as any;
+      let num = 0;
+      let i: number;
+      let help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }
       this.dataFromAPI = help;
     })
@@ -88,9 +88,9 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      var num: number = 0;
-      var i: number;
-      var help = [] as any;
+      let num = 0;
+      let i: number;
+      let help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }
       this.dataFromAPI = help;
     })

@@ -36,7 +36,6 @@ export class PhotoEditorComponent implements OnInit {
 
   initializeUploader() {
     let test = '';
-    
     if (typeof this.userId !== 'undefined' ) {
       test = this.baseUrl + 'users/addUserPhoto/' + this.userId
     }

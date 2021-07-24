@@ -10,7 +10,7 @@ import { HospitalService } from '../_services/hospital.service';
 
 @Injectable()
 export class ListLocationsResolver implements Resolve<Location[]> {
-   
+
     constructor(private hospitalService: HospitalService,
         private router: Router,
         private alertify: AlertifyService,

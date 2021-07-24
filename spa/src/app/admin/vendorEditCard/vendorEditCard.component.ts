@@ -16,24 +16,24 @@ export class VendorEditCardComponent implements OnInit {
   des = 0;
 
   constructor(
-    private vs: VendorService, 
+    private vs: VendorService,
     private alertify:AlertifyService) { }
 
   ngOnInit() {
     this.photos.push(this.cd.reps);
-    if(this.cd.description === ""){this.des = 1;};
+    if(this.cd.description === ''){this.des = 1;};
   }
 
   requestPhotoChange(){if(this.photo === 1){return true;}}
 
   showDescriptionEdit(){if(this.des === 1){return true;}}
 
-  uploadLogo(){ this.photo = 1; this.alertify.message("Upload logo here");}
+  uploadLogo(){ this.photo = 1; this.alertify.message('Upload logo here');}
 
   changeMainPhoto(photoUrl) { this.cd.reps = photoUrl; this.photo = 0;}
 
   Save(){
-    //update the vendor
+    // update the vendor
     this.cd.database_no = this.cd.id.toString();
     this.vs.updateVendor(this.cd).subscribe((next)=>{
       this.alertify.message(next);
@@ -43,8 +43,8 @@ export class VendorEditCardComponent implements OnInit {
 
   backToList() {
     // go back to list
-    this.backTo.emit("1");
-    
+    this.backTo.emit('1');
+
   }
 
 

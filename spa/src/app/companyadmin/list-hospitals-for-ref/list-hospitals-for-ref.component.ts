@@ -78,9 +78,9 @@ export class ListHospitalsForRefComponent implements OnInit {
     this.hosService.getDetails(id).subscribe((next) => {
 
       this.selectedHospital = next;
-       
+
       this.hospitalContactNumber = parseInt(this.selectedHospital.contact, 10);
-      //this.auth.changeCurrentRecipient(hospitalContactNumber);
+      // this.auth.changeCurrentRecipient(hospitalContactNumber);
       this.user.getUser(this.hospitalContactNumber).subscribe((reponse) => {
           this.contactName = reponse.username;
           this.selectedHospital.contact_image = reponse.photoUrl;

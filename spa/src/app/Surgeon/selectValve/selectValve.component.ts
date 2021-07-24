@@ -39,11 +39,11 @@ export class SelectValveComponent implements OnInit {
   selectedPos = '';
   selectedType = '';
   selectedVendor = 0;
-  messagePPM = "";
+  messagePPM = '';
   showOVI = 0;
 
   products: Array<TypeOfValve> = [];
-  productRequested = "";
+  productRequested = '';
 
 
   showProduct = 1;
@@ -79,7 +79,7 @@ export class SelectValveComponent implements OnInit {
     private hs: HospitalService) { }
 
   ngOnInit() {
-    this.selectedPos = "Aortic";
+    this.selectedPos = 'Aortic';
 
     if(this.auth.loggedIn()){
     // this
@@ -95,8 +95,8 @@ export class SelectValveComponent implements OnInit {
 
     }
     this.loadDrops();
-    
-    this.optionsInfo = 
+
+    this.optionsInfo =
     [
       'Patient prosthesis mismatch (PPM) was originally described by',
       ' Rahimtoola almost four decades ago as follows: “the effective',
@@ -119,19 +119,19 @@ export class SelectValveComponent implements OnInit {
   Search() {
     if (this.selectedVendor !== 0 && this.selectedType !== '') {
 
-      this.prod.getProductsByVTP(this.selectedVendor, this.selectedType, "Aortic").subscribe((next) => {
+      this.prod.getProductsByVTP(this.selectedVendor, this.selectedType, 'Aortic').subscribe((next) => {
         this.products = next;
         this.showProduct = 1;
         if (this.products.length === 0) {
-          this.alertify.warning("Nothing found ...");
-        } else { this.alertify.message("Found these valve types ..."); }
+          this.alertify.warning('Nothing found ...');
+        } else { this.alertify.message('Found these valve types ...'); }
       })
     }
     else {
-      if (this.selectedVendor === 0 && this.selectedType === '') { this.alertify.error("Please select a vendor and position") }
+      if (this.selectedVendor === 0 && this.selectedType === '') { this.alertify.error('Please select a vendor and position') }
       else {
-        if (this.selectedType === '') { this.alertify.error("Please select implant position") }
-        if (this.selectedVendor === 0) { this.alertify.error("Please select a vendor first ...") }
+        if (this.selectedType === '') { this.alertify.error('Please select implant position') }
+        if (this.selectedVendor === 0) { this.alertify.error('Please select a vendor first ...') }
       }
     }
   }
@@ -143,7 +143,7 @@ export class SelectValveComponent implements OnInit {
   BSApresent() { if (this.showBSA === 1) { return true; } }
 
 
-  
+
 
 
 
@@ -153,7 +153,7 @@ export class SelectValveComponent implements OnInit {
   searchDetails(id: any) {
     // check if the height and weight are entered, if not
     if(this.selectedHeight === 0){
-      this.alertify.error("Please enter the height and weight of your patient ...");
+      this.alertify.error('Please enter the height and weight of your patient ...');
     } else {
 
     this.prod.getProductById(id).subscribe(
@@ -164,9 +164,9 @@ export class SelectValveComponent implements OnInit {
           this.bsa = next;
           this.valveSizes.forEach(element => {
             if ((element.eoa / this.bsa) > .85) { element.ppm = 'none' } else {
-              if ((element.eoa / this.bsa) <= .85 && (element.eoa / this.bsa) >= .65) { element.ppm = "moderate" }
+              if ((element.eoa / this.bsa) <= .85 && (element.eoa / this.bsa) >= .65) { element.ppm = 'moderate' }
               else {
-                if ((element.eoa / this.bsa) < .65) { element.ppm = "severe" }
+                if ((element.eoa / this.bsa) < .65) { element.ppm = 'severe' }
               }
             }
           });
@@ -179,30 +179,30 @@ export class SelectValveComponent implements OnInit {
 
   backFromDetails(id: any){this.showProduct = 1; }
 
- 
+
   openModal(template: TemplateRef<any>) { this.modalRef = this.modalService.show(template); }
 
 
   loadDrops() {
 
-    var i = 0;
+    let i = 0;
 
-    this.optionsType.push({ value: 0, description: "Choose" })
-    this.optionsType.push({ value: 1, description: "Biological" })
-    this.optionsType.push({ value: 2, description: "Mechanical" })
+    this.optionsType.push({ value: 0, description: 'Choose' })
+    this.optionsType.push({ value: 1, description: 'Biological' })
+    this.optionsType.push({ value: 2, description: 'Mechanical' })
 
-    this.weightOptions.push({ value: 0, description: "Choose" });
+    this.weightOptions.push({ value: 0, description: 'Choose' });
     for (i = 45; i < 160; i++) { this.weightOptions.push({ value: i, description: i.toString() }); }
 
-    this.heightOptions.push({ value: 0, description: "Choose" });
+    this.heightOptions.push({ value: 0, description: 'Choose' });
     for (i = 150; i < 210; i++) { this.heightOptions.push({ value: i, description: i.toString() }); }
 
-    this.drops.getCompanyOptions().subscribe((next) => { 
+    this.drops.getCompanyOptions().subscribe((next) => {
       this.optionsVendor = next;
       this.optionsVendor.unshift({value: 0, description: 'Choose'});
-     
 
-      
+
+
     })
 
 

@@ -14,7 +14,7 @@ export class ProductDetailsCardComponent implements OnInit {
   constructor(private alertify:AlertifyService) { }
 
   ngOnInit() {
-    
+
   }
 
   showDetails(id:number){

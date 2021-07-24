@@ -53,7 +53,7 @@ export class CompanyadminComponent implements OnInit {
   }
   ngOnInit(): void {
     let rep: User;
-   
+
     this.user.getUser(this.auth.decodedToken.nameid).subscribe((next) => {
       rep = next;
       this.vendorName = next.vendorName;
@@ -72,7 +72,7 @@ export class CompanyadminComponent implements OnInit {
 
 
     // NB: options_Products en optionsHospitals are arrays of dropItem
-   
+
 
   }
   linkToCSD() { window.location.href = 'http://77.173.53.32:8046'; }
