@@ -25,6 +25,8 @@ import { ListProductsComponent } from './admin/list-products/list-products.compo
 import { ListProductsResolver } from './_resolvers/ListProductsResolver';
 import { ListVendorsComponent } from './admin/list-vendors/list-vendors.component';
 import { ListVendorsResolver } from './_resolvers/ListVendorsResolver';
+import { ListLocationsComponent } from './admin/list-locations/list-locations.component';
+import { ListLocationsResolver } from './_resolvers/ListLocationsResolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,6 +45,7 @@ const routes: Routes = [
       { path: 'userlist', component: ListUserComponent, resolve: {users: ListUserResolver} },
       { path: 'productlist', component: ListProductsComponent, resolve: {products: ListProductsResolver} },
       { path: 'vendorlist', component: ListVendorsComponent, resolve: {vendors: ListVendorsResolver} },
+      { path: 'locationlist', component: ListLocationsComponent, resolve: {vendors: ListLocationsResolver} },
       { path: 'companyadmin', component: CompanyadminComponent },
       { path: 'addCompanyValve/:id', component: AddCompanyValveComponent, resolve: {valve: ValveResolver} },
       { path: 'superuser', component: SuperuserComponent },

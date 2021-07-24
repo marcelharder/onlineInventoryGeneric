@@ -80,6 +80,8 @@ import { ListVendorsComponent } from './admin/list-vendors/list-vendors.componen
 import { ListVendorsResolver } from './_resolvers/ListVendorsResolver';
 import { VendorDetailsCardComponent } from './admin/vendorDetailsCard/vendorDetailsCard.component';
 import { VendorEditCardComponent } from './admin/vendorEditCard/vendorEditCard.component';
+import { ListLocationsComponent } from './admin/list-locations/list-locations.component';
+import { ListLocationsResolver } from './_resolvers/ListLocationsResolver';
 
 
 export function tokenGet() { return localStorage.getItem('token'); }
@@ -129,7 +131,8 @@ export function tokenGet() { return localStorage.getItem('token'); }
       VendorEditCardComponent,
       LookInOVIComponent,
       SelectValveTypeListComponent,
-      SelectValveTypeDetailsComponent
+      SelectValveTypeDetailsComponent,
+      ListLocationsComponent
 
    ],
    imports: [
@@ -169,6 +172,7 @@ export function tokenGet() { return localStorage.getItem('token'); }
         UserService,
         ValveResolver,
         MessagesResolver,
+        ListLocationsResolver,
         ExpiringProductsResolver,
         ListProductsResolver,
         ListVendorsResolver,
