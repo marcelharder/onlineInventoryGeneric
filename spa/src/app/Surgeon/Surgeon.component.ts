@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 import { GeneralService } from '../_services/general.service';
-import { Hospital } from '../_models/Hospital';
+import { Location } from '../_models/Location';
 import { GraphItem } from '../_models/graphItem';
 import { GraphService } from '../_services/graph.service';
 import * as _ from 'underscore';
@@ -27,7 +27,7 @@ export class SurgeonComponent implements OnInit {
 
   title = 'Valve sizes in aortic position, blue - mechanical, red - bio';
   currentHospitalNo = 0;
-  hos: Hospital;
+  hos: Location;
   Array_1: any; Array_2: any; Array_3: any;
   testData: [][];
 
@@ -45,7 +45,7 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      var num: number = 0;
+      const num: number = 0;
       var i: number;
       var help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }
@@ -60,7 +60,7 @@ export class SurgeonComponent implements OnInit {
       const bio = source.pipe(pluck('b'), toArray()).subscribe(val => { this.Array_3 = val });
       const mech = source.pipe(pluck('m'), toArray()).subscribe(val => { this.Array_2 = val });
       const size = source.pipe(pluck('size'), toArray()).subscribe(val => { this.Array_1 = val });
-      var num: number = 0;
+      const num: number = 0;
       var i: number;
       var help = [] as any;
       for (i = num; i < this.Array_3.length; i++) { help.push([this.Array_1[i], this.Array_2[i], this.Array_3[i]]); }

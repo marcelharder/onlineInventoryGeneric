@@ -1,8 +1,12 @@
-﻿namespace api.DAL.models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace api.DAL.models
 {
     public class Class_Locations
     {
-        public virtual int Id { get; set; }
+        [Key]
+        public virtual int LocationId { get; set; }
         public string Naam { get; set; }
         public string Adres { get; set; }
         public string PostalCode { get; set; }
@@ -18,13 +22,13 @@
         public string Fax { get; set; }
         public string Logo { get; set; }
         public string mrnSample { get; set; }
-        public string vendors { get; set; }
         public string rp { get; set; }
         public string SMS_mobile_number { get; set; }
         public string SMS_send_time { get; set; }
         public bool triggerOneMonth { get; set; }
         public bool triggerTwoMonth { get; set; }
         public bool triggerThreeMonth { get; set; }
+        public ICollection<Class_Vendors> vendors { get; set;}
         public string DBBackend { get; set; }
 
     }

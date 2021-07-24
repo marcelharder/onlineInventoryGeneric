@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Hospital } from 'src/app/_models/Hospital';
+import { Location } from 'src/app/_models/Location';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
@@ -14,16 +14,16 @@ import { User } from 'src/app/_models/User';
   styleUrls: ['./list-hospitals-for-ref.component.css']
 })
 export class ListHospitalsForRefComponent implements OnInit {
-  @Input() hos: Hospital;
+  @Input() hos: Location;
   contactName = '';
   hospitalContactNumber =  0;
   currentCountry = '';
   currentVendor = '';
   detailsPage = 0;
   selectPage = 0;
-  FullHospitals: Array<Hospital> = [];
+  FullHospitals: Array<Location> = [];
 
-  selectedHospital: Hospital = {
+  selectedHospital: Location = {
     id: 0,
     naam: '',
     adres: '',
@@ -90,7 +90,7 @@ export class ListHospitalsForRefComponent implements OnInit {
 
 
   }
-  updateHospitalDetails(s: Hospital) {
+  updateHospitalDetails(s: Location) {
 
     this.hosService.saveDetails(s).subscribe((next) => {
         this.alertify.message(next);

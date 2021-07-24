@@ -168,8 +168,8 @@ export class ListUserComponent implements OnInit {
     }
     else {
       this.selectedUser.hospitalCode = 0;
-      //const selectedDropItem = this.companies.find(f => f.description === this.selectedUser.worked_in);
-      //this.selectedUser.worked_in = selectedDropItem.description;
+      // const selectedDropItem = this.companies.find(f => f.description === this.selectedUser.worked_in);
+      // this.selectedUser.worked_in = selectedDropItem.description;
 
       this.userService.saveUser(this.authService.decodedToken.nameid, this.selectedUser).subscribe(next => {
         this.details = 0;

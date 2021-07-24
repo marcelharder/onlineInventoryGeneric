@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Hospital } from '../_models/Hospital';
+import { Location } from '../_models/Location';
 import { DropItem } from '../_models/dropItem';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class GeneralService {
 
     constructor(private http: HttpClient) { }
 
-    getHospital() { return this.http.get<Hospital>(this.baseUrl + 'hospital'); }
+    getHospital() { return this.http.get<Location>(this.baseUrl + 'hospital'); }
     getVendorId(vendorname: string) { return this.http.get<number>(this.baseUrl + 'vendorId/' + vendorname); }
     getListOfCountries() { return this.http.get<DropItem[]>(this.baseUrl + 'countryList'); }
 

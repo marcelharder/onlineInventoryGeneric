@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Hospital } from '../_models/Hospital';
+import { Location } from '../_models/Location';
 import { Valve } from '../_models/Valve';
 import { AlertifyService } from '../_services/alertify.service';
 import { ValveService } from '../_services/valve.service';
@@ -49,7 +49,7 @@ export class SuperuserComponent implements OnInit {
     notF = 0;
     searchString = '';
     productRequested = '';
-    hos: Hospital = {
+    hos: Location = {
         id: 0,
         naam: '',
         adres: '',

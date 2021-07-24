@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() { if (this.auth.decodedToken === undefined) {localStorage.removeItem('token'); }  }
 
-  linkToCSD() { window.location.href = "http://csd-website.azurewebsites.net"; }
+  linkToCSD() { window.location.href = 'http://csd-website.azurewebsites.net'; }
 }
 
 

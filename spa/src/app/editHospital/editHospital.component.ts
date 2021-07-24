@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Hospital } from '../_models/Hospital';
+import { Location } from '../_models/Location';
 import { GeneralService } from '../_services/general.service';
 import { HospitalService } from '../_services/hospital.service';
 import { Router } from '@angular/router';
@@ -14,11 +14,11 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./editHospital.component.css']
 })
 export class EditHospitalComponent implements OnInit  {
-@Input() selectedHospital: Hospital;
+@Input() selectedHospital: Location;
 @Input() country: string;
 @Input() contactName: string;
 @Input() contactNumber: number;
-@Output() hospitalOut: EventEmitter<Hospital> = new EventEmitter();
+@Output() hospitalOut: EventEmitter<Location> = new EventEmitter();
 currentVendor = '';
 
 
@@ -30,12 +30,8 @@ currentVendor = '';
   ngOnInit(): void {
     let rep: User;
     this.user.getUser(this.auth.decodedToken.nameid).subscribe((next) => {
-        rep = next; 
-        this.currentVendor = rep.vendorName;
+        rep = next;this.currentVendor = rep.vendorName;
       });
-   
-    
-
   }
 
 

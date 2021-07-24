@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DropItem } from '../_models/dropItem';
 import { Valve } from '../_models/Valve';
 import { TypeOfValve } from '../_models/TypeOfValve';
-import { Hospital } from '../_models/Hospital';
+import { Location } from '../_models/Location';
 import { HospitalService } from '../_services/hospital.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ValveService } from '../_services/valve.service';
@@ -39,7 +39,7 @@ export class CompanyadminComponent implements OnInit {
   optionsProducts: Array<DropItem> = [];
   valves: Array<Valve> = [];
   FullProducts: Array<TypeOfValve> = [];
-  FullHospitals: Array<Hospital> = [];
+  FullHospitals: Array<Location> = [];
 
   constructor(private hos: HospitalService,
     private alertify: AlertifyService,

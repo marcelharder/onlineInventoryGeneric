@@ -18,8 +18,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./selectValve.component.css']
 })
 export class SelectValveComponent implements OnInit {
-  Title = "";
-  HospitalName = "";
+  Title = '';
+  HospitalName = '';
   bsa = 0.0;
   requestedDiameter = 0;
 
@@ -87,8 +87,8 @@ export class SelectValveComponent implements OnInit {
       this.HospitalName = next;
       // find out if this hospital is enrolled in the OVI program
       this.hs.isOVIPlace().subscribe(
-        (next) => {
-        if (next === 1) { this.showOVI = 1; };},
+        (nex) => {
+        if (nex === 1) { this.showOVI = 1; };},
         (error)=>{this.alertify.error(error);},
         ()=>{this.loadDrops();})
     });

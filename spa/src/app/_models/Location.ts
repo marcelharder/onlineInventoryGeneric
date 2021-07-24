@@ -1,4 +1,4 @@
-export interface Hospital {
+export interface Location {
         id: number;
         naam: string;
         adres: string;

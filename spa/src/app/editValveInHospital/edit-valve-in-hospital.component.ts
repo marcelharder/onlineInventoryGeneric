@@ -93,8 +93,8 @@ export class EditValveInHospitalComponent implements OnInit {
         this.ch = 1;
         // find the valvetype through the modelNo, get the valve sizes
         this.prod.getProductByProduct_code(this.valve.product_code).subscribe((next) => {
-            this.prod.getValveSizes(next.valveTypeId).subscribe((next)=>{
-                this.valveSizes = next;
+            this.prod.getValveSizes(next.valveTypeId).subscribe((nex)=>{
+                this.valveSizes = nex;
              })
             
             this.alertify.message(this.product.description);

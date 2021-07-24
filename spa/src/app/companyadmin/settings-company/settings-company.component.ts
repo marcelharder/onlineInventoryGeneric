@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TypeOfValve } from 'src/app/_models/TypeOfValve';
-import { Hospital } from 'src/app/_models/Hospital';
+import { Location } from 'src/app/_models/Location';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { VendorService } from 'src/app/_services/vendor.service';
@@ -18,7 +18,7 @@ import { User } from 'src/app/_models/User';
 export class SettingsCompanyComponent implements OnInit {
   selected = '';
   FullProducts: Array<TypeOfValve> = [];
-  FullHospitals: Array<Hospital> = [];
+  FullHospitals: Array<Location> = [];
   vendorId = 0;
 
   constructor(private route: ActivatedRoute,

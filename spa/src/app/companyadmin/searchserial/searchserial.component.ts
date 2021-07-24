@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ValveService } from 'src/app/_services/valve.service';
 import { NgForm } from '@angular/forms';
 import { Valve } from 'src/app/_models/Valve';
-import { Hospital } from 'src/app/_models/Hospital';
+import { Location } from 'src/app/_models/Location';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { GeneralService } from 'src/app/_services/general.service';
 import { ValveTransfer } from 'src/app/_models/ValveTransfer';
@@ -44,7 +44,7 @@ export class SearchserialComponent implements OnInit {
     implanted: 0,
     Location_code: 0
   };
-  selectedHospital: Hospital = {
+  selectedHospital: Location = {
     id: 0,
     naam: '',
     adres: '',

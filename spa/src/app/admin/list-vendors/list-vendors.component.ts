@@ -15,9 +15,9 @@ export class ListVendorsComponent implements OnInit {
 
   listOfVendors: Array<Vendor> = [];
   pagination: Pagination;
-  vendorDetails:Vendor = {id: 0,no:0,description: "",
-  contact: "",address: "",email: "",telephone: "",fax: "",
-  database_no: "",spare2: "",active: "",spare4: "", reps:""};
+  vendorDetails:Vendor = {id: 0,no:0,description: '',
+  contact: '',address: '',email: '',telephone: '',fax: '',
+  database_no: '',spare2: '',active: '',spare4: '', reps:''};
   details = 0;
 
   constructor(private route: ActivatedRoute, 

@@ -29,12 +29,11 @@ namespace api.DAL.Implementations
             var currentHospital = await _special.getHospital(currentUser.hospital_id);
             var vendors = currentHospital.vendors;
 
-            var vendorArray = vendors.Split(',');
-            foreach (string x in vendorArray)
+            foreach (Class_Vendors x in vendors)
             {
                 var help = new Class_Item();
-                help.Value = await _special.getIdFromVendorName(x);
-                help.Description = x;
+                help.Value = Convert.ToInt32(x.database_no);
+                help.Description = x.description;
                 l.Add(help);
             }
             return l;
@@ -48,12 +47,12 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.AsQueryable();
+            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations x in result)
             {
-                var vendorArray = x.vendors.Split(',');
-                if (vendorArray.Contains(currentVendor))
+                
+                if (x.Naam == currentVendor)
                 {
                     var help = new Class_Item();
                     help.Value = Convert.ToInt32(x.HospitalNo);
@@ -71,12 +70,11 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.AsQueryable();
+            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations  x in result)
             {
-                var vendorArray = x.vendors.Split(',');
-                if (vendorArray.Contains(currentVendor)) { l.Add(x); }
+              if (x.Naam == currentVendor) { l.Add(x); }
             }
             return l;
         }
@@ -88,28 +86,26 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.AsQueryable();
+            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations  x in result)
             {
-                var vendorArray = x.vendors.Split(',');
-                if (!vendorArray.Contains(currentVendor)) { l.Add(x); }
+                if (x.Naam != currentVendor) { l.Add(x); }
             }
             return l;
         }
         public async Task<string> addVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.FirstOrDefaultAsync(x => x.Id == hospital_id);
+            var selectedHospital = await _context.Locations.Include(x => x.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
 
-            // make array from string
-            var vendorArray = vendors.Split(',');
-            // make list from array
-            var l = vendorArray.ToList();
-            l.Add(vendor);
-            // make string again from list
-            selectedHospital.vendors = string.Join(",", l);
+            var selectedVendor = await _context.Vendors.FirstOrDefaultAsync(a => a.description == vendor);
+           
+            selectedHospital.vendors.Add(selectedVendor);
+
+
+            
 
             _context.Locations.Update(selectedHospital);
             if (await _context.SaveChangesAsync() > 0)
@@ -125,19 +121,12 @@ namespace api.DAL.Implementations
         public async Task<string> removeVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.FirstOrDefaultAsync(x => x.Id == hospital_id);
+            var selectedHospital = await _context.Locations.Include(x => x.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
+            var selectedVendor = await _context.Vendors.FirstOrDefaultAsync(a => a.description == vendor);
+          
+            vendors.Remove(selectedVendor);
 
-
-            // make array from string
-            var vendorArray = vendors.Split(',');
-            // make list from array
-            var l = vendorArray.ToList();
-            l.Remove(vendor);
-
-
-            // make string again from list
-            selectedHospital.vendors = string.Join(",", l);
 
             _context.Locations.Update(selectedHospital);
             if (await _context.SaveChangesAsync() > 0)
