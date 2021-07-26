@@ -15,8 +15,7 @@
         public string active { get; set; }
         public string spare4 { get; set; }
         public string reps { get; set; }
-        public Class_Locations locations { get; set; }
-        public int LocationId {get; set;}
+       
 
 
         public Class_Vendors()

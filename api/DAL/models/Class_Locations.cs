@@ -28,7 +28,7 @@ namespace api.DAL.models
         public bool triggerOneMonth { get; set; }
         public bool triggerTwoMonth { get; set; }
         public bool triggerThreeMonth { get; set; }
-        public ICollection<Class_Vendors> vendors { get; set;}
+        public ICollection<Class_Item> vendors { get; set;}
         public string DBBackend { get; set; }
 
     }

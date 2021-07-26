@@ -29,12 +29,9 @@ namespace api.DAL.Implementations
             var currentHospital = await _special.getHospital(currentUser.hospital_id);
             var vendors = currentHospital.vendors;
 
-            foreach (Class_Vendors x in vendors)
+            foreach (Class_Item x in vendors)
             {
-                var help = new Class_Item();
-                help.Value = Convert.ToInt32(x.database_no);
-                help.Description = x.description;
-                l.Add(help);
+                l.Add(x);
             }
             return l;
 
@@ -47,7 +44,7 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations x in result)
             {
@@ -70,7 +67,7 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations  x in result)
             {
@@ -86,7 +83,7 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.Include(x => x.vendors).AsQueryable();
+            var result = _context.Locations.AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
             foreach (Class_Locations  x in result)
             {
@@ -97,12 +94,16 @@ namespace api.DAL.Implementations
         public async Task<string> addVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.Include(x => x.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
+            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
 
             var selectedVendor = await _context.Vendors.FirstOrDefaultAsync(a => a.description == vendor);
+            
+            var test = new Class_Item();
+            test.Description = selectedVendor.description;
+            test.Value = Convert.ToInt32(selectedVendor.database_no);
            
-            selectedHospital.vendors.Add(selectedVendor);
+            selectedHospital.vendors.Add(test);
 
 
             
@@ -121,22 +122,21 @@ namespace api.DAL.Implementations
         public async Task<string> removeVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.Include(x => x.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
+            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
             var selectedVendor = await _context.Vendors.FirstOrDefaultAsync(a => a.description == vendor);
-          
-            vendors.Remove(selectedVendor);
 
+            var test = new Class_Item();
+            test.Description = selectedVendor.description;
+            test.Value = Convert.ToInt32(selectedVendor.database_no);
 
+            if(vendors.Remove(test)){
+           
             _context.Locations.Update(selectedHospital);
             if (await _context.SaveChangesAsync() > 0)
-            {
-                result = "removed";
-            }
-            else
-            {
-                result = "remove failed";
-            }
+            { result = "removed"; }
+            else { result = "remove failed"; }
+            } else {result = "remove failed";}
             return result;
         }
 

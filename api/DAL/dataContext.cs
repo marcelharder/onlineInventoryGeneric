@@ -21,6 +21,9 @@ namespace api.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            
+
             builder.Entity<Message>()
             .HasOne(u => u.Sender)
             .WithMany(m => m.MessagesSent)
