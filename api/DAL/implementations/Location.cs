@@ -44,18 +44,20 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.AsQueryable();
+            var result = _context.Locations.Include(a => a.vendors).AsQueryable();
             result = result.Where(s => s.Country == currentCountry);
+
             foreach (Class_Locations x in result)
             {
-
-                if (x.Naam == currentVendor)
-                {
-                    var help = new Class_Item();
-                    help.Value = Convert.ToInt32(x.HospitalNo);
-                    help.Description = x.Naam;
-                    l.Add(help);
-                }
+                 var h = x.vendors.ToList();
+                    if (h.FirstOrDefault(a => a.Description == currentVendor) != null) 
+                    {
+                       var help = new Class_Item();
+                       help.Value = Convert.ToInt32(x.HospitalNo);
+                       help.Description = x.Naam;
+                       l.Add(help);
+                     }
+                
             }
             return l;
         }
