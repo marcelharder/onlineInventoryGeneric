@@ -11,7 +11,7 @@ export class ProductService {
     constructor(private http: HttpClient) {  }
 
     getAllTypeOfValve(nameid?: any, pageNumber?: number, pageSize?: number) { return this.http.get<TypeOfValve[]>(this.baseUrl + 'productTypes');}
-    addProduct() { return this.http.get<TypeOfValve>(this.baseUrl + 'addProduct'); }
+    addProduct() { return this.http.get<TypeOfValve>(this.baseUrl + 'addProductType'); }
     getProductByProduct_code(pc:string){return this.http.get<TypeOfValve>(this.baseUrl + 'productByCode/' + pc); }
     getProductById(id: number) { return this.http.get<TypeOfValve>(this.baseUrl + 'productByValveTypeId/' + id); }
     saveDetails(p: TypeOfValve) { return this.http.post<string>(this.baseUrl + 'saveProductDetails', p, { responseType: 'text' as 'json' }); }

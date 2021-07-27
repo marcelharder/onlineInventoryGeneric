@@ -45,7 +45,7 @@ export class SearchserialComponent implements OnInit {
     Location_code: 0
   };
   selectedHospital: Location = {
-    id: 0,
+    locationId: 0,
     naam: '',
     adres: '',
     postalCode: '',

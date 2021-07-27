@@ -24,7 +24,7 @@ export class ListHospitalsForRefComponent implements OnInit {
   FullHospitals: Array<Location> = [];
 
   selectedHospital: Location = {
-    id: 0,
+    locationId: 0,
     naam: '',
     adres: '',
     postalCode: '',
@@ -98,6 +98,7 @@ export class ListHospitalsForRefComponent implements OnInit {
     });
   }
   selectThisHospital(id: number) {
+    debugger;
     this.hosService.addVendor(this.currentVendor, id).subscribe((next) => {
       if (next === 'updated') {
         this.router.navigate(['/home']);

@@ -50,7 +50,7 @@ export class SuperuserComponent implements OnInit {
     searchString = '';
     productRequested = '';
     hos: Location = {
-        id: 0,
+        locationId: 0,
         naam: '',
         adres: '',
         postalCode: '',
