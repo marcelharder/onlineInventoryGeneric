@@ -6,7 +6,7 @@ export interface TypeOfValve {
     uk_code: string;
     us_code: string;
     description: string;
-    valve_size: valveSize[];
+    product_size: valveSize[];
     type: string;
     vendor_description: string;
     vendor_code: string;

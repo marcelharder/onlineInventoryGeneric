@@ -150,21 +150,16 @@ namespace api.DAL.Implementations
             var result = "";
             var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
-            var selectedVendor = await _context.Vendors.FirstOrDefaultAsync(a => a.description == vendor);
-
-            var test = new Class_Item();
-            test.Description = selectedVendor.description;
-            test.Value = Convert.ToInt32(selectedVendor.database_no);
-
-            if (vendors.Remove(test))
+            var help = vendors.FirstOrDefault(s => s.Description == vendor);
+         
+            if (vendors.Remove(help))
             {
-
-                _context.Locations.Update(selectedHospital);
+               _context.Locations.Update(selectedHospital);
                 if (await _context.SaveChangesAsync() > 0)
                 { result = "removed"; }
                 else { result = "remove failed"; }
             }
-            else { result = "remove failed"; }
+            else { result = "remove failed"; } 
             return result;
         }
 

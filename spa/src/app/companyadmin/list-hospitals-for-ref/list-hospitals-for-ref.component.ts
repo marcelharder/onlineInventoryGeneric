@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from 'src/app/_models/Location';
 import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -15,6 +15,7 @@ import { User } from 'src/app/_models/User';
 })
 export class ListHospitalsForRefComponent implements OnInit {
   @Input() hos: Location;
+  @Output() hospitalListOut: EventEmitter<number> = new EventEmitter();
   contactName = '';
   hospitalContactNumber =  0;
   currentCountry = '';
@@ -90,20 +91,16 @@ export class ListHospitalsForRefComponent implements OnInit {
 
 
   }
-  updateHospitalDetails(s: Location) {
+  updateHospitalDetails(s: number) {
+    this.detailsPage = 0;
+    this.hospitalListOut.emit(1); // force a refesh for the hospitals
 
-    this.hosService.saveDetails(s).subscribe((next) => {
-        this.alertify.message(next);
-        this.detailsPage = 0;
-    });
   }
   selectThisHospital(id: number) {
-    debugger;
-    this.hosService.addVendor(this.currentVendor, id).subscribe((next) => {
-      if (next === 'updated') {
-        this.router.navigate(['/home']);
-      }
-    });
+   this.hosService.addVendor(this.currentVendor, id).subscribe((next) => {
+    this.selectPage = 0;
+    this.hospitalListOut.emit(1); // force a refesh for the hospitals
+   });
   }
   AddHospital() {
     this.detailsPage = 0;

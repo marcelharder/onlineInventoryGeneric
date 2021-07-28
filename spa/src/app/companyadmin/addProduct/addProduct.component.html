@@ -73,25 +73,24 @@
             <div class="row">
               <table class="table table-striped">
                 <tr>
-                  <th>ID</th>
                   <th>Size</th>
                   <th>EOA</th>
-                  <th><button class="btn btn-warning" (click)="addSize()" *ngIf="displayAdd()">Add size</button></th>
-                  <th><button class="btn btn-warning" (click)="saveSize()" *ngIf="!displayAdd()">Save</button></th>
+                  <th><button class="btn btn-warning" (click)="addSize()" *ngIf="!displayAdd()">Add size</button></th>
+                  <th><button class="btn btn-warning" (click)="saveSize()" *ngIf="displayAdd()">Save</button></th>
                 </tr>
-                <tr *ngFor="let pro of ValveCodeSizes">
-                  <td>{{pro.sizeId}}</td>
+                <tr *ngFor="let pro of vc.product_size">
                   <td>{{pro.size}}</td>
                   <td>{{pro.eoa}}</td>
                   <td><button class="btn btn-warning" (click)="deleteSize(pro.sizeId)">Delete</button></td>
                   <td></td>
                  </tr>
-                <tr>
-                  <td></td>
-                  <td><input [(ngModel)]="newsize" name="size" class="form-control"></td>
-                  <td><input [(ngModel)]="neweoa" name="eoa" class="form-control" ></td>
-                  <td></td>
-                  <td></td>
+                 <tr *ngIf="displayAdd()">
+                  <th>Size</th>
+                  <th>EOA</th>
+                </tr>
+               <tr *ngIf="displayAdd()">
+                  <td><input [(ngModel)]="newsize" name="size1" class="form-control"></td>
+                  <td><input [(ngModel)]="neweoa" name="eoa1" class="form-control" ></td>
                 </tr>
               </table>
             </div>

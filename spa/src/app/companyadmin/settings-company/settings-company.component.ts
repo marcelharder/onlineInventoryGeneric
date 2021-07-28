@@ -45,5 +45,20 @@ export class SettingsCompanyComponent implements OnInit {
   showHospitals() { if (this.selected === '1') { return true; } }
   showProducts() { if (this.selected === '2') { return true; } }
 
+  refeshProductList(ev: any){
+    let rep: User;
+    this.user.getUser(this.auth.decodedToken.nameid).subscribe((next) => {
+      rep = next;
+      this.ven.getAllFullProducts(next.vendorCode).subscribe((nex) => { this.FullProducts = nex; });
+    }); 
+  }
+
+  refeshHospitalList(ev: any){
+  let rep: User;
+  this.user.getUser(this.auth.decodedToken.nameid).subscribe((next) => {
+    rep = next;
+    this.hos.getFullHospitalsWhereVendorIsActive().subscribe((ne) => { this.FullHospitals = ne; });
+  });
+}
 
 }

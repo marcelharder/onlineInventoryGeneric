@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../_models/User';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,12 +19,13 @@ export class EditHospitalComponent implements OnInit  {
 @Input() country: string;
 @Input() contactName: string;
 @Input() contactNumber: number;
-@Output() hospitalOut: EventEmitter<Location> = new EventEmitter();
+@Output() hospitalOut: EventEmitter<number> = new EventEmitter();
 currentVendor = '';
 
 
   constructor(private gen: GeneralService,
               private auth: AuthService,
+              private alertify:AlertifyService,
               private hosService: HospitalService,
               private router: Router, private user: UserService) { }
 
@@ -33,22 +35,21 @@ currentVendor = '';
         rep = next;this.currentVendor = rep.vendorName;
       });
   }
-
-
-
-
-
-
-
-
+  
   deleteVendorInHospital() {
     this.hosService.removeVendor(this.currentVendor, this.selectedHospital.locationId).subscribe((next) => {
-      if (next === 'removed') {
-        this.router.navigate(['/home']);
-      }
-    });
+       this.hospitalOut.emit(1);
+    },(error)=>{this.alertify.warning(error);});
   }
 
-  updateHospitalDetails() {  this.hospitalOut.emit(this.selectedHospital); }
+  updateHospitalDetails() {
+    this.hosService.saveDetails(this.selectedHospital).subscribe((next) => {
+      this.alertify.message(next);
+      this.hospitalOut.emit(1);
+  });
+    
+   
+  
+  }
 }
 

@@ -99,6 +99,7 @@ namespace api.DAL.Implementations
         }
 
         public async Task<string> saveDetails(Class_ProductType tov){
+            
             var result = _context.ProductTypes.Update(tov);
             if(await _context.SaveChangesAsync() > 0){return "product details updated";}
             return "failed";

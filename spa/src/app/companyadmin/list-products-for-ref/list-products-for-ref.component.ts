@@ -15,6 +15,8 @@ import { VendorService } from 'src/app/_services/vendor.service';
 })
 export class ListProductsForRefComponent implements OnInit {
   @Input() prod: TypeOfValve;
+  @Output() listOut: EventEmitter<number> = new EventEmitter();
+ 
   selectedProduct: TypeOfValve;
   newProduct: TypeOfValve;
   currentCountry = '';
@@ -43,9 +45,11 @@ export class ListProductsForRefComponent implements OnInit {
 
   changeViewBackToList(id: number) {
     // this comes from the edit or add component, when it wants to close itself
+    
     this.detailsPage = 0;
     this.addPage = 0;
     this.listPage = 1;
+    this.listOut.emit(1); // forces a refresh of the product list
   }
 
 

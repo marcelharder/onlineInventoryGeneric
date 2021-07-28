@@ -40,7 +40,7 @@ export class EditProductComponent implements OnInit {
 
 
   updateProductDetails() {
-    this.prod.saveDetails(this.vc).subscribe((next) => {
+   this.prod.saveDetails(this.vc).subscribe((next) => {
       this.povOut.emit(1);
     }, (error) => { console.log(error); });
   }
@@ -50,33 +50,17 @@ export class EditProductComponent implements OnInit {
     this.alertify.message('opening window');
   }
   saveSize(){
-    /*  // close the add window
-     this.showAdd = 0;
-     this.valve_size.size = this.newsize;
-     this.valve_size.eoa = this.neweoa;
+  const test: valveSize = {sizeId: 0,size: 0, eoa: 0, ppm: ""};
+  test.size = this.newsize;
+  test.eoa = this.neweoa;
+  this.vc.product_size.push(test);
+ }
 
-     this.prod.addValveSize(this.vc.valveTypeId, this.valve_size).subscribe((next)=>{
-          // get the changed valveType
-      this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{
-        this.newsize = 0;
-        this.neweoa = 0.0;
-        this.alertify.message('uploading size');
-        this.vc = next;
-      }); 
-
-
-
-
-     })*/
-
-  }
-  deleteSize(id:number){
-   /*  this.prod.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
-      this.alertify.message('size removed ...');
-      // get the changed valveType
-      this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{this.vc = next});
+ deleteSize(id:number){
+   this.prod.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
+     let index = this.vc.product_size.findIndex(a => a.sizeId === id);
+    this.vc.product_size.splice(index,1);
     })
- */
   }
 
   displayAdd(){if(this.showAdd === 1){return true;}}

@@ -33,7 +33,7 @@ export class EditValveInHospitalComponent implements OnInit {
         uk_code: '',
         us_code: '',
         description: '',
-        valve_size: [],
+        product_size: [],
         type: '',
         image: '',
         vendor_description: '',

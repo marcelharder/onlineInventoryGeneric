@@ -59,7 +59,7 @@ export class SelectValveComponent implements OnInit {
     uk_code: '',
     us_code: '',
     description: '',
-    valve_size: [],
+    product_size: [],
     type: '',
     image: '',
     vendor_description: '',
@@ -159,7 +159,7 @@ export class SelectValveComponent implements OnInit {
     this.prod.getProductById(id).subscribe(
       (next) => {
         this.product = next;
-        this.valveSizes = this.product.valve_size;
+        this.valveSizes = this.product.product_size;
         this.gen.getBSA(+this.selectedHeight, +this.selectedWeight).subscribe((next)=>{
           this.bsa = next;
           this.valveSizes.forEach(element => {
