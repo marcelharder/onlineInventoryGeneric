@@ -12,6 +12,7 @@ import { Location } from 'src/app/_models/Location';
 export class ListLocationsComponent implements OnInit {
 
   selectedHospital: number;
+  sd=0;
   locationDetails: Location = {
     locationId: 0,
     naam: "",
@@ -48,15 +49,31 @@ export class ListLocationsComponent implements OnInit {
   })
   }
 
+  showDetails(){if(this.sd === 1)return true;}
+
   hospitalChanged(){
+    this.sd = 1;
     this.alertify.message("Getting hospital details now ...");
     this.hos.getDetails(this.selectedHospital).subscribe((next)=>{
        this.locationDetails = next;
     })
-  
-  
-  
-  
   }
+    updateLocationDetails(){
+      this.hos.saveDetails(this.locationDetails).subscribe((next)=>{
+        this.sd = 0;
+        this.alertify.message("Updated ..");
+      }, (error)=>{this.alertify.error(error)});
+      
+      }
+    cancel(){ 
+      this.sd = 0;
+      this.alertify.message("Cancel");}
+  
+    deleteLocation(){this.alertify.message("Deleting ...");}
+    addLocation(){this.alertify.message("Adding ...");}
+
+    removeVendor(Description:string){}
+    showDetailsVendor(Value: number){}
+  
 
 }
