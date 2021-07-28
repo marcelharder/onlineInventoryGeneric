@@ -60,22 +60,22 @@ namespace api.Controllers
 
             ci = new Class_Item();
             ci.Value = 1;
-            ci.Description = "Aortic";
+            ci.Description = "Location 1";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 2;
-            ci.Description = "Mitral";
+            ci.Description = "Location 2";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 3;
-            ci.Description = "Tricuspid";
+            ci.Description = "Location 3";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 5;
-            ci.Description = "Pulmonary";
+            ci.Description = "Location 4";
             help.Add(ci);
             return help;
 

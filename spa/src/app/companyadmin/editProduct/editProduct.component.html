@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-      <h2><span class="badge badge-default">{{vc?.description}}</span></h2>
+      <h2><span class="badge badge-default">{{vc.description}}</span></h2>
     </div>
   </div>
   <div class="row">
@@ -74,7 +74,7 @@
             <th><button class="btn btn-warning btn-sm" (click)="addSize()" *ngIf="!displayAdd()">Add size</button></th>
             <th><button class="btn btn-warning btn-sm" (click)="saveSize()" *ngIf="displayAdd()">Save</button></th>
           </tr>
-          <tr *ngFor="let pro of vc.valve_size">
+          <tr *ngFor="let pro of vc.product_size">
             <td>{{pro.size}}</td>
             <td>{{pro.eoa}}</td>
             <td><button class="btn btn-warning btn-sm" (click)="deleteSize(pro.sizeId)">Delete</button></td>
@@ -117,7 +117,7 @@
     <div class="card">
       <div class="card-header"></div>
       <div class="card-body">
-          <img src={{vc?.image}}>
+          <img src={{vc.image}}>
       </div>
       <div class="card-footer">
         <app-photo-editor [userId]="0" [valvecode]="vc.no" [hospitalId]="0" (getMemberPhotoChange)="updatePhoto($event)"></app-photo-editor>

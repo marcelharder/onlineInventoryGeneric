@@ -20,7 +20,7 @@ export class EditProductComponent implements OnInit {
   ImagePath = '';
   baseUrl = environment.apiUrl;
   showAdd = 0; newsize = 0; neweoa = 0.0;
-  valvesize: valveSize = {sizeId:0, size:0, eoa: 0.0, ppm: '0'};
+ // product_size: valveSize = {sizeId:0, size:0, eoa: 0.0, ppm: '0'};
 
   constructor(private alertify: AlertifyService,
     private prod: ProductService,
@@ -50,32 +50,33 @@ export class EditProductComponent implements OnInit {
     this.alertify.message('opening window');
   }
   saveSize(){
-     // close the add window
+    /*  // close the add window
      this.showAdd = 0;
-     this.valvesize.size = this.newsize;
-     this.valvesize.eoa = this.neweoa;
-     this.prod.addValveSize(this.vc.valveTypeId, this.valvesize).subscribe((next)=>{
+     this.valve_size.size = this.newsize;
+     this.valve_size.eoa = this.neweoa;
+
+     this.prod.addValveSize(this.vc.valveTypeId, this.valve_size).subscribe((next)=>{
           // get the changed valveType
       this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{
         this.newsize = 0;
         this.neweoa = 0.0;
         this.alertify.message('uploading size');
         this.vc = next;
-      });
+      }); 
 
 
 
 
-     })
+     })*/
 
   }
   deleteSize(id:number){
-    this.prod.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
+   /*  this.prod.deleteValveSize(this.vc.valveTypeId, id).subscribe((next)=>{
       this.alertify.message('size removed ...');
       // get the changed valveType
       this.prod.getProductById(this.vc.valveTypeId).subscribe((next)=>{this.vc = next});
     })
-
+ */
   }
 
   displayAdd(){if(this.showAdd === 1){return true;}}
