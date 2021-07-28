@@ -45,7 +45,7 @@ const routes: Routes = [
       { path: 'userlist', component: ListUserComponent, resolve: {users: ListUserResolver} },
       { path: 'productlist', component: ListProductsComponent, resolve: {products: ListProductsResolver} },
       { path: 'vendorlist', component: ListVendorsComponent, resolve: {vendors: ListVendorsResolver} },
-      { path: 'locationlist', component: ListLocationsComponent, resolve: {vendors: ListLocationsResolver} },
+      { path: 'locationlist', component: ListLocationsComponent, resolve: {locs: ListLocationsResolver} },
       { path: 'companyadmin', component: CompanyadminComponent },
       { path: 'addCompanyValve/:id', component: AddCompanyValveComponent, resolve: {valve: ValveResolver} },
       { path: 'superuser', component: SuperuserComponent },

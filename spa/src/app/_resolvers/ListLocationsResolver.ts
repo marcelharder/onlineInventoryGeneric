@@ -17,7 +17,7 @@ export class ListLocationsResolver implements Resolve<Location[]> {
         private authService: AuthService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Location[]> {
-        return this.hospitalService.getListOfHospitalsWhereVendorIsActive().pipe(
+        return this.hospitalService.getAllHospitals().pipe(
                 catchError(error => {
                     this.alertify.error('Problem retrieving data');
                     this.router.navigate(['/home']);
