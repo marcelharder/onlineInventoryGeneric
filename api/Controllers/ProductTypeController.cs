@@ -45,7 +45,7 @@ namespace api.Controllers
             var help = new Class_ProductType();
             help.Vendor_code = currentVendor.ToString();
             help.Vendor_description = await _special.getVendorNameFromVendorCodeAsync(currentVendor.ToString());
-            help.countries = "NL,US,KSA";
+            help.countries = "NL,US,SA";
             help.Type = "";
             help.image = "https://res.cloudinary.com/marcelcloud/image/upload/v1620571880/valves/valves02.jpg";
 
@@ -88,7 +88,6 @@ namespace api.Controllers
             var result = await _vc.getDetailsByProductCode(code);
             return Ok(result);
         }
-
 
         [Route("api/addProductTypePhoto/{id}")]
         [HttpPost]

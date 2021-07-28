@@ -40,7 +40,12 @@ export class AddProductComponent implements OnInit {
       });
     } else { this.alertify.warning("The type is required ...") }
   }
-  cancel() { this.povOut.emit(1); }
+  cancel() { 
+    // remove the newly created product record
+    this.prodService.deleteProduct(this.vc.valveTypeId).subscribe((next)=>{
+      this.povOut.emit(1);
+    })
+     }
   addSize() {
     // open the add window
     this.showAdd = 1;

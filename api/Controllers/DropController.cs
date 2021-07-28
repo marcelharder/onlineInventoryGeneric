@@ -92,27 +92,27 @@ namespace api.Controllers
 
             ci = new Class_Item();
             ci.Value = 1;
-            ci.Description = "Biological";
+            ci.Description = "Type 1";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 2;
-            ci.Description = "Mechanical";
+            ci.Description = "Type 2";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 3;
-            ci.Description = "Annuloplasty_Ring";
+            ci.Description = "Type 3";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 4;
-            ci.Description = "Pericardial Patch";
+            ci.Description = "Type 4";
             help.Add(ci);
 
             ci = new Class_Item();
             ci.Value = 5;
-            ci.Description = "Valved_Conduit";
+            ci.Description = "Type 5";
             help.Add(ci);
 
 
