@@ -42,19 +42,25 @@ namespace api.DAL.Implementations
         public async Task<List<Class_Item>> getVendorsNotInHospital(int hospitalId)
         {
             var l = new List<Class_Item>();
-
-            var currentHospital = await _special.getHospital(hospitalId);
-            var vendors = currentHospital.vendors.ToList();
-
             var allVendors = await _vend.getVendors();
-
-            for (int x = 0; x < allVendors.Count; x++)
+           
+            try
             {
-                // if this vendor is not associated with this location then add
-                // to the availabe list
-                if (!IsHospitalVendor(allVendors[x].Description, vendors)) {
-                     l.Add(allVendors[x]);}
+                var currentHospital = await _special.getHospital(hospitalId);
+                var vendors = currentHospital.vendors.ToList();
+
+                if (vendors.Count == 0)
+                {
+                    l = allVendors;
+                }
+                else
+                {
+                   for(int x = 0; x < allVendors.Count; x++){
+                       if(vendors.Find(a => a.Description == allVendors[x].Description) == null){l.Add(allVendors[x]);}
+                   }
+                }
             }
+            catch (Exception e) { Console.WriteLine(e); }
 
             return l;
         }
@@ -172,7 +178,7 @@ namespace api.DAL.Implementations
         public async Task<string> removeVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
+            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.HospitalNo == hospital_id.ToString());
             var vendors = selectedHospital.vendors;
             var help = vendors.FirstOrDefault(s => s.Description == vendor);
             if (help != null)
@@ -279,16 +285,7 @@ namespace api.DAL.Implementations
         }
 
 
-        private bool IsHospitalVendor(string description, List<Class_Item> vendors)
-        {
-            var help = true;
-
-            for (int x = 0; x < vendors.Count(); x++)
-            {
-                if (vendors[x].Description != description) { help = false; }
-            }
-            return help;
-        }
+       
 
 
     }

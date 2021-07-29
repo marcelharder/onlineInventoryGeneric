@@ -5,15 +5,20 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="row">
-          <div class="col-sm-6"><h5><span class="badge badge-secondary">All Locations</span></h5></div>
-          <div class="col-sm-6">
-            <select [(ngModel)]="selectedHospital" 
-            name="select3" 
-            class="form-control" 
-            (change)="hospitalChanged()">
-              <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
-            </select>
-          </div>
+          <div class="col-sm-12"><div class="d-flex flex-row">
+            <div class="p-2"><h5><span class="badge badge-secondary">All Locations</span></h5></div>
+            <div class="p-2"><select [(ngModel)]="selectedHospital" 
+              name="select3" 
+              class="form-control" 
+              >
+                <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
+              </select></div>
+            <div class="p-2">
+              <button class="btn btn-success btn-xs" (click)="hospitalChanged()">Details</button>
+     
+            </div>
+          </div></div>
+         
         </div>
       </div>
       <div class="col-sm-6">
@@ -42,10 +47,17 @@
                 name="var03"></div>
             </div>
             <div class="row">
-              <div class="col-sm-12"><h6><span class="badge badge-secondary">Vendors</span></h6></div>
+              <div class="col-sm-6"><h6><span class="badge badge-secondary">Vendors</span></h6></div>
+              <div class="col-sm-6"><div class="d-flex flex-row">
+                <div class="p-2"><h6><span class="badge badge-secondary">Add vendor</span></h6></div>
+                <div class="p-2"><select [(ngModel)]="selectedVendor" name="select3" class="form-control" (change)="vendorChanged()">
+                  <option *ngFor="let oop of listOfAvailableVendors" [value]="oop.value">{{ oop.description }}</option>
+                </select></div>
+                <div class="p-2"><button type="button" class="badge badge-danger" (click)="addVendor()">add</button></div>
+              </div></div>
             </div>
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-6">
                 <table class="table table-striped">
                   <tr>
                     <th>ID</th>
@@ -61,19 +73,8 @@
                   </tr>
                 </table>
                </div>
-              <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-6"><h6><span class="badge badge-secondary">Add vendor</span></h6></div>
-                  <div class="col-sm-6"> 
-                    <select [(ngModel)]="selectedVendor" name="select3" class="form-control" (change)="vendorChanged()">
-                    <option *ngFor="let oop of listOfAvailableVendors" [value]="oop.value">{{ oop.description }}</option>
-                  </select>
-                </div>
-                </div>
-              </div>
-              <div class="col-sm-2">
-                <button type="button" class="badge badge-danger" (click)="addVendor()">add</button>
-              </div>
+              <div class="col-sm-6"></div>
+              
             </div>
          
           </div>
