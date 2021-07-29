@@ -23,5 +23,6 @@ export class HospitalService {
   saveDetails(h: Location) { return this.http.post<string>(this.baseUrl + 'saveHospitalDetails', h, { responseType: 'text' as 'json' }); }
   isOVIPlace(){return this.http.get<number>(this.baseUrl + 'isOVIPlace');}
   getAllHospitals(){return this.http.get<DropItem>(this.baseUrl + 'allHospitals');}
+  removeLocation(hospitalId: number){return this.http.delete<string>(this.baseUrl + 'removeLocation/' + hospitalId);}
 
 }

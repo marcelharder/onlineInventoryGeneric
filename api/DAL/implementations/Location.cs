@@ -255,18 +255,15 @@ namespace api.DAL.Implementations
 
         public void Add<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
         }
 
         public void Delete<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+           _context.Remove(entity);
         }
 
-        public Task<bool> SaveAll()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> SaveAll() { return await _context.SaveChangesAsync() > 0; }
 
         public async Task<bool> isThisHospitalOVI(int hospital_id)
         {
@@ -284,10 +281,24 @@ namespace api.DAL.Implementations
             return false;
         }
 
+        public async Task<string> removeLocation(int id)
+        {
+            var selectedHospital = await getDetails(id);
+            this.Delete(selectedHospital);
+            if(await SaveAll()){return "1";}
+            return "0";
+        }
 
-       
-
-
+        public async Task<int> addLocation()
+        {
+            var newLocation = new Class_Locations();
+            // add some default initialization stuff if needed
+            Add(newLocation);
+            if(await SaveAll()){
+                 return newLocation.LocationId;// this will be the locationId of the newly made location
+            }
+            return 0;
+        }
     }
 }
 

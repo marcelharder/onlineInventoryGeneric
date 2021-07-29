@@ -55,25 +55,25 @@ namespace api.Controllers
             return help;
         }
         [HttpGet("api/sphlist_full")]
-        public async Task<List<Class_Locations >> getQuestion02()
+        public async Task<List<Class_Locations>> getQuestion02()
         {
             var help = await _location.getSphListFull();
             return help;
         }
         [HttpGet("api/neg_sphlist_full")]
-        public async Task<List<Class_Locations >> getQuestion03()
+        public async Task<List<Class_Locations>> getQuestion03()
         {
             var help = await _location.getNegSphListFull();
             return help;
         }
-        [HttpGet("api/getHospitalDetails/{id}")]
-        public async Task<Class_Locations > getQuestion07(int id)
+        [HttpGet("api/getHospitalDetails/{id}", Name = "getDetails")]
+        public async Task<Class_Locations> getQuestion07(int id)
         {
             var help = await _location.getDetails(id);
             return help;
         }
         [HttpPost("api/saveHospitalDetails")]
-        public async Task<string> postQuestion07(Class_Locations  hos)
+        public async Task<string> postQuestion07(Class_Locations hos)
         {
             var help = await _location.saveDetails(hos);
             return help;
@@ -100,16 +100,48 @@ namespace api.Controllers
         [HttpGet("api/allHospitals")]
         public async Task<List<Class_Item>> getAllHospitalsAsync()
         {
-          return await _location.getAllHospitals();
+            return await _location.getAllHospitals();
         }
+
+        #region <!-- hospital CRUD-->
+
+        [HttpGet("api/addLocation")]
+        public async Task<IActionResult> addLocation()
+        {
+            var result = await _location.addLocation();
+            if (result != 0)
+            {
+                Class_Locations help = await _location.getDetails(result);
+                return CreatedAtRoute("getDetails", new { id = result }, help);
+            }
+            return BadRequest("could not add Location");
+        }
+
+
+        [HttpDelete("api/removeLocation/{id}")]
+        public async Task<IActionResult> deleteLocation(int id)
+        {
+            var result = await _location.removeLocation(id);
+            if (result == "1") { return Ok(); }
+            return BadRequest("could not delete hospital");
+        }
+
+        #endregion
+
+
+
+
+
         [HttpGet("api/isOVIPlace")]
-        public async Task<IActionResult> getOVI() {
-              // find the currentHospital now
+        public async Task<IActionResult> getOVI()
+        {
+            // find the currentHospital now
             var currentHospital = _special.getCurrentUserHospitalId();
             var t = await _location.isThisHospitalOVI(await currentHospital);
             var result = "0";
-            if(t){result = "1";} else {result = "0";}
-            return Ok(result); }
+            if (t) { result = "1"; } else { result = "0"; }
+            return Ok(result);
+        }
     }
 
 

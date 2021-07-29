@@ -84,7 +84,10 @@ export class ListLocationsComponent implements OnInit {
     this.alertify.message("Cancel");
   }
 
-  deleteLocation() { this.alertify.message("Deleting ..."); }
+  deleteLocation() { 
+    this.hos.removeLocation(this.selectedHospital).subscribe(
+      (next)=>{this.alertify.message("Deleting ...");});
+     }
   addLocation() { 
     this.adl = 1;
     this.alertify.message("Adding ..."); }

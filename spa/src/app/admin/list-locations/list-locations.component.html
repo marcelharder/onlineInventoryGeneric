@@ -1,6 +1,6 @@
 <form  #locationForm="ngForm" id="locForm">
 <div class="card">
-  <div class="card-header"></div>
+  <div class="card-header"><h3><span class="badge badge-default">Manage Locations</span></h3></div>
   <div class="card-body">
     <div class="row">
       <div class="col-sm-6">
@@ -9,8 +9,7 @@
             <div class="p-2"><h5><span class="badge badge-secondary">All Locations</span></h5></div>
             <div class="p-2"><select [(ngModel)]="selectedHospital" 
               name="select3" 
-              class="form-control" 
-              >
+              class="form-control" >
                 <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
               </select></div>
             <div class="p-2">
@@ -19,6 +18,18 @@
             </div>
           </div></div>
          
+        </div>
+        <div class="row mt-5" *ngIf="showDetails()">
+          <div class="col-sm-6"><div class="d-flex flex-row">
+            <div class="p-2"> <div class="btn-group">
+              <button class="btn btn-danger" (click)="deleteLocation()"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+              <button class="btn btn-primary" (click)="addLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+            </div></div>
+            <div class="p-2"></div>
+            <div class="p-2"></div>
+          </div>
+        </div>
+        <div class="col-sm-6"></div>
         </div>
       </div>
       <div class="col-sm-6">
@@ -57,23 +68,21 @@
               </div></div>
             </div>
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <table class="table table-striped">
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th></th>
                     <th></th>
                   </tr>
                   <tr *ngFor="let pro of locationDetails.vendors">
                     <td>{{pro.value}}</td>
                     <td>{{pro.description}}</td>
                     <td><button class="btn btn-primary btn-xs" (click)="removeVendor(pro.description)">remove</button></td>
-                    <td><button class="btn btn-primary btn-xs" (click)="showDetailsVendor(pro.value)">details</button></td>
                   </tr>
                 </table>
                </div>
-              <div class="col-sm-6"></div>
+             
               
             </div>
          
@@ -93,11 +102,8 @@
     </div>
   </div>
   <div class="card-footer">
-    <div class="row" *ngIf="showDetails()">
-      <div class="btn-group">
-        <button class="btn btn-danger" (click)="deleteLocation()"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
-        <button class="btn btn-primary" (click)="addLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
-      </div>
+    <div class="row" >
+     
     </div>
   </div>
 </div>

@@ -23,6 +23,8 @@ namespace api.DAL.Interfaces
         Task<List<Class_Item>> hospitalsInCountry(string code);
         Task<List<Class_Item>>  getAllHospitals();
         Task<bool> isThisHospitalOVI(int hospital_id);
-       
+        Task<string> removeLocation(int id);
+        Task<int> addLocation();
+        
     }
 }
