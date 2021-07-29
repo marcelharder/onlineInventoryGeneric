@@ -45,7 +45,7 @@
               <div class="col-sm-12"><h6><span class="badge badge-secondary">Vendors</span></h6></div>
             </div>
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-4">
                 <table class="table table-striped">
                   <tr>
                     <th>ID</th>
@@ -61,6 +61,19 @@
                   </tr>
                 </table>
                </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-6"><h6><span class="badge badge-secondary">Add vendor</span></h6></div>
+                  <div class="col-sm-6"> 
+                    <select [(ngModel)]="selectedVendor" name="select3" class="form-control" (change)="vendorChanged()">
+                    <option *ngFor="let oop of listOfAvailableVendors" [value]="oop.value">{{ oop.description }}</option>
+                  </select>
+                </div>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" class="badge badge-danger" (click)="addVendor()">add</button>
+              </div>
             </div>
          
           </div>

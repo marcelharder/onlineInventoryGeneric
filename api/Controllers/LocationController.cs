@@ -30,6 +30,12 @@ namespace api.Controllers
             var help = await _location.getHospitalVendors();
             return help;
         }
+        [HttpGet("api/hospital/availablevendors/{id}")]
+        public async Task<List<Class_Item>> getAvailableVendors(int id)
+        {
+            var help = await _location.getVendorsNotInHospital(id);
+            return help;
+        }
         [HttpGet("api/sphlist")]
         public async Task<List<Class_Item>> getQuestion01()
         {

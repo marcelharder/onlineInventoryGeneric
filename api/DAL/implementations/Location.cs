@@ -15,11 +15,14 @@ namespace api.DAL.Implementations
         private SpecialMaps _special;
         private IUserRepository _user;
         private dataContext _context;
-        public Location(SpecialMaps special, IUserRepository user, dataContext context)
+
+        private IVendor _vend;
+        public Location(SpecialMaps special, IUserRepository user, dataContext context, IVendor vend)
         {
             _special = special;
             _user = user;
             _context = context;
+            _vend = vend;
         }
         public async Task<List<Class_Item>> getHospitalVendors()
         {
@@ -36,6 +39,25 @@ namespace api.DAL.Implementations
             return l;
 
         }
+        public async Task<List<Class_Item>> getVendorsNotInHospital(int hospitalId)
+        {
+            var l = new List<Class_Item>();
+
+            var currentHospital = await _special.getHospital(hospitalId);
+            var vendors = currentHospital.vendors.ToList();
+
+            var allVendors = await _vend.getVendors();
+
+            for (int x = 0; x < allVendors.Count; x++)
+            {
+                // if this vendor is not associated with this location then add
+                // to the availabe list
+                if (!IsHospitalVendor(allVendors[x].Description, vendors)) {
+                     l.Add(allVendors[x]);}
+            }
+
+            return l;
+        }
         public async Task<List<Class_Item>> getSphList()
         {
             var l = new List<Class_Item>();
@@ -49,15 +71,15 @@ namespace api.DAL.Implementations
 
             foreach (Class_Locations x in result)
             {
-                 var h = x.vendors.ToList();
-                    if (h.FirstOrDefault(a => a.Description == currentVendor) != null) 
-                    {
-                       var help = new Class_Item();
-                       help.Value = Convert.ToInt32(x.HospitalNo);
-                       help.Description = x.Naam;
-                       l.Add(help);
-                     }
-                
+                var h = x.vendors.ToList();
+                if (h.FirstOrDefault(a => a.Description == currentVendor) != null)
+                {
+                    var help = new Class_Item();
+                    help.Value = Convert.ToInt32(x.HospitalNo);
+                    help.Description = x.Naam;
+                    l.Add(help);
+                }
+
             }
             return l;
         }
@@ -80,10 +102,10 @@ namespace api.DAL.Implementations
                 for (int i = 0; i < x.vendors.Count; i++)
                 {
                     help = x.vendors.ToList();
-                    if (help.FirstOrDefault(a => a.Description == currentVendor) != null) 
+                    if (help.FirstOrDefault(a => a.Description == currentVendor) != null)
                     {
                         l.Add(x);
-                     }
+                    }
                 }
             }
             return l;
@@ -104,15 +126,17 @@ namespace api.DAL.Implementations
 
             foreach (Class_Locations x in result)
             {
-                if (x.vendors.Count == 0) {l.Add(x);} else {
-                for (int i = 0; i < x.vendors.Count; i++)
+                if (x.vendors.Count == 0) { l.Add(x); }
+                else
                 {
-                    help = x.vendors.ToList();
-                    if (help.FirstOrDefault(a => a.Description == currentVendor) == null)
+                    for (int i = 0; i < x.vendors.Count; i++)
                     {
-                        l.Add(x);
-                     }
-                }
+                        help = x.vendors.ToList();
+                        if (help.FirstOrDefault(a => a.Description == currentVendor) == null)
+                        {
+                            l.Add(x);
+                        }
+                    }
                 }
             }
             return l;
@@ -151,15 +175,15 @@ namespace api.DAL.Implementations
             var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
             var help = vendors.FirstOrDefault(s => s.Description == vendor);
-         
-            if (vendors.Remove(help))
+            if (help != null)
             {
-               _context.Locations.Update(selectedHospital);
-                if (await _context.SaveChangesAsync() > 0)
-                { result = "removed"; }
+                if (vendors.Remove(help))
+                {
+                    _context.Locations.Update(selectedHospital);
+                    if (await _context.SaveChangesAsync() > 0) { result = "removed"; } else { result = "remove failed"; }
+                }
                 else { result = "remove failed"; }
             }
-            else { result = "remove failed"; } 
             return result;
         }
 
@@ -253,6 +277,20 @@ namespace api.DAL.Implementations
             else { return false; }
             return false;
         }
+
+
+        private bool IsHospitalVendor(string description, List<Class_Item> vendors)
+        {
+            var help = true;
+
+            for (int x = 0; x < vendors.Count(); x++)
+            {
+                if (vendors[x].Description != description) { help = false; }
+            }
+            return help;
+        }
+
+
     }
 }
 

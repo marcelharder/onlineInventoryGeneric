@@ -66,7 +66,8 @@ export class SearchserialComponent implements OnInit {
     triggerOneMonth: '',
     triggerTwoMonth: '',
     triggerThreeMonth: '',
-    dBBackend: ''
+    dBBackend: '',
+    vendors:[]
   };
 
   @ViewChild('editForm') editForm: NgForm;

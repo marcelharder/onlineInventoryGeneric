@@ -71,7 +71,8 @@ export class SuperuserComponent implements OnInit {
         triggerOneMonth: '',
         triggerTwoMonth: '',
         triggerThreeMonth: '',
-        dBBackend: ''
+        dBBackend: '',
+        vendors:[]
     };
     valves: Array<Valve> = [];
     IsValveImplanted = 0;

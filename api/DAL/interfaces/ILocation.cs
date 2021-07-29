@@ -11,6 +11,7 @@ namespace api.DAL.Interfaces
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<List<Class_Item>> getHospitalVendors();
+        Task<List<Class_Item>> getVendorsNotInHospital(int hospitalId);
         Task<List<Class_Item>> getSphList();
         Task<List<Class_Locations>> getSphListFull();
         Task<List<Class_Locations>> getNegSphListFull();
@@ -22,7 +23,6 @@ namespace api.DAL.Interfaces
         Task<List<Class_Item>> hospitalsInCountry(string code);
         Task<List<Class_Item>>  getAllHospitals();
         Task<bool> isThisHospitalOVI(int hospital_id);
-
        
     }
 }

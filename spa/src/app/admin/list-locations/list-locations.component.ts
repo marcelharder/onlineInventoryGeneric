@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { HospitalService } from 'src/app/_services/hospital.service';
 import { Location } from 'src/app/_models/Location';
+import { DropItem } from 'src/app/_models/dropItem';
 
 @Component({
   selector: 'app-list-locations',
@@ -12,6 +13,8 @@ import { Location } from 'src/app/_models/Location';
 export class ListLocationsComponent implements OnInit {
 
   selectedHospital: number;
+  selectedVendor: number;
+  listOfAvailableVendors: Array<DropItem> = [];
   sd=0;
   locationDetails: Location = {
     locationId: 0,
@@ -35,7 +38,8 @@ export class ListLocationsComponent implements OnInit {
     triggerOneMonth: "",
     triggerTwoMonth: "",
     triggerThreeMonth: "",
-    dBBackend: ""
+    dBBackend: "",
+    vendors: []
   }
   ah:Array<Location> = [];
 
@@ -46,6 +50,10 @@ export class ListLocationsComponent implements OnInit {
   ngOnInit() {
   this.route.data.subscribe((next)=>{
     this.ah = next.locs;
+    // get List of available vendors
+    this.hos.getListOfAvailableVendors().subscribe((next)=>{
+      this.listOfAvailableVendors = next;
+    });
   })
   }
 
@@ -72,7 +80,23 @@ export class ListLocationsComponent implements OnInit {
     deleteLocation(){this.alertify.message("Deleting ...");}
     addLocation(){this.alertify.message("Adding ...");}
 
-    removeVendor(Description:string){}
+    removeVendor(Description:string){
+      this.hos.removeVendor(Description, this.selectedHospital).subscribe(
+        (next)=>{
+          this.alertify.message("Updated ..");
+          let index = this.locationDetails.vendors.findIndex(a => a.value === this.selectedHospital);
+          this.locationDetails.vendors.splice(index,1);
+        }
+      )
+    }
+    addVendor(){
+      this.selectedVendor
+      let index = this.listOfAvailableVendors.findIndex(a => a.value === this.selectedHospital);
+      let dropItem = this.listOfAvailableVendors.find(a => a.value == this.selectedVendor);
+      this.locationDetails.vendors.push(dropItem);
+      this.listOfAvailableVendors.splice(index,1);
+    }
+
     showDetailsVendor(Value: number){}
   
 

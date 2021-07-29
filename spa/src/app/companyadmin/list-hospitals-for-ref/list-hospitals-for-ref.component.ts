@@ -46,7 +46,8 @@ export class ListHospitalsForRefComponent implements OnInit {
     triggerOneMonth: '',
     triggerTwoMonth: '',
     triggerThreeMonth: '',
-    dBBackend: ''
+    dBBackend: '',
+    vendors:[]
   };
   hospitalDescription = '';
 

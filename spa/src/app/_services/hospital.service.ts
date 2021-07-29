@@ -11,6 +11,7 @@ export class HospitalService {
   constructor(private http: HttpClient) { }
 
   getVendorsInHospital() { return this.http.get<DropItem[]>(this.baseUrl + 'hospital/vendors'); }
+  getListOfAvailableVendors(){return this.http.get<DropItem[]>(this.baseUrl + 'hospital/availablevendors'); }
   getListOfHospitalsWhereVendorIsActive() { return this.http.get<DropItem[]>(this.baseUrl + 'sphlist'); }
   getHospitalFromHospitalCode(code: number) {return this.http.get<string>(this.baseUrl + 'hospitalName/' + code, { responseType: 'text' as 'json' });}
   getListOfHospitalsPerCountry(countryCode: string){ return this.http.get<DropItem[]>(this.baseUrl + 'getHospitalsInCountry/' + countryCode); } // countrycode is 31 bv

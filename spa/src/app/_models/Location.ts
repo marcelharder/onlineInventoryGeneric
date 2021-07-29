@@ -1,3 +1,5 @@
+import { DropItem } from "./dropItem";
+
 export interface Location {
         locationId: number;
         naam: string;
@@ -21,6 +23,7 @@ export interface Location {
         triggerTwoMonth: string;
         triggerThreeMonth: string;
         dBBackend: string;
+        vendors: DropItem[];
 
 }
 
