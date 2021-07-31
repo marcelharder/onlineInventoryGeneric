@@ -5,7 +5,6 @@ export interface Location {
         naam: string;
         adres: string;
         postalCode: string;
-        hospitalNo: number;
         country: string;
         image: string;
         refHospitals: string;

@@ -27,12 +27,12 @@
         <th></th>
       </tr>
       <tr *ngFor="let p of hos">
-        <th>{{p.id}}</th>
+        <th>{{p.locationId}}</th>
         <th>{{p.contact}}</th>
         <th>{{p.naam}}</th>
         <th>{{p.telephone}}</th>
         <th>{{p.email}}</th>
-        <td><a (click)="selectDetails(p.hospitalNo)">Details</a></td>
+        <td><a (click)="selectDetails(p.locationId)">Details</a></td>
       </tr>
     </table>
   </div>

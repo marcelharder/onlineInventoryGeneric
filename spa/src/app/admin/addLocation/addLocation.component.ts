@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Location } from 'src/app/_models/Location';
 
 @Component({
   selector: 'app-addLocation',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./addLocation.component.scss']
 })
 export class AddLocationComponent implements OnInit {
+  @Input() loc: Location;
 
   constructor() { }
 

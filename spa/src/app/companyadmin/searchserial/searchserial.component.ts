@@ -49,7 +49,6 @@ export class SearchserialComponent implements OnInit {
     naam: '',
     adres: '',
     postalCode: '',
-    hospitalNo: 0,
     country: '',
     image: '',
     refHospitals: '',

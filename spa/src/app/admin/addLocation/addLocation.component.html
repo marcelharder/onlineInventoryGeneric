@@ -1,3 +1,15 @@
-<p>
-  addLocation works!
-</p>
+<form #addForm="ngForm" id="addForm">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2">
+          <h6><span class="badge badge-secondary">Name</span></h6>
+        </div>
+        <div class="col-sm-10"><input type="text" [(ngModel)]="loc.naam" class="form-control"
+            name="var01"></div>
+      </div>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+</form>

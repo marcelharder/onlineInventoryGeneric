@@ -27,7 +27,7 @@ namespace api.Helpers
 
        
         public string OrderBy { get; set; }
-        public int HospitalNo { get; set; }
+        public int locationId { get; set; }
 
     }
 }

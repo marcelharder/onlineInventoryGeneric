@@ -85,10 +85,10 @@ namespace api.DAL.Implementations
             result.OrderBy(c => c.Expiry_date);
             return result.ToList();
         }
-        public List<Class_Product> getAlmostExpiringProductsThreeMonths(string hospital, DateTime compareDate, int currentVendor)
+        public List<Class_Product> getAlmostExpiringProductsThreeMonths(int locationId, DateTime compareDate, int currentVendor)
         {
 
-            var result = _context.Products.Where(x => x.Location_code == Convert.ToInt32(hospital)).AsQueryable();
+            var result = _context.Products.Where(x => x.Location_code == locationId).AsQueryable();
             if (result.Count() != 0)
             {
                 result = result.Where(s => s.implanted == 0);
@@ -121,7 +121,7 @@ namespace api.DAL.Implementations
 
                 foreach (Class_Locations  h in listOfLocations)
                 {
-                    var test = getAlmostExpiringProductsThreeMonths(h.HospitalNo, getCompareDate(months), currentVendor);
+                    var test = getAlmostExpiringProductsThreeMonths(h.LocationId, getCompareDate(months), currentVendor);
                     if (test != null)
                     {
                         foreach (Class_Product cv in test)
@@ -389,8 +389,7 @@ namespace api.DAL.Implementations
 
         public async Task<List<Class_Product>> getValvesForSOAAsync(ProductParams  v)
         {
-            // v.HospitalNo = await _special.getCurrentUserHospitalId();
-            return await methodXAsync(v);
+           return await methodXAsync(v);
         }
 
         private async Task<List<Class_Product>> methodXAsync(ProductParams  v)
@@ -449,7 +448,7 @@ namespace api.DAL.Implementations
             if (sp.BioPref == "1")
             {
                 var result = await _context.Products
-                .Where(x => x.Location_code == sp.HospitalNo)
+                .Where(x => x.Location_code == sp.locationId)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)
                 .Where(s => s.Implant_position == sp.Position)

@@ -69,9 +69,6 @@ namespace api.Migrations
                     b.Property<string>("Fax")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("HospitalNo")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("Image")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

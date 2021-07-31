@@ -54,7 +54,6 @@ export class SuperuserComponent implements OnInit {
         naam: '',
         adres: '',
         postalCode: '',
-        hospitalNo: 0,
         country: '',
         image: '',
         refHospitals: '',

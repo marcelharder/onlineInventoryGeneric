@@ -29,7 +29,6 @@ export class ListHospitalsForRefComponent implements OnInit {
     naam: '',
     adres: '',
     postalCode: '',
-    hospitalNo: 0,
     country: '',
     image: '',
     refHospitals: '',

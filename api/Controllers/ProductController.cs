@@ -261,7 +261,7 @@ namespace api.Controllers
         {
             var help = Convert.ToInt32(sv.UserId);
             if (help != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
-            sv.HospitalNo = await _special.getCurrentUserHospitalId();
+            sv.locationId = await _special.getCurrentUserHospitalId();
             var result = await _product.getSuggestedValves(sv);
 
             Response.AddPagination(result.Currentpage,

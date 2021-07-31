@@ -81,7 +81,7 @@ namespace api.DAL.Implementations
                 if (h.FirstOrDefault(a => a.Description == currentVendor) != null)
                 {
                     var help = new Class_Item();
-                    help.Value = Convert.ToInt32(x.HospitalNo);
+                    help.Value = x.LocationId;
                     help.Description = x.Naam;
                     l.Add(help);
                 }
@@ -178,7 +178,7 @@ namespace api.DAL.Implementations
         public async Task<string> removeVendor(string vendor, int hospital_id)
         {
             var result = "";
-            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.HospitalNo == hospital_id.ToString());
+            var selectedHospital = await _context.Locations.Include(i => i.vendors).FirstOrDefaultAsync(x => x.LocationId == hospital_id);
             var vendors = selectedHospital.vendors;
             var help = vendors.FirstOrDefault(s => s.Description == vendor);
             if (help != null)
@@ -228,7 +228,7 @@ namespace api.DAL.Implementations
                 foreach (Class_Locations x in result)
                 {
                     var help = new Class_Item();
-                    help.Value = Convert.ToInt32(x.HospitalNo);
+                    help.Value = x.LocationId;
                     help.Description = x.Naam;
                     l.Add(help);
                 }
@@ -245,7 +245,7 @@ namespace api.DAL.Implementations
                 foreach (Class_Locations x in result)
                 {
                     var help = new Class_Item();
-                    help.Value = Convert.ToInt32(x.HospitalNo);
+                    help.Value = x.LocationId;
                     help.Description = x.Naam;
                     l.Add(help);
                 }
@@ -267,12 +267,12 @@ namespace api.DAL.Implementations
 
         public async Task<bool> isThisHospitalOVI(int hospital_id)
         {
-            var h = hospital_id.ToString().makeSureTwoChar();
+           
 
-            if (await _context.Locations.AnyAsync(a => a.HospitalNo == h))
+            if (await _context.Locations.AnyAsync(a => a.LocationId == hospital_id))
             {
 
-                var help = await _context.Locations.FirstOrDefaultAsync(a => a.HospitalNo == h);
+                var help = await _context.Locations.FirstOrDefaultAsync(a => a.LocationId == hospital_id);
                 if (help.rp == null) return false;
                 if (help.rp.Equals("1")) return true;
 

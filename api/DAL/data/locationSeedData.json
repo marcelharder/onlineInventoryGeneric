@@ -2,8 +2,7 @@
   {
     "Naam": "Catharina",
     "Adres": "http://77.173.53.32/hospitalcoreapi01",
-    "HospitalNo": "01",
-    "Country": "NL",
+     "Country": "NL",
     "Image": "null",
     "RefHospitals": "2,3,4",
     "StandardRef": "1",
@@ -31,7 +30,6 @@
  {
     "Naam": "King Faisal Specialty Hospital",
     "Adres": "http://77.173.53.32/hospitalcoreapi40",
-    "HospitalNo": "40",
     "Country": "SA",
     "Image": null,
     "RefHospitals": null,
@@ -59,7 +57,6 @@
   {
     "Naam": "National Guard Hospital Riyadh",
     "Adres": "http://mockziekenhuis.azurewebsites.net",
-    "HospitalNo": "35",
     "Country": "SA",
     "Image": "null",
     "RefHospitals": "2,3,4",
@@ -85,7 +82,6 @@
   {
     "Naam": "Prince Sultan Cardiac Center Riyadh",
     "Adres": "Malik Road",
-    "HospitalNo": "37",
     "Country": "SA",
     "Image": "null",
     "RefHospitals": "2,3,4",
@@ -113,7 +109,6 @@
     "Naam": "Saudi German Hospital",
     "Adres": "Hera Road",
     "PostalCode": null,
-    "HospitalNo": "44",
     "Country": "SA",
     "Image": null,
     "RefHospitals": null,
@@ -143,7 +138,6 @@
     "Naam": "UC Riverside",
     "Adres": null,
     "PostalCode": null,
-    "HospitalNo": "48",
     "Country": "US",
     "Image": null,
     "RefHospitals": null,
@@ -170,7 +164,6 @@
     "Naam": "Store",
     "Adres": "",
     "PostalCode": "",
-    "HospitalNo": "0",
     "Country": "",
     "Image": null,
     "RefHospitals": null,
@@ -196,7 +189,6 @@
   {
     "Naam": "Sample Hospital",
     "Adres": "Molensingel 154",
-    "HospitalNo": "38",
     "Country": "NL",
     "Image": "null",
     "RefHospitals": "2,3,4",
@@ -224,7 +216,6 @@
     "Naam": "AP Henri-Mondor",
     "Adres": "51 avenue du Maréchal de Lattre de Tassigny",
     "PostalCode": "94010 Creteil Cedex",
-    "HospitalNo": "47",
     "Country": "FR",
     "Image": null,
     "RefHospitals": null,

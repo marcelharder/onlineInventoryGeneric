@@ -24,5 +24,5 @@ export class HospitalService {
   isOVIPlace(){return this.http.get<number>(this.baseUrl + 'isOVIPlace');}
   getAllHospitals(){return this.http.get<DropItem>(this.baseUrl + 'allHospitals');}
   removeLocation(hospitalId: number){return this.http.delete<string>(this.baseUrl + 'removeLocation/' + hospitalId);}
-
+  addLocation(){return this.http.get<Location>(this.baseUrl + 'addLocation');}
 }

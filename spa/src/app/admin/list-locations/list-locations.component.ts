@@ -22,7 +22,6 @@ export class ListLocationsComponent implements OnInit {
     naam: "",
     adres: "",
     postalCode: "",
-    hospitalNo: 0,
     country: "",
     image: "",
     refHospitals: "",
@@ -42,7 +41,7 @@ export class ListLocationsComponent implements OnInit {
     dBBackend: "",
     vendors: []
   }
-  ah: Array<Location> = [];
+  ah: Array<DropItem> = [];
 
   constructor(private route: ActivatedRoute,
     private auth: AuthService,
@@ -63,14 +62,18 @@ export class ListLocationsComponent implements OnInit {
  
 
   hospitalChanged() {
-    this.sd = 1;
-    this.hos.getDetails(this.selectedHospital).subscribe((next) => {
-      this.locationDetails = next;
-      // get List of available vendors
-      this.hos.getListOfAvailableVendors(this.locationDetails.hospitalNo).subscribe((next) => {
-         this.listOfAvailableVendors = next;
-      });
-    })
+    debugger;
+    if(this.selectedHospital !== undefined){
+      this.sd = 1;
+      this.hos.getDetails(this.selectedHospital).subscribe((next) => {
+        this.locationDetails = next;
+        // get List of available vendors
+        this.hos.getListOfAvailableVendors(this.locationDetails.locationId).subscribe((next) => {
+           this.listOfAvailableVendors = next;
+        });
+      })
+    } else {this.alertify.warning("No location selected ...");}
+    
   }
   updateLocationDetails() {
     this.hos.saveDetails(this.locationDetails).subscribe((next) => {
@@ -90,15 +93,21 @@ export class ListLocationsComponent implements OnInit {
       hospitalName = next.naam;
       this.alertify.confirm("Are you sure to delete " + hospitalName, ()=>{
         this.hos.removeLocation(this.selectedHospital).subscribe(
-          (next)=>{this.alertify.message("Deleting ...");});
+          (next)=>{
+            // hide de details sectie
+            this.adl = 0;
+            // remove this location from the current list of locations dropitems
+            let index = this.ah.findIndex(a => a.value === this.selectedHospital);
+            this.ah.splice(index, 1);
+            this.alertify.message("Deleting ...");});
       });
     })
-   
-   
-     }
+  }
   addLocation() { 
     this.adl = 1;
-    this.alertify.message("Adding ..."); }
+    this.sd = 0;
+    this.hos.addLocation().subscribe((next)=>{this.locationDetails = next;});
+    }
 
   removeVendor(Description: string) {
     debugger;
@@ -121,8 +130,11 @@ export class ListLocationsComponent implements OnInit {
   saveLocation(){
     // save the details to the server
     this.hos.saveDetails(this.locationDetails).subscribe((next)=>{
+      this.adl = 0;
+      this.sd = 0;
       // push the new location record on the list of locations
-      this.ah.push(this.locationDetails);
+      let cl:DropItem = {value: this.locationDetails.locationId, description: this.locationDetails.naam};
+      this.ah.push(cl);
       this.alertify.message("Saving ...");
     }, (error)=>{this.alertify.error(error);})
 

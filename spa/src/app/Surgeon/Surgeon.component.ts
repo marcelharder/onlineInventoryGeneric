@@ -26,7 +26,6 @@ export class SurgeonComponent implements OnInit {
   // dataFromAPI: any;
 
   title = 'Valve sizes in aortic position, blue - mechanical, red - bio';
-  currentHospitalNo = 0;
   hos: Location;
   Array_1: any; Array_2: any; Array_3: any;
   testData: [][];

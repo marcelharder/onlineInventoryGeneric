@@ -10,7 +10,6 @@ namespace api.DAL.models
         public string Naam { get; set; }
         public string Adres { get; set; }
         public string PostalCode { get; set; }
-        public string HospitalNo { get; set; }
         public string Country { get; set; }
         public string Image { get; set; }
         public string RefHospitals { get; set; }

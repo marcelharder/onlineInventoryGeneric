@@ -1,132 +1,159 @@
-<form  #locationForm="ngForm" id="locForm">
-<div class="card">
-  <div class="card-header"><h3><span class="badge badge-default">Manage Locations</span></h3></div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="row">
-          <div class="col-sm-12"><div class="d-flex flex-row">
-            <div class="p-2"><h5><span class="badge badge-secondary">All Locations</span></h5></div>
-            <div class="p-2"><select [(ngModel)]="selectedHospital" 
-              name="select3" 
-              class="form-control" >
-                <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
-              </select></div>
-            <div class="p-2">
-              <div class="btn-group">
-                <button class="btn btn-success btn-xs" (click)="hospitalChanged()">Details</button>
-                <button class="btn btn-danger" *ngIf="showDetails()" (click)="deleteLocation()"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+<form #locationForm="ngForm" id="locForm">
+  <div class="card">
+    <div class="card-header">
+      <h3><span class="badge badge-default">Manage Locations</span></h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="d-flex flex-row">
+                <div class="p-2">
+                  <h5><span class="badge badge-secondary">All Locations</span></h5>
+                </div>
+                <div class="p-2"><select [(ngModel)]="selectedHospital" name="select3" class="form-control">
+                    <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
+                  </select></div>
+                <div class="p-2">
+                  <div class="btn-group">
+                    <button class="btn btn-success btn-xs" (click)="hospitalChanged()">Details</button>
+                   
+                  </div>
+                </div>
               </div>
             </div>
-          </div></div>
-        </div>
-        <div class="row" *ngIf="showAddLocation()">
-        <div class="col-sm-12">
-         adding
-        </div>
-        </div>
-        <div class="row mt-5" *ngIf="showAddLocation()">
-          <div class="col-sm-6">
-            <div class="d-flex flex-row">
-            <div class="p-2"> 
-              <div class="btn-group">
-              <button class="btn btn-primary" (click)="saveLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Save</button>
-            </div></div>
-            <div class="p-2"></div>
-            <div class="p-2"></div>
           </div>
-        </div>
-        <div class="col-sm-6"></div>
-        </div>
+          <div class="row" *ngIf="showAddLocation()">
+            <div class="col-sm-12">
+              <!--hier komt de add location card-->
+              <app-addLocation [loc]=locationDetails></app-addLocation>
+            </div>
+          </div>
+
+          <div class="row mt-5" *ngIf="showAddLocation()">
+            <div class="col-sm-6">
+              <div class="d-flex flex-row">
+                <div class="p-2">
+                  <div class="btn-group">
+                    <button class="btn btn-primary" (click)="saveLocation()"> Save</button>
+                  </div>
+                </div>
+                <div class="p-2"></div>
+                <div class="p-2"></div>
+              </div>
+            </div>
+            <div class="col-sm-6"></div>
+          </div>
 
 
-        <div class="row mt-5" *ngIf="!showAddLocation()">
-          <div class="col-sm-6">
-            <div class="d-flex flex-row">
-            <div class="p-2"> 
-              <div class="btn-group">
-              <button class="btn btn-primary" (click)="addLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
-            </div></div>
-            <div class="p-2"></div>
-            <div class="p-2"></div>
+          <div class="row mt-5" *ngIf="!showAddLocation()">
+            <div class="col-sm-6">
+              <div class="d-flex flex-row">
+                <div class="p-2">
+                  <div class="btn-group">
+                    <button class="btn btn-primary" (click)="addLocation()"><i class="fa fa-plus"
+                        aria-hidden="true"></i> Add</button>
+                  </div>
+                </div>
+                <div class="p-2"></div>
+                <div class="p-2"></div>
+              </div>
+            </div>
+            <div class="col-sm-6"></div>
           </div>
         </div>
-        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+          <div class="card" *ngIf="showDetails()">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-sm-6"><h5><span class="badge badge-secondary">Location details</span></h5></div>
+                <div class="col-sm-6"><button class="badge badge-danger" style="float: right;" *ngIf="showDetails()" (click)="deleteLocation()"><i
+                  class="fa fa-times" aria-hidden="true"></i> Delete</button></div>
+              </div>
+             </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-2">
+                  <h6><span class="badge badge-secondary">Name</span></h6>
+                </div>
+                <div class="col-sm-10"><input type="text" [(ngModel)]="locationDetails.naam" class="form-control"
+                    name="var01"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <h6><span class="badge badge-secondary">Address</span></h6>
+                </div>
+                <div class="col-sm-10"><input type="text" [(ngModel)]="locationDetails.adres" class="form-control"
+                    name="var02"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <h6><span class="badge badge-secondary">Country</span></h6>
+                </div>
+                <div class="col-sm-10"><input type="text" [(ngModel)]="locationDetails.country" class="form-control"
+                    name="var03"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h6><span class="badge badge-secondary">Vendors</span></h6>
+                </div>
+                <div class="col-sm-6">
+                  <div class="d-flex flex-row">
+                    <div class="p-2">
+                      <h6><span class="badge badge-secondary">Add vendor</span></h6>
+                    </div>
+                    <div class="p-2"><select [(ngModel)]="selectedVendor" name="select3" class="form-control"
+                        (change)="vendorChanged()">
+                        <option *ngFor="let oop of listOfAvailableVendors" [value]="oop.value">{{ oop.description }}
+                        </option>
+                      </select></div>
+                    <div class="p-2"><button type="button" class="badge badge-danger" (click)="addVendor()">add</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-striped">
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                    <tr *ngFor="let pro of locationDetails.vendors">
+                      <td>{{pro.value}}</td>
+                      <td>{{pro.description}}</td>
+                      <td><button class="btn btn-primary btn-xs" (click)="removeVendor(pro.description)">remove</button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="btn-group">
+                  <button class="btn btn-primary" (click)="cancel()"><i class="fa fa-window-close"
+                      aria-hidden="true"></i>Cancel</button>
+                  <button class="btn btn-primary" (click)="updateLocationDetails()"><i class="fa fa-refresh"
+                      aria-hidden="true"></i> Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="card" *ngIf="showDetails()">
-          <div class="card-header"><h5><span class="badge badge-secondary">Location details</span></h5></div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-2"><h6><span class="badge badge-secondary">Name</span></h6></div>
-              <div class="col-sm-10"><input type="text" 
-                [(ngModel)]="locationDetails.naam" 
-                class="form-control"
-                name="var01"></div>
-            </div>
-            <div class="row">
-              <div class="col-sm-2"><h6><span class="badge badge-secondary">Address</span></h6></div>
-              <div class="col-sm-10"><input type="text" 
-                [(ngModel)]="locationDetails.adres" 
-                class="form-control"
-                name="var02"></div>
-            </div>
-            <div class="row">
-              <div class="col-sm-2"><h6><span class="badge badge-secondary">Country</span></h6></div>
-              <div class="col-sm-10"><input type="text" 
-                [(ngModel)]="locationDetails.country" 
-                class="form-control"
-                name="var03"></div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6"><h6><span class="badge badge-secondary">Vendors</span></h6></div>
-              <div class="col-sm-6"><div class="d-flex flex-row">
-                <div class="p-2"><h6><span class="badge badge-secondary">Add vendor</span></h6></div>
-                <div class="p-2"><select [(ngModel)]="selectedVendor" name="select3" class="form-control" (change)="vendorChanged()">
-                  <option *ngFor="let oop of listOfAvailableVendors" [value]="oop.value">{{ oop.description }}</option>
-                </select></div>
-                <div class="p-2"><button type="button" class="badge badge-danger" (click)="addVendor()">add</button></div>
-              </div></div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <table class="table table-striped">
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th></th>
-                  </tr>
-                  <tr *ngFor="let pro of locationDetails.vendors">
-                    <td>{{pro.value}}</td>
-                    <td>{{pro.description}}</td>
-                    <td><button class="btn btn-primary btn-xs" (click)="removeVendor(pro.description)">remove</button></td>
-                  </tr>
-                </table>
-               </div>
-             
-              
-            </div>
-         
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="btn-group">
-                <button class="btn btn-primary" (click)="cancel()"><i class="fa fa-window-close" aria-hidden="true"></i>Cancel</button>
-                 <button class="btn btn-primary" (click)="updateLocationDetails()"><i class="fa fa-refresh" aria-hidden="true"></i> Update</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+    </div>
+    <div class="card-footer">
+      <div class="row">
 
       </div>
     </div>
   </div>
-  <div class="card-footer">
-    <div class="row" >
-     
-    </div>
-  </div>
-</div>
 </form>
