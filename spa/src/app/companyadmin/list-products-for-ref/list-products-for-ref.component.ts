@@ -38,8 +38,6 @@ export class ListProductsForRefComponent implements OnInit {
       rep = next;
       this.currentCountry = next.country;
 
-      // tslint:disable-next-line:no-shadowed-variable
-      // this.gen.getCountryName(rep.country).subscribe((next) => {  this.currentCountry = next; });
     });
   }
 

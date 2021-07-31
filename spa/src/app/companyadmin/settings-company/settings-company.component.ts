@@ -36,6 +36,7 @@ export class SettingsCompanyComponent implements OnInit {
 
 
     this.user.getUser(this.auth.decodedToken.nameid).subscribe((next) => {
+      debugger;
       rep = next;
       this.ven.getAllFullProducts(next.vendorCode).subscribe((nex) => { this.FullProducts = nex; });
       this.hos.getFullHospitalsWhereVendorIsActive().subscribe((ne) => { this.FullHospitals = ne; });

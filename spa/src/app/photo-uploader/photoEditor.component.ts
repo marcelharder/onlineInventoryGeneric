@@ -36,18 +36,19 @@ export class PhotoEditorComponent implements OnInit {
 
   initializeUploader() {
     let test = '';
-    if (typeof this.userId !== 'undefined' ) {
+    if (typeof this.userId !== 'undefined' && this.userId !== 0 ) {
+      debugger;
       test = this.baseUrl + 'users/addUserPhoto/' + this.userId
     }
     else {
-      if (typeof this.hospitalId !== 'undefined') {
+      if (typeof this.hospitalId !== 'undefined' && this.hospitalId !== 0) {
         test = this.baseUrl + 'hospital/addHospitalPhoto/' + this.hospitalId
       }
       else {
-        if (typeof this.valvecode !== 'undefined') {
-          test = this.baseUrl + 'addProductPhoto/' + this.valvecode
+        if (typeof this.valvecode !== 'undefined' && this.valvecode !== 0) {
+          test = this.baseUrl + 'addProductTypePhoto/' + this.valvecode
         } else {
-          if (typeof this.companyCode !== 'undefined') {
+          if (typeof this.companyCode !== 'undefined' && this.companyCode !== 0) {
              test = this.baseUrl + 'addCompanyLogo/' + this.companyCode
           }
         }
@@ -66,8 +67,10 @@ export class PhotoEditorComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
+        debugger;
         const res: any = JSON.parse(response);
         if (this.hospitalId !== 0) { this.getMemberPhotoChange.emit(res.ImageUrl); }
         if (this.userId !== 0) { this.getMemberPhotoChange.emit(res.photoUrl); }

@@ -34,6 +34,7 @@ export class EditProductComponent implements OnInit {
 
   }
   updatePhoto(photoUrl: string){
+    debugger;
     this.vc.image = photoUrl;
   }
 
