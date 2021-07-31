@@ -92,20 +92,22 @@ namespace api.DAL.Implementations
         public async Task<List<Class_Locations>> getSphListFull()
         {
             // this gives a list of hospitals in the country of the rep where
-            // the hospital does NOT contain the vendor name
+            // the hospital does contain the vendor name
             var l = new List<Class_Locations>();
             var help = new List<Class_Item>();
             var currentUserId = _special.getCurrentUserId();
             var rep = await _user.GetUser(currentUserId);
+
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.Include(a => a.vendors).AsQueryable();
-            result = result.Where(s => s.Country == currentCountry);
+            ICollection<Class_Locations> result =  _context.Locations.Include(a => a.vendors)
+            .Where(s => s.Country == currentCountry)
+            .ToList();
 
             foreach (Class_Locations x in result)
             {
-                for (int i = 0; i < x.vendors.Count; i++)
+                for (int i = 0; i < result.Count; i++)
                 {
                     help = x.vendors.ToList();
                     if (help.FirstOrDefault(a => a.Description == currentVendor) != null)
@@ -113,7 +115,7 @@ namespace api.DAL.Implementations
                         l.Add(x);
                     }
                 }
-            }
+            } 
             return l;
         }
         public async Task<List<Class_Locations>> getNegSphListFull()
@@ -127,15 +129,16 @@ namespace api.DAL.Implementations
             var currentCountry = rep.Country;
             var currentVendor = rep.worked_in; // this means vendor name in a user that is a rep
 
-            var result = _context.Locations.Include(a => a.vendors).AsQueryable();
-            result = result.Where(s => s.Country == currentCountry);
+            ICollection<Class_Locations> result =  _context.Locations.Include(a => a.vendors)
+            .Where(s => s.Country == currentCountry)
+            .ToList();
 
             foreach (Class_Locations x in result)
             {
                 if (x.vendors.Count == 0) { l.Add(x); }
                 else
                 {
-                    for (int i = 0; i < x.vendors.Count; i++)
+                    for (int i = 0; i < result.Count; i++)
                     {
                         help = x.vendors.ToList();
                         if (help.FirstOrDefault(a => a.Description == currentVendor) == null)

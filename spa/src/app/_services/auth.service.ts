@@ -38,7 +38,6 @@ login(model: any) {
         })
     );
 }
-
 register(model: any) { return this.http.post(this.baseUrl + 'auth/register', model); }
 update(model: any) { return this.http.put(this.baseUrl + 'auth/update', model, { responseType: 'text' as 'json' }); }
 

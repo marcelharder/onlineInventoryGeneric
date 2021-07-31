@@ -461,7 +461,7 @@ namespace api.DAL.Implementations
             else
             {
                 var result = await _context.Products
-                .Where(x => x.Location_code == sp.HospitalNo)
+                .Where(x => x.Location_code == sp.locationId)
                 .Where(s => s.Implant_position == sp.Position)
                 .Where(s => s.implanted == 0)
                 .Where(s => s.Size == sp.Size)

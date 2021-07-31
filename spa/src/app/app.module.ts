@@ -83,12 +83,13 @@ import { VendorEditCardComponent } from './admin/vendorEditCard/vendorEditCard.c
 import { ListLocationsComponent } from './admin/list-locations/list-locations.component';
 import { ListLocationsResolver } from './_resolvers/ListLocationsResolver';
 import { AddLocationComponent } from './admin/addLocation/addLocation.component';
+import { UpdateCredentialsComponent } from './updateCredentials/updateCredentials.component';
 
 
 export function tokenGet() { return localStorage.getItem('token'); }
 
 @NgModule({
-   declarations: [
+   declarations: [	
       AppComponent,
       HomeComponent,
       AboutComponent,
@@ -134,8 +135,8 @@ export function tokenGet() { return localStorage.getItem('token'); }
       SelectValveTypeListComponent,
       SelectValveTypeDetailsComponent,
       ListLocationsComponent,
-      AddLocationComponent
-
+      AddLocationComponent,
+      UpdateCredentialsComponent
    ],
    imports: [
       CommonModule,

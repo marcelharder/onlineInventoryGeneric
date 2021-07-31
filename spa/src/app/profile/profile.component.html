@@ -74,6 +74,9 @@
               </div>
             </form>
           </tab>
+          <tab heading="Change your login credentials">
+          <app-updateCredentials></app-updateCredentials>
+          </tab>
            <tab heading="Upload photo">
            <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="changeMainPhoto($event)"></app-photo-editor>
            </tab> 
