@@ -13,16 +13,38 @@
                 <option *ngFor="let oop of ah" [value]="oop.value">{{ oop.description }}</option>
               </select></div>
             <div class="p-2">
-              <button class="btn btn-success btn-xs" (click)="hospitalChanged()">Details</button>
-     
+              <div class="btn-group">
+                <button class="btn btn-success btn-xs" (click)="hospitalChanged()">Details</button>
+                <button class="btn btn-danger" *ngIf="showDetails()" (click)="deleteLocation()"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+              </div>
             </div>
           </div></div>
-         
         </div>
-        <div class="row mt-5" *ngIf="showDetails()">
-          <div class="col-sm-6"><div class="d-flex flex-row">
-            <div class="p-2"> <div class="btn-group">
-              <button class="btn btn-danger" (click)="deleteLocation()"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+        <div class="row" *ngIf="showAddLocation()">
+        <div class="col-sm-12">
+         adding
+        </div>
+        </div>
+        <div class="row mt-5" *ngIf="showAddLocation()">
+          <div class="col-sm-6">
+            <div class="d-flex flex-row">
+            <div class="p-2"> 
+              <div class="btn-group">
+              <button class="btn btn-primary" (click)="saveLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Save</button>
+            </div></div>
+            <div class="p-2"></div>
+            <div class="p-2"></div>
+          </div>
+        </div>
+        <div class="col-sm-6"></div>
+        </div>
+
+
+        <div class="row mt-5" *ngIf="!showAddLocation()">
+          <div class="col-sm-6">
+            <div class="d-flex flex-row">
+            <div class="p-2"> 
+              <div class="btn-group">
               <button class="btn btn-primary" (click)="addLocation()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
             </div></div>
             <div class="p-2"></div>
