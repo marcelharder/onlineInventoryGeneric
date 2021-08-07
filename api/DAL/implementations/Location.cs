@@ -107,14 +107,13 @@ namespace api.DAL.Implementations
 
             foreach (Class_Locations x in result)
             {
-                for (int i = 0; i < result.Count; i++)
-                {
+                
                     help = x.vendors.ToList();
                     if (help.FirstOrDefault(a => a.Description == currentVendor) != null)
                     {
                         l.Add(x);
                     }
-                }
+                
             } 
             return l;
         }
@@ -138,15 +137,13 @@ namespace api.DAL.Implementations
                 if (x.vendors.Count == 0) { l.Add(x); }
                 else
                 {
-                    for (int i = 0; i < result.Count; i++)
-                    {
                         help = x.vendors.ToList();
                         if (help.FirstOrDefault(a => a.Description == currentVendor) == null)
                         {
                             l.Add(x);
                         }
-                    }
                 }
+                
             }
             return l;
         }
