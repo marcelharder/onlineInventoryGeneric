@@ -27,5 +27,6 @@ namespace api.DAL.Interfaces
         Task<Class_ProductType> getDetailsByProductCode(string product_code);
         Task<Class_ProductType> getDetailsByValveTypeId(int id);
         Task <List<Class_ProductType>> getAllProductsByVTP(string vendor, string type, string position);
+        Task <List<Class_Item>> getValveSizesByModelCode(string m);
     }
 }

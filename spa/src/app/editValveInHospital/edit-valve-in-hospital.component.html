@@ -92,26 +92,9 @@
     <h5><span class="badge badge-info">Size</span></h5>
   </div>
   <div class="col-sm-3">
-    <div class="row" *ngIf="!displayChangeSize()">
-      <div class="col-sm-6"><span><input class="form-control" [(ngModel)]="valve.size" name="1" readonly></span></div>
-      <div class="col-sm-6"><button class="btn btn-warning btn-sm" (click)="changeSize()">Change</button></div>
-    </div>
-    
-
-    <table class="table table-striped"  *ngIf="displayChangeSize()">
-      
-        <th>Size</th>
-        <th>EOA</th>
-        <th></th>
-       
-      <tr *ngFor="let pro of valveSizes" style="background-color: blanchedalmond;">
-        <td>{{pro.size}}</td>
-        <td>{{pro.eoa}}</td>
-        <td><button class="btn btn-warning btn-sm" (click)="selectThisValve(pro.size)">select</button></td>
-       </tr>
-      
-    </table>
-  
+    <select  [(ngModel)]="valve.size"  name="ve"  class="form-control"  >
+      <option *ngFor="let an of optionsSizes" [value]="an.value"> {{ an.description }} </option>
+    </select>
   </div>
   <div class="col-sm-3">
     <h5><span class="badge badge-info">Implant position</span></h5>
@@ -120,24 +103,7 @@
     <h5><span class="badge badge-default">{{valve.implant_position}}</span></h5>
   </div>
 </div>
-<div class="row">
-   <div class="col-sm-3">
-    <h5><span class="badge badge-info">Procedure id</span></h5>
-  </div>
-  <div class="col-sm-3">
-    <input type="text" class="form-control" [(ngModel)]="valve.procedure_id" name="test17" />
-  </div>
-  <div class="col-sm-3">
-    <h5><span class="badge badge-info">Implanted</span></h5>
-  </div>
-  <div class="col-sm-3" *ngIf="superUserLoggedin()">
-    <select [(ngModel)]="valve.implanted"  name="implanted"  class="form-control">
-      <option *ngFor="let an of optionsImplant" [value]=an.value>{{ an.description }}</option>
-    </select>
-  </div>
 
- 
-</div>
 <div class="row mt-2">
   <div class="row">
     <div class="col-sm-9">

@@ -12,6 +12,7 @@ import { ValveService } from '../_services/valve.service';
 import { valveSize } from '../_models/valveSize';
 import { ProductService } from '../_services/product.service';
 import { TypeOfValve } from '../_models/TypeOfValve';
+import { HospitalService } from '../_services/hospital.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class EditValveInHospitalComponent implements OnInit {
     @Input() sizes: number[];
     @Output() valveBack = new EventEmitter<Valve>();
     optionsImplant: Array<DropItem> = [];
-    valveSizes: Array<valveSize> = [];
+    optionsSizes: Array<DropItem> = [];
     ch = 0;
     product: TypeOfValve =  {
         valveTypeId: 0,
@@ -53,18 +54,25 @@ export class EditValveInHospitalComponent implements OnInit {
         private auth: AuthService,
         private alertify: AlertifyService,
         private router: Router,
+        private hos: HospitalService,
         private prod: ProductService,
         private valveService: ValveService,
         private drops: DropService) {
 
     }
     ngOnInit(): void {
-
-
         // get the hospitalName from the auth service, because the valve is not here yet
-        this.auth.currentHospital.subscribe((next) => { this.HospitalName = next; });
+        this.auth.currentHospital.subscribe((next) => { 
+            let hospitalNumber = next;
+            this.hos.getDetails(+hospitalNumber).subscribe((nex)=>{
+                this.HospitalName = nex.naam;
+            })
+            
+             });
 
-
+        this.prod.getValveSizes(this.valve.model_code).subscribe((nex)=>{
+            this.optionsSizes = nex;
+        })
         this.loadDrops();
     }
 
@@ -89,19 +97,7 @@ export class EditValveInHospitalComponent implements OnInit {
         this.ch = 0;
         this.valve.size = id.toString();
     }
-    changeSize() {
-        this.ch = 1;
-        // find the valvetype through the modelNo, get the valve sizes
-        this.prod.getProductByProduct_code(this.valve.product_code).subscribe((next) => {
-            this.prod.getValveSizes(next.valveTypeId).subscribe((nex)=>{
-                this.valveSizes = nex;
-             })
-
-            this.alertify.message(this.product.description);
-        }, error => {
-            this.alertify.error(error);
-        })
-    }
+    
 
 
     loadDrops() {
