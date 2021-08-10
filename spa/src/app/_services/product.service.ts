@@ -14,7 +14,7 @@ export class ProductService {
      
    
     addProduct() { return this.http.get<TypeOfValve>(this.baseUrl + 'addProductType'); }
-    getProductByProduct_code(pc:string){return this.http.get<TypeOfValve>(this.baseUrl + 'productByCode/' + pc); }
+    getProductByProduct_code(pc:string){return this.http.get<TypeOfValve>(this.baseUrl + 'productTypeByCode/' + pc); }
     getProductById(id: number) { return this.http.get<TypeOfValve>(this.baseUrl + 'productByValveTypeId/' + id); }
     saveDetails(p: TypeOfValve) { return this.http.post<string>(this.baseUrl + 'saveProductTypeDetails', p, { responseType: 'text' as 'json' }); }
     deleteProduct(id: number) { return this.http.delete(this.baseUrl + 'deleteProductType/' + id); }

@@ -12,6 +12,7 @@ import { ValveService } from '../_services/valve.service';
 import { valveSize } from '../_models/valveSize';
 import { ProductService } from '../_services/product.service';
 import { TypeOfValve } from '../_models/TypeOfValve';
+import { HospitalService } from '../_services/hospital.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class EditValveInHospitalComponent implements OnInit {
     @Output() valveBack = new EventEmitter<Valve>();
     optionsImplant: Array<DropItem> = [];
     valveSizes: Array<valveSize> = [];
-    ch = 0;
+  
     product: TypeOfValve =  {
         valveTypeId: 0,
         no: 0,
@@ -50,6 +51,7 @@ export class EditValveInHospitalComponent implements OnInit {
 
     constructor(
         private gen: GeneralService,
+        private hos: HospitalService,
         private auth: AuthService,
         private alertify: AlertifyService,
         private router: Router,
@@ -59,44 +61,41 @@ export class EditValveInHospitalComponent implements OnInit {
 
     }
     ngOnInit(): void {
-
-
         // get the hospitalName from the auth service, because the valve is not here yet
-        this.auth.currentHospital.subscribe((next) => { this.HospitalName = next; });
-
-
+        this.auth.currentHospital.subscribe((next) => { 
+            this.hos.getDetails(+next).subscribe((nex)=>{ this.HospitalName = nex.naam;})
+            });
         this.loadDrops();
     }
 
-    displayChangeSize() { if (this.ch === 1) { return true; } }
+   
 
     superUserLoggedin() { if (this.auth.decodedToken.role === 'superuser') { return true; } else { return false; } }
 
-    Cancel() { this.router.navigate(['/home']); }
+    Cancel() { 
+        // remove the already created record from the database
+        this.prod.deleteProduct(this.valve.valveId).subscribe((next)=>{});
+        this.router.navigate(['/home']); }
 
     Save() {
         if (this.canIGo()) {
             this.valveBack.emit(this.valve);
         } else {
-            // log the error;
-
+            // 
         }
-
-
     }
 
     selectThisValve(id: number) {
-        this.ch = 0;
+      
         this.valve.size = id.toString();
     }
-    changeSize() {
-        this.ch = 1;
+    findValveSizes() {
+       
         // find the valvetype through the modelNo, get the valve sizes
         this.prod.getProductByProduct_code(this.valve.product_code).subscribe((next) => {
-            this.prod.getValveSizes(next.valveTypeId).subscribe((nex)=>{
-                this.valveSizes = nex;
+            this.prod.getProductById(next.valveTypeId).subscribe((nex)=>{
+                this.valveSizes = nex.product_size;
              })
-
             this.alertify.message(this.product.description);
         }, error => {
             this.alertify.error(error);
@@ -105,6 +104,7 @@ export class EditValveInHospitalComponent implements OnInit {
 
 
     loadDrops() {
+        this.findValveSizes();
         const d = JSON.parse(localStorage.getItem('implant_options'));
         if (d == null || d.length === 0) {
             this.drops.getImplantedOptions().subscribe((response) => {
@@ -127,14 +127,11 @@ export class EditValveInHospitalComponent implements OnInit {
                 }
             }
         }
-
         const currentDate = new Date();
         if (moment(currentDate).isAfter(this.valve.expiry_date)) {
             this.alertify.error('This valve is already expired ...');
             help = false;
         }
-
-
         return help;
     }
 
