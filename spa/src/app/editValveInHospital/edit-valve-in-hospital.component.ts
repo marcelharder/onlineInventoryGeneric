@@ -51,10 +51,10 @@ export class EditValveInHospitalComponent implements OnInit {
 
     constructor(
         private gen: GeneralService,
-        private hos: HospitalService,
         private auth: AuthService,
         private alertify: AlertifyService,
         private router: Router,
+        private hos: HospitalService,
         private prod: ProductService,
         private valveService: ValveService,
         private drops: DropService) {

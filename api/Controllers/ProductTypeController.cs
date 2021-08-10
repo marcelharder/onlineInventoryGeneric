@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -119,6 +120,12 @@ namespace api.Controllers
             return BadRequest();
         }
 
+        [Route("api/getValveCodeSizes/{m}")]
+        [HttpGet]
+        public async Task<IActionResult> getSizes(string m){
+            var result = await _vc.getValveSizesByModelCode(m);
+            return Ok(result);
+        }
 
         #region <!-- used by soa -->
 

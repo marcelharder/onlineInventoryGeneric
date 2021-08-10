@@ -174,5 +174,19 @@ namespace api.DAL.Implementations
  
            return ap;
         }
+
+        public async Task<List<Class_Item>> getValveSizesByModelCode(string m)
+        {
+            var help = new List<Class_Item>();
+            var result = await _context.ProductTypes.Include(a => a.Product_size).FirstOrDefaultAsync(a => a.Model_code == m);
+            
+            foreach(Class_Product_Size cz in result.Product_size){
+                var h = new Class_Item();
+                h.Description = cz.Size.ToString();
+                h.Value = cz.Size;
+                help.Add(h);
+            }
+            return help;
+        }
     }
 }
