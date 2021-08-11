@@ -20,7 +20,7 @@ export class ProductService {
     saveDetails(p: TypeOfValve) { return this.http.post<string>(this.baseUrl + 'saveProductTypeDetails', p, { responseType: 'text' as 'json' }); }
     deleteProduct(id: number) { return this.http.delete(this.baseUrl + 'deleteProductType/' + id); }
     deleteValveSize(id:number, vs: number){return this.http.delete<number>(this.baseUrl + 'deleteTypeSize/' + id + '/' + vs)}
-    getValveSizes(id: string){return this.http.get<DropItem[]>(this.baseUrl + 'getValveCodeSizes/' + id)}
+    getValveSizes(id: string){return this.http.get<valveSize[]>(this.baseUrl + 'getValveCodeSizes/' + id)}
     addValveSize   (id:number, vs: valveSize){return this.http.post<valveSize>(this.baseUrl + 'addTypeSize/' + id, vs)}
     getProductsByVTP(v: number, t: string, p: string){ return this.http.get<TypeOfValve[]>(this.baseUrl + 'productsByVTP/' + v + '/' + t + '/' + p); }
  

@@ -71,8 +71,10 @@ export class EditProductComponent implements OnInit {
   }
   deleteProduct() {
     this.alertify.confirm('Are you sure ?', () => {
-      this.prod.deleteProduct(this.vc.no).subscribe();
-      this.povOut.emit(1);
+      this.prod.deleteProduct(this.vc.no).subscribe((next)=>{
+        this.povOut.emit(1);
+      });
+      
     });
 
   }

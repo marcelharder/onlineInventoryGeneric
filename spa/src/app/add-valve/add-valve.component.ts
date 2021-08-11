@@ -70,7 +70,7 @@ export class AddValveComponent implements OnInit {
         if (p !== 0) {
             // get the valveSizes that belog to this valve
             this.valveSizes = [];
-            this.prod.getValveSizes(p).subscribe((next)=>{
+            this.prod.getValveSizes(p.toString()).subscribe((next)=>{
                 next.forEach((el)=>{this.valveSizes.push(el.size);});
                this.valveSizes = this.valveSizes.sort((n1, n2)=> n1 - n2);
             })
