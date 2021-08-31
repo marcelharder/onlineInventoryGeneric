@@ -188,17 +188,17 @@ namespace api.DAL.Code
         public async Task<MessageToReturnDto> mapTomessageToReturnFromMessage(Message message)
         {
 
-            var sender = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserId == message.SenderId);
-            var recipient = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserId == message.RecipientId);
+            var sender = await _context.Users.FirstOrDefaultAsync(u => u.UserId == message.SenderId);
+            var recipient = await _context.Users.FirstOrDefaultAsync(u => u.UserId == message.RecipientId);
 
             var m = new MessageToReturnDto();
             m.Id = message.Id;
             m.SenderId = message.SenderId;
             m.SenderKnownAs = sender.Username;
-            m.SenderPhotoUrl = sender.Photos.FirstOrDefault(p => p.IsMain == true).Url;
+            m.SenderPhotoUrl = sender.PhotoUrl;
             m.RecipientId = message.RecipientId;
             m.RecipientKnownAs = recipient.Username;
-            m.RecipientPhotoUrl = recipient.Photos.FirstOrDefault(p => p.IsMain == true).Url;
+            m.RecipientPhotoUrl = recipient.PhotoUrl;
             m.Content = message.Content;
             m.IsRead = message.IsRead;
             m.DateRead = message.DateRead;
@@ -210,10 +210,10 @@ namespace api.DAL.Code
             var m = new Message();
 
             m.SenderId = mess.SenderId;
-            m.Sender = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserId == mess.SenderId);
+            m.Sender = await _context.Users.FirstOrDefaultAsync(u => u.UserId == mess.SenderId);
 
             m.RecipientId = mess.RecipientId;
-            m.Recipient = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserId == mess.RecipientId);
+            m.Recipient = await _context.Users.FirstOrDefaultAsync(u => u.UserId == mess.RecipientId);
 
             m.Content = mess.Content;
             m.MessageSent = mess.MessageSent;
@@ -337,13 +337,7 @@ namespace api.DAL.Code
             var help = new UserForReturnDTO();
             help.userId = u.UserId;
             help.username = u.Username;
-
-            if (u.Photos.Count != 0)
-            {
-                help.photoUrl = u.Photos.FirstOrDefault(p => p.IsMain == true).Url;
-                help.photos = this.mapToDetailedPhotosToReturn(u.Photos);
-            }
-
+            help.photoUrl = u.PhotoUrl;
 
             help.gender = u.Gender;
             if (u.DateOfBirth.Ticks != 0)

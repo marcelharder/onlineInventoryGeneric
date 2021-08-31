@@ -25,8 +25,7 @@
     <div class="row" *ngIf="requestPhotoChange()">
       <div class="col-sm-6"></div>
       <div class="col-sm-6"><app-photo-editor 
-        [photos]="photos" 
-        [companyCode]="cd.database_no" 
+          [companyCode]="cd.database_no" 
         (getMemberPhotoChange)="changeMainPhoto($event)"></app-photo-editor>
       </div>
      </div> 

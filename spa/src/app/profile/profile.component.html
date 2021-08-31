@@ -78,7 +78,7 @@
           <app-updateCredentials></app-updateCredentials>
           </tab>
            <tab heading="Upload photo">
-           <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="changeMainPhoto($event)"></app-photo-editor>
+           <app-photo-editor [userId]="user.userId" (getMemberPhotoChange)="changeMainPhoto($event)"></app-photo-editor>
            </tab> 
 
 

@@ -118,7 +118,7 @@ namespace api.Controllers
         {
             var vendor = await getVendor(id);
 
-            var file = photoDto.File;
+            var file = photoDto.file;
             var uploadresult = new ImageUploadResult();
 
             if (file.Length > 0)

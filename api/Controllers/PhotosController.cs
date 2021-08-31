@@ -53,76 +53,7 @@ namespace api.Controllers
             return Ok(photo);
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm]PhotoForCreationDto photoDto)
-        {
-            var user = await _repo.GetUser(userId);
-            if (user == null) return BadRequest("Could not find user");
-            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (currentUserId != user.UserId) return Unauthorized();
-            var file = photoDto.File;
-            var uploadResult = new ImageUploadResult();
-            if (file.Length > 0)
-            {
-                using (var stream = file.OpenReadStream())
-                {
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
-                    };
-                    uploadResult = _cloudinary.Upload(uploadParams);
-                }
-            }
-            photoDto.Url = uploadResult.Uri.ToString();
-            photoDto.PublicId = uploadResult.PublicId;
-
-            var photo = _special.mapToPhoto(photoDto);
-            photo.user = user;
-            photo.UserId = user.UserId;
-
-            if (!user.Photos.Any(m => m.IsMain)) photo.IsMain = true;
-
-            user.Photos.Add(photo);
-
-            if (await _repo.SaveAll())
-            {
-                PhotoForReturnDto pfr = _special.mapToPhotoForReturn(photo);
-                return CreatedAtRoute("GetPhoto", new { userId = userId, id = photo.Id }, pfr);
-            }
-            return BadRequest("Could not add photo");
-        }
-
-        [HttpPost("{id}/setMain")]
-        public async Task<IActionResult> SetMainPhoto(int userId, int id)
-        {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-
-            var user = await _repo.GetUser(userId);
-            if(!user.Photos.Any(p => p.Id == id)) return Unauthorized();
-
-            var photoFromRepo = await _repo.GetPhoto(id);
-
-            if (photoFromRepo == null)
-                return NotFound();
-
-            if (photoFromRepo.IsMain)
-                return BadRequest("This is already the main photo");
-
-            var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
-            if (currentMainPhoto != null)
-            {
-                currentMainPhoto.IsMain = false;
-                photoFromRepo.IsMain = true;
-            }
-
-            if (await _repo.SaveAll())
-                return NoContent();
-
-            return BadRequest("Could not set photo to main");
-
-        }
+       
 
 
         [HttpDelete("{id}")]
