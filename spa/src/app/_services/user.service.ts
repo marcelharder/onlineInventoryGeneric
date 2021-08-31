@@ -75,7 +75,7 @@ export class UserService {
     deletePhoto(userId: number, id: number) { return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id, {});
     }
     setMainPhoto(userId: number, id: number) {
-        return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+        return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {responseType: 'text' as 'json'});
      }
 
     getCurrentCountryCode(id: number){return this.http.get<string>(this.baseUrl + 'currentCountryCode/' + id, { responseType: 'text' as 'json' } );}
