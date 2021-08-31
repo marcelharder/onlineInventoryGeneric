@@ -61,7 +61,6 @@ namespace api.Controllers
         [HttpPut]
         public async Task<IActionResult> postVendor(Class_Vendors cv)
         {
-
            _vendor.Update(cv);
            if (await _vendor.SaveAll()) { return Ok("Vendor saved"); }
            return BadRequest("Can't save this vendor");
