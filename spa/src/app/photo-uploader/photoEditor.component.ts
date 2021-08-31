@@ -34,10 +34,10 @@ export class PhotoEditorComponent implements OnInit {
   public fileOverBase(e: any): void { this.hasBaseDropZoneOver = e; }
 
   initializeUploader() {
-    debugger;
+   
     let test = '';
     if (typeof this.userId !== 'undefined' && this.userId !== 0 ) {
-      debugger;
+     
       test = this.baseUrl + 'addUserPhoto/' + this.userId
     }
     else {
@@ -46,6 +46,7 @@ export class PhotoEditorComponent implements OnInit {
       }
       else {
         if (typeof this.valvecode !== 'undefined' && this.valvecode !== 0) {
+        
           test = this.baseUrl + 'addProductTypePhoto/' + this.valvecode
         } else {
           if (typeof this.companyCode !== 'undefined' && this.companyCode !== 0) {
@@ -73,7 +74,7 @@ export class PhotoEditorComponent implements OnInit {
         const res: any = JSON.parse(response);
         if (this.hospitalId !== 0) { this.getMemberPhotoChange.emit(res.ImageUrl); }
         if (this.userId !== 0) {this.getMemberPhotoChange.emit(res.photoUrl); }
-        if (this.valvecode !== 0) { this.getMemberPhotoChange.emit(res.image); }
+        if (this.valvecode !== 0) {this.getMemberPhotoChange.emit(res.image); }
         if (this.companyCode !== 0) { this.getMemberPhotoChange.emit(res.reps); }
      }
     };
