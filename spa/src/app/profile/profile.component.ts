@@ -18,14 +18,7 @@ import { HospitalService } from '../_services/hospital.service';
 export class ProfileComponent implements OnInit {
   user: User;
   listCountries:Array<DropItem> = [];
-  photo: Photo =
-    {
-      id: 0,
-      url: '',
-      description: '',
-      dateAdded: new Date(),
-      isMain: false
-    };
+  
   @ViewChild('editForm') editForm: NgForm;
   affiliation = '';
 

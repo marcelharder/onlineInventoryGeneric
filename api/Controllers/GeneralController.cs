@@ -27,9 +27,10 @@ return Ok(await _special.getHospital(hospital_id));
 
 [Route("api/hospitalName/{code}")]
 public async Task<IActionResult> getHospitalName(int code){
+    if(code == 0){return BadRequest("hospital code is zero");} else {
     var hospital = await _special.getHospital(code);
     return Ok(hospital.Naam);
-}
+}}
 
 [Route("api/vendorId/{name}")]
 public async Task<IActionResult> getVendorId(string name)

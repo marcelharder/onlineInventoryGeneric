@@ -62,7 +62,7 @@ export class ListLocationsComponent implements OnInit {
  
 
   hospitalChanged() {
-    debugger;
+   
     if(this.selectedHospital !== undefined){
       this.sd = 1;
       this.hos.getDetails(this.selectedHospital).subscribe((next) => {
@@ -110,7 +110,7 @@ export class ListLocationsComponent implements OnInit {
     }
 
   removeVendor(Description: string) {
-    debugger;
+   
     this.hos.removeVendor(Description, this.selectedHospital).subscribe(
       (next) => {
         this.alertify.message("Updated ..");

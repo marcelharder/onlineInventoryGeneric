@@ -96,7 +96,7 @@ namespace api.Controllers
         {
             var product = await _vc.getDetails(id);
 
-            var file = photoDto.File;
+            var file = photoDto.file;
             var uploadresult = new ImageUploadResult();
 
             if (file.Length > 0)

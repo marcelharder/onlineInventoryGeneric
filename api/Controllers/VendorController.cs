@@ -61,7 +61,6 @@ namespace api.Controllers
         [HttpPut]
         public async Task<IActionResult> postVendor(Class_Vendors cv)
         {
-
            _vendor.Update(cv);
            if (await _vendor.SaveAll()) { return Ok("Vendor saved"); }
            return BadRequest("Can't save this vendor");
@@ -118,7 +117,7 @@ namespace api.Controllers
         {
             var vendor = await getVendor(id);
 
-            var file = photoDto.File;
+            var file = photoDto.file;
             var uploadresult = new ImageUploadResult();
 
             if (file.Length > 0)

@@ -57,7 +57,7 @@ namespace api.DAL.Implementations
             help.Url = "https://res.cloudinary.com/marcelcloud/image/upload/v1559818775/user.png.jpg";
             help.IsMain = true;
             
-            user.Photos.Add(help);
+            user.PhotoUrl = help.Url;
             user.Created = now;
 
             await _context.Users.AddAsync(user);

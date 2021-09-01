@@ -7,8 +7,11 @@ using api.DAL.dtos;
 using api.DAL.Interfaces;
 using api.DAL.models;
 using api.Helpers;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace api.Controllers
 {
@@ -18,11 +21,22 @@ namespace api.Controllers
     public class UserController : ControllerBase
     {
         private IUserRepository _user;
+        private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
+        private Cloudinary _cloudinary;
         private SpecialMaps _special;
-        public UserController(IUserRepository user, SpecialMaps special)
+        public UserController(IUserRepository user, SpecialMaps special, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _user = user;
             _special = special;
+            _cloudinaryConfig = cloudinaryConfig;
+
+            Account acc = new Account(
+                _cloudinaryConfig.Value.CloudName,
+                _cloudinaryConfig.Value.ApiKey,
+                _cloudinaryConfig.Value.ApiSecret
+            );
+            _cloudinary = new Cloudinary(acc);
+
         }
         [HttpGet("api/userById/{id}", Name = "getUser")]
         public async Task<IActionResult> getUser01Async(int id)
@@ -96,7 +110,7 @@ namespace api.Controllers
             photo.user = res;
             photo.UserId = res.UserId;
             photo.IsMain = true;
-            res.Photos.Add(photo);
+            res.PhotoUrl = res.PhotoUrl;
             _user.Update(res);
             await _user.SaveAll();
                 var resu = await _special.getUserforReturnDTOAsync(res);
@@ -123,6 +137,39 @@ namespace api.Controllers
         public async Task<IActionResult> getCC(int id){
             var result = await _user.GetCountryCodeFromUser(id);
           return Ok(result);
+        }
+        
+        [HttpPost("api/addUserPhoto/{id}")]
+        public async Task<IActionResult> AddPhotoForUser(int id, [FromForm] PhotoForCreationDto photoDto)
+        {
+            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
+            var user = await _user.GetUser(id);
+
+            var file = photoDto.file;
+            var uploadResult = new ImageUploadResult();
+            if (file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face")
+                    };
+                    uploadResult = _cloudinary.Upload(uploadParams);
+                }
+                user.PhotoUrl = uploadResult.Uri.ToString();
+
+
+             
+                if (await _user.SaveAll())
+                {
+                    UserForReturnDTO ufr = await _special.getUserforReturnDTOAsync(user);
+                    return CreatedAtRoute("GetUser", new { id = user.UserId }, ufr);
+                }
+
+            }
+            return BadRequest("Could not add the photo ...");
         }
 
     }

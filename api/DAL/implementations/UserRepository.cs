@@ -25,13 +25,13 @@ namespace api.DAL.Implementations
 
         public async Task<User> GetUser(int id)
         {
-            var result = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserId == id);
+            var result = await _context.Users.FirstOrDefaultAsync(u => u.UserId == id);
             return result;
         }
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
             List<UserForReturnDTO> ufr = new List<UserForReturnDTO>();
-            var users = _context.Users.Include(u => u.Photos).AsQueryable();
+            var users = _context.Users.AsQueryable();
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
          public void Update<T>(T entity) where T : class
@@ -71,7 +71,7 @@ namespace api.DAL.Implementations
         public async Task<PagedList<User>> GetUsersInHospital(UserParams userParams)
         {
            // List<UserForReturnDTO> ufr = new List<UserForReturnDTO>();
-            var users = _context.Users.Include(u => u.Photos).AsQueryable();
+            var users = _context.Users.AsQueryable();
             users = users.Where(a => a.hospital_id == userParams.selectedHospital);
 
             return await PagedList<User>.CreateAsync(
