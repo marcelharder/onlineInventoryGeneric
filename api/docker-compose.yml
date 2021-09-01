@@ -4,6 +4,8 @@ services:
 
   db:
     image: mariadb
+    ports:
+      - 3306:3306
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
@@ -13,7 +15,7 @@ services:
      - mariadb-data:/var/lib/mysql
 
   geninventory:
-    image: gen_inv_md:v1
+    image: gen_inv:v2
     ports:
       - 8055:80
     networks: 
