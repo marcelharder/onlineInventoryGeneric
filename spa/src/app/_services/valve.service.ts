@@ -70,5 +70,5 @@ export class ValveService {
     addValveTransferDetails(userId: number, valveId: number) { return this.http.post<ValveTransfer>(this.baseUrl + 'addValveTransfer/' + userId + '/' + valveId, {}) }
     updateValveTransferDetails(userId: number, ct: ValveTransfer) { return this.http.put<number>(this.baseUrl + 'updateValveTransfer/' + userId, ct) }
     updateValveTypePhoto(photoUrl:string){return this.http.post<string>(this.baseUrl + 'updatePhoto', photoUrl) }
-
+    getAllProducts(id: number){return this.http.get<Valve[]>(this.baseUrl + 'getAllProducts/' + id);}
 }

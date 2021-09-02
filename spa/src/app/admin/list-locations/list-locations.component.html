@@ -91,7 +91,11 @@
                 <div class="col-sm-2">
                   <h6><span class="badge badge-secondary">Country</span></h6>
                 </div>
-                <div class="col-sm-10"><input type="text" [(ngModel)]="locationDetails.country" class="form-control"
+                <div class="col-sm-10">
+                  <input type="text" 
+                  [(ngModel)]="locationDetails.country" 
+                  placeholder="Please use 2 char ISO code eg. US for USA"
+                  class="form-control"
                     name="var03"></div>
               </div>
               <div class="row">

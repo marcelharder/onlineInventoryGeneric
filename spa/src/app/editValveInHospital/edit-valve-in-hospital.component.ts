@@ -61,20 +61,14 @@ export class EditValveInHospitalComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        // get the hospitalName from the auth service, because the valve is not here yet
-        this.auth.currentHospital.subscribe((next) => { 
-            this.hos.getDetails(+next).subscribe((nex)=>{ this.HospitalName = nex.naam;})
-            });
         this.loadDrops();
-    }
-
-   
+        this.findValveSizes();}
 
     superUserLoggedin() { if (this.auth.decodedToken.role === 'superuser') { return true; } else { return false; } }
 
     Cancel() { 
         // remove the already created record from the database
-        this.prod.deleteProduct(this.valve.valveId).subscribe((next)=>{});
+        this.prod.deleteProduct(this.valve.productId).subscribe((next)=>{});
         this.router.navigate(['/home']); }
 
     Save() {
@@ -85,15 +79,13 @@ export class EditValveInHospitalComponent implements OnInit {
         }
     }
 
-    selectThisValve(id: number) {
-      
-        this.valve.size = id.toString();
-    }
+    selectThisValve(id: number) {this.valve.size = id.toString();}
     findValveSizes() {
-       
-        // find the valvetype through the modelNo, get the valve sizes
+        // find the valvetype through the modelNo, get the valve sizes of this type of product
         this.prod.getProductByProduct_code(this.valve.product_code).subscribe((next) => {
+           debugger;
             this.prod.getProductById(next.valveTypeId).subscribe((nex)=>{
+                debugger;
                 this.valveSizes = nex.product_size;
              })
             this.alertify.message(this.product.description);
@@ -104,7 +96,7 @@ export class EditValveInHospitalComponent implements OnInit {
 
 
     loadDrops() {
-        this.findValveSizes();
+        
         const d = JSON.parse(localStorage.getItem('implant_options'));
         if (d == null || d.length === 0) {
             this.drops.getImplantedOptions().subscribe((response) => {
