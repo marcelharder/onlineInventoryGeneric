@@ -30,6 +30,13 @@
         
 </Country>
 <Country>
+		<ID>968</ID>
+		<ISO>OM</ISO>
+		<Description>Oman</Description>
+        
+</Country>
+
+<Country>
 		<ID>63</ID>
 		<ISO>FR</ISO>
 		<Description>France</Description>
