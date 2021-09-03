@@ -29,12 +29,12 @@ namespace api.DAL.Interfaces
 
         Task<Class_Product> valveBasedOnTypeOfValve(int id);
         Task<List<Class_Product>> getAllProductsByVendor(int hospital, int vendor);
+        Task<List<Class_Product>> getAllProducts(int hospital);
         Task<List<ExpiringProduct>> getValveExpiry(int months);
 
         #region // methods that get the sizes or display in the graphs
         Task<List<int>> getAorticMechanicalSizes(int hospitalId);
         Task<List<int>> getAorticBioSizes(int hospitalId);
-
         Task<List<int>> getMitralMechanicalSizes(int hospitalId);
         Task<List<int>> getMitralBioSizes(int hospitalId);
         Task<List<int>> getConduitSizes(int hospitalId);

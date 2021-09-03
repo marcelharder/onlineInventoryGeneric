@@ -54,4 +54,10 @@
 		<Description>Holland</Description>
         
 </Country>
+<Country>
+		<ID>963</ID>
+		<ISO>OM</ISO>
+		<Description>Oman</Description>
+        
+</Country>
 </root>
