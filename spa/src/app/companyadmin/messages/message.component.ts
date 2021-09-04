@@ -17,16 +17,16 @@ export class MessageComponent implements OnInit {
   messages: EmailMessage[];
   mail: EmailMessage = {
     Id: 0,
-    senderId: 0,
-    senderKnownAs: '',
-    senderPhotoUrl: '',
-    recipientId: 0,
-    recipientKnownAs: '',
-    recipientPhotoUrl: '',
-    content: '',
-    isRead: false,
-    dateRead: null,
-    messageSent: null
+    SenderId: 0,
+    SenderKnownAs: '',
+    SenderPhotoUrl: '',
+    RecipientId: 0,
+    RecipientKnownAs: '',
+    RecipientPhotoUrl: '',
+    Content: '',
+    IsRead: false,
+    DateRead: null,
+    MessageSent: null
   };
   pagination: Pagination;
   messageContainer = 'Unread';
@@ -92,14 +92,14 @@ export class MessageComponent implements OnInit {
   showCompose() { if (this.compose === 1) { return true; } }
   cancel() { this.list = 1; this.compose = 0; this.details = 0; }
   composeMessage() {
-    this.mail.content = '';
+    this.mail.Content = '';
     this.details = 0;
     this.list = 0;
     this.compose = 1;
   }
   replyMessage() {
-    this.newMessage.recipientId = this.mail.senderId;
-    this.newMessage.content = this.mail.content;
+    this.newMessage.recipientId = this.mail.SenderId;
+    this.newMessage.content = this.mail.Content;
     this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((message: EmailMessage) => {
       this.newMessage.content = '';
       this.cancel();

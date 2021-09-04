@@ -84,12 +84,14 @@ import { ListLocationsComponent } from './admin/list-locations/list-locations.co
 import { ListLocationsResolver } from './_resolvers/ListLocationsResolver';
 import { AddLocationComponent } from './admin/addLocation/addLocation.component';
 import { UpdateCredentialsComponent } from './updateCredentials/updateCredentials.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 
 export function tokenGet() { return localStorage.getItem('token'); }
 
 @NgModule({
-   declarations: [	
+   declarations: [
+      TimeAgoPipe,	
       AppComponent,
       HomeComponent,
       AboutComponent,
