@@ -16,7 +16,7 @@ import { HospitalService } from '../_services/hospital.service';
 
 export class SuperuserComponent implements OnInit {
     valveInParent: Valve = {
-        valveId: 0,
+        productId: 0,
         no: 0,
         description: '',
         vendor_code: '',
@@ -40,10 +40,9 @@ export class SuperuserComponent implements OnInit {
         Location_code: 0,
     };
 
-    procl = 0;
+    procl = 1;
     procd = 0;
     mc = 1;
-    nav = 1;
     procadd = 0;
     EmailAndSMS = 0;
     notF = 0;
@@ -85,15 +84,21 @@ export class SuperuserComponent implements OnInit {
         private gen: GeneralService) { }
 
     ngOnInit(): void {
-        this.gen.getHospital().subscribe((next) => { this.hos = next; });
-        this.auth.changeCurrentHospital(this.hos.naam);
-
+        this.gen.getHospital().subscribe((next) => {
+             this.hos = next; 
+             this.auth.changeCurrentHospital(this.hos.naam);
+             // get the list of products for this hospital which is named 'valves'
+             this.vs.getAllProducts(this.hos.locationId).subscribe((next)=>{
+               this.valves = next;
+             })
+                
+            });
+        
 
     }
 
     findSerial() {
         if (this.searchString !== '') {
-            this.nav = 0;
             this.procl = 0;
             this.vs.getValveBySerial(this.searchString, '2')
                 .subscribe((next) => {
@@ -110,7 +115,6 @@ export class SuperuserComponent implements OnInit {
     }
     cancel() {
         this.notF = 0;
-        this.nav = 1;
         this.searchString = '';
     }
 
@@ -118,7 +122,6 @@ export class SuperuserComponent implements OnInit {
     showProductList() { if (this.procl === 1) { return true; } else { return false; } }
     showAddPage() { if (this.procadd === 1) { return true; } else { return false; } }
     showMainContent() { if (this.mc === 1) { return true; } else { return false; } }
-    showNavBar() { if (this.nav === 1) { return true; } else { return false; } }
     showEditPage() { if (this.procd === 1) { return true; } else { return false; } }
     displayEmailAndSMS() {
         if (this.EmailAndSMS === 1) { return true; } else { return false; }
@@ -152,12 +155,10 @@ export class SuperuserComponent implements OnInit {
     rqDt($event: any) { // this are the details of the selected valve, comes back from the list
         const id = $event;
         this.vs.getValve(id).subscribe((next) => {
+            debugger;
             this.valveInParent = next;
-            // save the Location_code to the authservice in Behavior subject
-            this.hospital.getHospitalFromHospitalCode(this.valveInParent.Location_code).subscribe(
-                (nex) => {
-                    this.auth.changeCurrentHospital(nex);
-                }, (error) => { console.log(error); });
+        
+        
         });
         // show the editpage
         this.procd = 1;
@@ -168,13 +169,11 @@ export class SuperuserComponent implements OnInit {
     handleValveBack($event: Valve) { // comes back from edit page and can potentially be signalling a valve that is used !
         this.procd = 0;
         this.mc = 1;
-        this.nav = 1;
-
+       
         if (this.IsValveImplanted !== this.valveInParent.implanted) {
             // The superuser has marked this valve as newly implanted.
             this.valveInParent.Implant_date = new Date();
             this.mc = 0;
-            this.nav = 0;
             this.EmailAndSMS = 1;
 
         } else {
@@ -185,7 +184,7 @@ export class SuperuserComponent implements OnInit {
     }
 
     returnFromAnnouncingUsedValve($event: Valve) {
-        this.EmailAndSMS = 0; this.mc = 1; this.nav = 1;
+        this.EmailAndSMS = 0; this.mc = 1;
         this.vs.saveValve(this.valveInParent).subscribe((next) => {
             this.alertify.message('Saving the valve');
        }, (error) => { this.alertify.error(error); });

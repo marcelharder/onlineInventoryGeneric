@@ -87,7 +87,7 @@ export class List_TransfersComponent implements OnInit {
     this.details = 1;
     this.alertify.message('adding record');
     // tslint:disable-next-line:max-line-length
-    this.valveservice.addValveTransferDetails(+this.auth.decodedToken.nameid, this.selectedValve.valveId).subscribe((next) => {
+    this.valveservice.addValveTransferDetails(+this.auth.decodedToken.nameid, this.selectedValve.productId).subscribe((next) => {
       this.currentTransfer = next;
 
     })

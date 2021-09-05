@@ -21,7 +21,7 @@ export class SearchserialComponent implements OnInit {
 
   transfers:Array<ValveTransfer>=[];
   selectedValve: Valve = {
-    valveId: 0,
+    productId: 0,
     no: 0,
     description: '',
     vendor_code: '',
@@ -83,7 +83,7 @@ export class SearchserialComponent implements OnInit {
 
       if (next === null) {this.valveFound = 0; } else {this.valveFound = 1; }
       this.selectedValve = next;
-      this.valveService.getValveTransfers(+this.auth.decodedToken.nameid, this.selectedValve.valveId)
+      this.valveService.getValveTransfers(+this.auth.decodedToken.nameid, this.selectedValve.productId)
       .subscribe((nex)=>{ this.transfers = nex; })
 
       this.hosService.getDetails(this.selectedValve.Location_code).subscribe((res) => {

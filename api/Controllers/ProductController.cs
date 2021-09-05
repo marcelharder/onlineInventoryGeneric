@@ -78,6 +78,7 @@ namespace api.Controllers
             var result = await _product.getValvesBySoort(soort, position);
             return Ok(result);
         }
+       
         [Route("api/valvesByHospitalAndValveId/{hospital}/{code}")]
         public async Task<IActionResult> getValve02(int hospital, int code)
         {
@@ -97,6 +98,10 @@ namespace api.Controllers
                 return Ok(result);
             }
         }
+
+        [Route("api/getAllProducts/{location}")]
+        [HttpGet]
+        public async Task<IActionResult> getall(int location){ return Ok( await _product.getAllProducts(location));}
 
         [Route("api/updatevalve")]
         [HttpPost]

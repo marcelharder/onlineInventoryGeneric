@@ -110,6 +110,15 @@ namespace api.DAL.Implementations
             result.OrderBy(c => c.Expiry_date);
             return await result.ToListAsync();
         }
+        
+        public async Task<List<Class_Product>> getAllProducts(int hospital)
+        {
+             var result = _context.Products.Where(x => x.Location_code == hospital).AsQueryable();
+            result = result.Where(s => s.implanted == 0);
+            result = result.Where(s => s.Expiry_date > DateTime.UtcNow);
+            result.OrderBy(c => c.Expiry_date);
+            return await result.ToListAsync();
+        }
         public async Task<List<ExpiringProduct>> getValveExpiry(int months)
         {
             var expiringValves = new List<ExpiringProduct>();
@@ -513,5 +522,7 @@ namespace api.DAL.Implementations
             });
             return help;
         }
+
+       
     }
 }

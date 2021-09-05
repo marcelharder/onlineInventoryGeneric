@@ -17,57 +17,6 @@
       </div>
     </div>
   </div>
-
-
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 mt-2"  *ngIf="showNavBar()">>
-    <ul class="navbar-nav flex-grow">
-      <li class="mr-2">
-        <div class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>
-            Mechanical valves
-          </a>
-          <div class="dropdown-menu " *dropdownMenu>
-            <a class="dropdown-item" (click)="getValves(1,1)">Aortic valves</a>
-            <a class="dropdown-item" (click)="getValves(1,2)">Mitral valves</a>
-          </div>
-        </div>
-      </li>
-      <li class="mr-2">
-        <div class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>
-            Biological valves
-          </a>
-          <div class="dropdown-menu " *dropdownMenu>
-            <a class="dropdown-item" (click)="getValves(2,1)">Aortic valves</a>
-            <a class="dropdown-item" (click)="getValves(2,2)">Mitral valves</a>
-          </div>
-        </div>
-      </li>
-
-      <li class="mr-2">
-        <div class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>
-            Conduits/Rings
-          </a>
-          <div class="dropdown-menu " *dropdownMenu>
-            <a class="dropdown-item" (click)="getValves(3,1)">Valved Conduit</a>
-            <a class="dropdown-item" (click)="getValves(4,2)">Annuloplasty Ring</a>
-          </div>
-
-        </div>
-      </li>
-      <li class="mr-2">
-        <div class="dropdown" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle (click)="getValves(5,3)"> Pericardial Patches </a>
-        </div>
-      </li>
-
-    </ul>
-  </nav>
-
-
-
   <div  *ngIf="showProductList()">
     <app-list-valve [valves]="valves" [productRequested]="productRequested" (requestDetails)="rqDt($event)"></app-list-valve>
   </div>

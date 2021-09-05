@@ -1,5 +1,5 @@
 export interface Valve {
-    valveId: number;
+    productId: number;
     no: number;
     description: string;
     vendor_code: string;

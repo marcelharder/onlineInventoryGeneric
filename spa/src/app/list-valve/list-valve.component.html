@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <div class="row"*ngIf="!contentFound()">
-      <div class="col-sm-6"> <h5><span class="badge badge-success">No {{productRequested}} found</span></h5></div>
+      <div class="col-sm-6"> <h5><span class="badge badge-success">No products found</span></h5></div>
     </div>
 
     <div class="row"*ngIf="contentFound()">
@@ -35,7 +35,7 @@
               <th>{{pro.size}}</th>
               <th>{{pro.implant_position}}</th>
               <!-- hide this when request comes from vendor -->
-              <td *ngIf="comesFromVendor()"><a (click)="selectDetails(pro.valveId)">Details</a></td> 
+              <td *ngIf="comesFromVendor()"><a (click)="selectDetails(pro.productId)">Details</a></td> 
             </tr>
           </table>
         </div>
