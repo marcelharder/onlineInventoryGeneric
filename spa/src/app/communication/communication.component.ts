@@ -16,16 +16,16 @@ export class CommunicationComponent implements OnInit {
 @Output() valveBack = new EventEmitter<Valve>();
 message: EmailMessage = {
   Id: 0,
-  senderId: 0,
-  senderKnownAs: '',
-  senderPhotoUrl: '',
-  recipientId: 0,
-  recipientKnownAs: '',
-  recipientPhotoUrl: '',
-  content: '',
-  isRead: false,
-  dateRead: new Date(),
-  messageSent: new Date(),
+  SenderId: 0,
+  SenderKnownAs: '',
+  SenderPhotoUrl: '',
+  RecipientId: 0,
+  RecipientKnownAs: '',
+  RecipientPhotoUrl: '',
+  Content: '',
+  IsRead: false,
+  DateRead: new Date(),
+  MessageSent: new Date(),
 };
 
   constructor(
@@ -36,17 +36,17 @@ message: EmailMessage = {
 
   ngOnInit() {
 
-    this.message.senderId = +this.auth.decodedToken.nameid;
+    this.message.SenderId = +this.auth.decodedToken.nameid;
 
     this.vendorService.getVendor(this.valve.vendor_code).subscribe((r) => {
-      this.message.recipientId = +r.spare4; // spare 4 houses the user id that is the contact for this company
-      this.message.recipientKnownAs = r.spare2; // spare 2 houses the user name that is the contact for this company
+      this.message.RecipientId = +r.spare4; // spare 4 houses the user id that is the contact for this company
+      this.message.RecipientKnownAs = r.spare2; // spare 2 houses the user name that is the contact for this company
 
-      const messageContext = 'Dear ' + this.message.recipientKnownAs +
+      const messageContext = 'Dear ' + this.message.RecipientKnownAs +
       ' today we implanted a ' + this.valve.description +
       ' with serial number: ' + this.valve.serial_no +
       ' can you please provide us with a replacement.'
-      this.message.content = messageContext ;
+      this.message.Content = messageContext ;
      }, (error) => {console.log(error); });
 
 
