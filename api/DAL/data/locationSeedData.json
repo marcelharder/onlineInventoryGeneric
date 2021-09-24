@@ -235,6 +235,56 @@
     "triggerTwoMonth": false,
     "triggerThreeMonth": false,
     "DBBackend": "n/a"
+  },
+  
+  {
+    "Naam": "Location_01",
+    "Adres": "Avenue de Tassigny",
+    "PostalCode": "94010 Musct",
+    "Country": "OM",
+    "Image": null,
+    "RefHospitals": null,
+    "StandardRef": null,
+    "Email": "info@JPS.fr",
+    "Contact": "7",
+    "Telephone": "+931 149812111",
+    "Fax": null,
+    "Logo": null,
+    "mrnSample": null,
+    "Vendors": [{"description":"Edwards", "value": 4},{"description":"Medtronic", "value": 5}],
+    "reorder_policy": "1",
+     
+    "SMS_mobile_number": "+931 630167974",
+    "SMS_send_time": "12 pm",
+    "triggerOneMonth": true,
+    "triggerTwoMonth": false,
+    "triggerThreeMonth": false,
+    "DBBackend": "n/a"
+  },
+  
+  {
+    "Naam": "Location_02",
+    "Adres": "Avenue de Triomphe",
+    "PostalCode": "94010 Msct",
+    "Country": "OM",
+    "Image": null,
+    "RefHospitals": null,
+    "StandardRef": null,
+    "Email": "info@JPS.fr",
+    "Contact": "7",
+    "Telephone": "+931 1498782389",
+    "Fax": null,
+    "Logo": null,
+    "mrnSample": null,
+    "Vendors": [{"description":"Edwards", "value": 4},{"description":"Medtronic", "value": 5}],
+    "reorder_policy": "1",
+     
+    "SMS_mobile_number": "+931 630167974",
+    "SMS_send_time": "12 pm",
+    "triggerOneMonth": true,
+    "triggerTwoMonth": false,
+    "triggerThreeMonth": false,
+    "DBBackend": "n/a"
   }
  
 ]
