@@ -62,7 +62,9 @@ export class EditValveInHospitalComponent implements OnInit {
     }
     ngOnInit(): void {
         this.loadDrops();
-        this.findValveSizes();}
+        //this.findValveSizes();
+        this.auth.currentHospital.subscribe((next)=>{this.HospitalName = next})
+    }
 
     superUserLoggedin() { if (this.auth.decodedToken.role === 'superuser') { return true; } else { return false; } }
 

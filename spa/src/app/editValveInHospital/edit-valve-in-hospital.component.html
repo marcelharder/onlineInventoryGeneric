@@ -92,9 +92,7 @@
     <h5><span class="badge badge-info">Size</span></h5>
   </div>
   <div class="col-sm-3">
-   <select [(ngModel)]="valve.size" name="valvesize" class="form-control">
-    <option *ngFor="let an of valveSizes" >{{ an.size }}</option>
-   </select>
+    <h5><span class="badge badge-default">{{valve.size}}</span></h5>
   </div>
   <div class="col-sm-6"></div>
 </div>
