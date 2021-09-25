@@ -16,17 +16,17 @@ export class MessageComponent implements OnInit {
   newMessage: any = {};
   messages: EmailMessage[];
   mail: EmailMessage = {
-    Id: 0,
-    SenderId: 0,
-    SenderKnownAs: '',
-    SenderPhotoUrl: '',
-    RecipientId: 0,
-    RecipientKnownAs: '',
-    RecipientPhotoUrl: '',
-    Content: '',
-    IsRead: false,
-    DateRead: null,
-    MessageSent: null
+    id: 0,
+    senderId: 0,
+    senderKnownAs: '',
+    senderPhotoUrl: '',
+    recipientId: 0,
+    recipientKnownAs: '',
+    recipientPhotoUrl: '',
+    content: '',
+    isRead: false,
+    dateRead: null,
+    messageSent: null
   };
   pagination: Pagination;
   messageContainer = 'Unread';
@@ -64,7 +64,7 @@ export class MessageComponent implements OnInit {
     this.alertify.confirm('You are sure ?', () => {
       this.userService.deleteMessage(id, this.authService.decodedToken.nameid)
         .subscribe(() => {
-          this.messages.splice(this.messages.findIndex(m => m.Id === id), 1);
+          this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
           this.alertify.success('Message has been deleted');
         },
           error => {
@@ -92,14 +92,15 @@ export class MessageComponent implements OnInit {
   showCompose() { if (this.compose === 1) { return true; } }
   cancel() { this.list = 1; this.compose = 0; this.details = 0; }
   composeMessage() {
-    this.mail.Content = '';
+    this.mail.content = '';
     this.details = 0;
     this.list = 0;
     this.compose = 1;
   }
   replyMessage() {
-    this.newMessage.recipientId = this.mail.SenderId;
-    this.newMessage.content = this.mail.Content;
+    debugger;
+    this.newMessage.recipientId = this.mail.senderId;
+    this.newMessage.content = this.mail.content;
     this.userService.sendMessage(this.authService.decodedToken.nameid, this.newMessage).subscribe((message: EmailMessage) => {
       this.newMessage.content = '';
       this.cancel();

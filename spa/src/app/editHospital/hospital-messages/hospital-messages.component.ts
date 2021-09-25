@@ -32,8 +32,8 @@ export class HospitalMessagesComponent implements OnChanges {
         tap(messages => {
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < messages.length; i++) {
-            if (messages[i].IsRead === false && messages[i].RecipientId === currentUserId) {
-              this.userService.markAsRead(currentUserId, messages[i].Id);
+            if (messages[i].isRead === false && messages[i].recipientId === currentUserId) {
+              this.userService.markAsRead(currentUserId, messages[i].id);
             }
           }
         })
