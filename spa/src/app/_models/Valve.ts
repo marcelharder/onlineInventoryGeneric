@@ -1,5 +1,5 @@
 export interface Valve {
-    productId: number;
+    valveId: number;
     no: number;
     description: string;
     vendor_code: string;
@@ -20,6 +20,6 @@ export interface Valve {
     implant_position: string;
     procedure_id: number;
     implanted: number;
-    Location_code: number;
+    location_code: number;
 }
 

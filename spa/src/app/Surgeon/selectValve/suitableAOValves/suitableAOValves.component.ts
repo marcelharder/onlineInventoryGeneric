@@ -21,7 +21,7 @@ export class SuitableAOValvesComponent implements OnInit {
   ImagePath = '';
 
   pd: Valve = {
-    productId: 0,
+    valveId: 0,
     no: 0,
     description: '',
     vendor_code: '',
@@ -42,7 +42,7 @@ export class SuitableAOValvesComponent implements OnInit {
     implant_position: '',
     procedure_id: 0,
     implanted: 0,
-    Location_code: 0,
+    location_code: 0,
   };
 
 

@@ -87,7 +87,7 @@ export class List_TransfersComponent implements OnInit {
     this.details = 1;
     this.alertify.message('adding record');
     // tslint:disable-next-line:max-line-length
-    this.valveservice.addValveTransferDetails(+this.auth.decodedToken.nameid, this.selectedValve.productId).subscribe((next) => {
+    this.valveservice.addValveTransferDetails(+this.auth.decodedToken.nameid, this.selectedValve.valveId).subscribe((next) => {
       this.currentTransfer = next;
 
     })
@@ -104,8 +104,19 @@ export class List_TransfersComponent implements OnInit {
    {
     this.valveservice.updateValveTransferDetails(+this.auth.decodedToken.nameid, this.currentTransfer).subscribe((next) => {
        this.alertify.message('updating record');
-       this.details = 0;
-      })
+       
+       // update the local list of transfers with the newly added one
+       // index = this.transfers.findIndex(i => i.Id === this.currentTransfer.Id);
+       //this.transfers.splice(index,1);
+       //this.transfers.push(this.currentTransfer);
+       // order this list by Id
+       //this.transfers.sort(i => i.Id);
+
+       // insert the new transfer in place of the old one
+       this.transfers = this.transfers.map(u => u.Id !== this.currentTransfer.Id ? u : this.currentTransfer);
+       
+       this.details = 0; // show the list of transfers again
+      }, (error)=>{this.alertify.error(error)})
    }
 
 

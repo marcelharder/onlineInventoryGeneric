@@ -425,7 +425,7 @@ namespace api.DAL.Code
             current_transfer.DepartureCode = p.DepartureCode;
             current_transfer.DepTime = p.DepTime;
             current_transfer.Reason = p.Reason;
-            current_transfer.ProductId = p.ProductId;
+            current_transfer.Id = p.Id;
             return current_transfer;
         }
         #endregion

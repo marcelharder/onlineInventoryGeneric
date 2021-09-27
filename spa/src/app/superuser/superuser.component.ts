@@ -16,7 +16,7 @@ import { HospitalService } from '../_services/hospital.service';
 
 export class SuperuserComponent implements OnInit {
     valveInParent: Valve = {
-        productId: 0,
+        valveId: 0,
         no: 0,
         description: '',
         vendor_code: '',
@@ -37,7 +37,7 @@ export class SuperuserComponent implements OnInit {
         implant_position: '',
         procedure_id: 0,
         implanted: 0,
-        Location_code: 0,
+        location_code: 0,
     };
 
     procl = 1;
@@ -88,9 +88,7 @@ export class SuperuserComponent implements OnInit {
              this.hos = next; 
              this.auth.changeCurrentHospital(this.hos.naam);
              // get the list of products for this hospital which is named 'valves'
-             this.vs.getAllProducts(this.hos.locationId).subscribe((next)=>{
-               this.valves = next;
-             })
+             this.vs.getAllProducts(this.hos.locationId).subscribe((next)=>{ this.valves = next; })
                 
             });
         
@@ -155,7 +153,6 @@ export class SuperuserComponent implements OnInit {
     rqDt($event: any) { // this are the details of the selected valve, comes back from the list
         const id = $event;
         this.vs.getValve(id).subscribe((next) => {
-            debugger;
             this.valveInParent = next;
         
         

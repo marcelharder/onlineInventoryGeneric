@@ -15,7 +15,7 @@ services:
      - mariadb-data:/var/lib/mysql
 
   geninventory:
-    image: gen_inv:v4
+    image: gen_inv:v12
     ports:
       - 8065:80
     networks: 

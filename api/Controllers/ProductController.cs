@@ -170,11 +170,11 @@ namespace api.Controllers
 
         #region <--! transfer stuff-->
 
-        [Route("api/valveTransfers/{UserId}/{ValveId}")]
-        public IActionResult getTransfer(int UserId, int ValveId)
+        [Route("api/valveTransfers/{UserId}/{productId}")]
+        public IActionResult getTransfer(int UserId, int productId)
         {
             if (UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
-            var result = _product.getValveTransfers(ValveId);
+            var result = _product.getValveTransfers(productId);
             return Ok(result);
         }
         [Route("api/valveTransferDetails/{UserId}/{TransferId}", Name = "GetTransfer")]
@@ -192,6 +192,11 @@ namespace api.Controllers
 
             return Ok(result);
         }
+        
+        
+        
+        
+        
         [HttpPost("api/addValveTransfer/{UserId}/{ValveId}")]
         public async Task<IActionResult> postTransfer(int UserId, int ValveId)
         {
@@ -201,6 +206,7 @@ namespace api.Controllers
             ct.ProductId = ValveId;
             ct.DepTime = DateTime.Now;
             ct.ArrTime = DateTime.Now;
+            
             _product.addValveTransfer(ct);
 
             if (await _product.SaveAll())

@@ -7,6 +7,7 @@ import { HospitalService } from 'src/app/_services/hospital.service';
 import { GeneralService } from 'src/app/_services/general.service';
 import { ValveTransfer } from 'src/app/_models/ValveTransfer';
 import { AuthService } from 'src/app/_services/auth.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
   selector: 'app-searchserial',
@@ -21,7 +22,7 @@ export class SearchserialComponent implements OnInit {
 
   transfers:Array<ValveTransfer>=[];
   selectedValve: Valve = {
-    productId: 0,
+    valveId: 0,
     no: 0,
     description: '',
     vendor_code: '',
@@ -42,7 +43,7 @@ export class SearchserialComponent implements OnInit {
     implant_position: '',
     procedure_id: 0,
     implanted: 0,
-    Location_code: 0
+    location_code: 0
   };
   selectedHospital: Location = {
     locationId: 0,
@@ -72,6 +73,7 @@ export class SearchserialComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(private valveService: ValveService,
+    private alertify: AlertifyService,
     private hosService: HospitalService,
     private auth: AuthService,
     private gen: GeneralService) { }
@@ -80,18 +82,24 @@ export class SearchserialComponent implements OnInit {
   SearchOnSerial() {
     this.searchStarted = 1;
     this.valveService.getValveBySerial(this.serial, '1').subscribe((next) => {
-
-      if (next === null) {this.valveFound = 0; } else {this.valveFound = 1; }
-      this.selectedValve = next;
-      this.valveService.getValveTransfers(+this.auth.decodedToken.nameid, this.selectedValve.productId)
-      .subscribe((nex)=>{ this.transfers = nex; })
-
-      this.hosService.getDetails(this.selectedValve.Location_code).subscribe((res) => {
+      debugger;
+      this.hosService.getDetails(next.location_code).subscribe((res) => {
         this.selectedHospital = res;
         this.gen.getCountryName(this.selectedHospital.country).subscribe((c) => {this.country = c; });
-
       });
+
+      if (next === null) {this.valveFound = 0; } else {this.valveFound = 1; }
+      this.selectedValve.valveId = next.valveId;
+      this.valveService.getValveTransfers(+this.auth.decodedToken.nameid, next.valveId)
+     .subscribe((nex)=>{ 
+       this.transfers = nex; }, (error)=>{this.alertify.error(error)})
+
+
      }, (error) => {console.log(error); });
+
+     
+
+     
   }
 
   searchButtonPressed() {if (this.searchStarted === 1) {return true; }}

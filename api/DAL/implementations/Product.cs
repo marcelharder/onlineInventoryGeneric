@@ -346,11 +346,11 @@ namespace api.DAL.Implementations
             });
             return help;
         }
-        public List<Class_Transfer_forReturn> getValveTransfers(int ValveId)
+        public List<Class_Transfer_forReturn> getValveTransfers(int productId)
         {
             var help = new List<Class_Transfer_forReturn>();
             var result = _context.Transfers.AsQueryable();
-            result = result.Where(s => s.ProductId == ValveId);
+            result = result.Where(s => s.ProductId == productId);
             foreach (Class_Transfer ct in result) { help.Add(_special.mapToTransfersToReturn(ct)); }
             return help;
         }

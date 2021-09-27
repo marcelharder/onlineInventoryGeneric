@@ -70,7 +70,7 @@ export class EditValveInHospitalComponent implements OnInit {
 
     Cancel() { 
         // remove the already created record from the database
-        this.prod.deleteProduct(this.valve.productId).subscribe((next)=>{});
+        this.prod.deleteProduct(this.valve.valveId).subscribe((next)=>{});
         this.router.navigate(['/home']); }
 
     Save() {
