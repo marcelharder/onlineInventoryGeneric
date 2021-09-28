@@ -13,7 +13,7 @@ import { UserService } from '../_services/user.service';
 })
 export class CommunicationComponent implements OnInit {
 @Input() valve: Valve;
-@Output() valveBack = new EventEmitter<Valve>();
+@Output() valveBack = new EventEmitter<EmailMessage>();
 message: EmailMessage = {
   id: 0,
   senderId: 0,
@@ -39,6 +39,8 @@ message: EmailMessage = {
     this.message.senderId = +this.auth.decodedToken.nameid;
 
     this.vendorService.getVendor(this.valve.vendor_code).subscribe((r) => {
+
+
       this.message.recipientId = +r.spare4; // spare 4 houses the user id that is the contact for this company
       this.message.recipientKnownAs = r.spare2; // spare 2 houses the user name that is the contact for this company
 
@@ -55,10 +57,11 @@ message: EmailMessage = {
   }
 
   send() { this.userService.sendMessage(+this.auth.decodedToken.nameid, this.message).subscribe((next) => {
-    this.valveBack.emit(this.valve);
-  }, (error) => {console.log(error); }
+     this.valveBack.emit(this.message);
+  }, (error) => {
+    console.log(error); }
   ); }
 
-  cancel() {this.valveBack.emit(this.valve); }
+  cancel() {this.valveBack.emit(this.message); }
 
 }

@@ -13,6 +13,7 @@ import { valveSize } from '../_models/valveSize';
 import { ProductService } from '../_services/product.service';
 import { TypeOfValve } from '../_models/TypeOfValve';
 import { HospitalService } from '../_services/hospital.service';
+import { EmailMessage } from '../_models/EmailMessage';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class EditValveInHospitalComponent implements OnInit {
     @Output() valveBack = new EventEmitter<Valve>();
     optionsImplant: Array<DropItem> = [];
     valveSizes: Array<valveSize> = [];
+    sd=0;
+   
   
     product: TypeOfValve =  {
         valveTypeId: 0,
@@ -68,18 +71,31 @@ export class EditValveInHospitalComponent implements OnInit {
 
     superUserLoggedin() { if (this.auth.decodedToken.role === 'superuser') { return true; } else { return false; } }
 
+    showDetails(){if (this.sd === 0){ return true; } else { return false; }}
+    
+
+    removeItemFromInventory(){ this.alertify.confirm("You want to send a message to order replacement ?", ()=>{ this.sd = 1; }); }
+
+    handleValveBack(ev: EmailMessage){ this.sd = 0; this.alertify.message("Message sent to " + ev.recipientKnownAs);}
+
+
+
+
     Cancel() { 
         // remove the already created record from the database
         this.prod.deleteProduct(this.valve.valveId).subscribe((next)=>{});
         this.router.navigate(['/home']); }
 
     Save() {
+
         if (this.canIGo()) {
             this.valveBack.emit(this.valve);
         } else {
             // 
         }
     }
+
+    
 
     selectThisValve(id: number) {this.valve.size = id.toString();}
     findValveSizes() {
