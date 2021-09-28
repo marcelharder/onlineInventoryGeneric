@@ -74,7 +74,7 @@ export class EditProductComponent implements OnInit {
         this.povOut.emit(1);
       });
       
-    });
+    }, ()=>{});
 
   }
 

@@ -70,7 +70,7 @@ export class MessageComponent implements OnInit {
           error => {
             this.alertify.error('Failed to delete the message');
           });
-    });
+    }, ()=>{});
   }
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;

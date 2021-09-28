@@ -10,11 +10,13 @@ export class AlertifyService {
 constructor() { }
 
 
-confirm(message: string, okCallback: () => any) {
+confirm(message: string, okCallback: () => any, failCallBack: () => any) {
     alertify.confirm(message, (e: any) => {
         if (e) {
             okCallback();
-        } else {}
+        } else {
+            failCallBack();
+        }
     });
 }
 

@@ -100,7 +100,7 @@ export class ListLocationsComponent implements OnInit {
             let index = this.ah.findIndex(a => a.value === this.selectedHospital);
             this.ah.splice(index, 1);
             this.alertify.message("Deleting ...");});
-      });
+      }, ()=>{});
     })
   }
   addLocation() { 

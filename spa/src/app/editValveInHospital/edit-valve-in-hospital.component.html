@@ -2,7 +2,8 @@
   <div class="card-header">
     <div class="row">
       <div class="col-sm-6"><h4><span>Edit valve details</span></h4></div>
-      <div class="col-sm-6"><button class="btn btn-warning btn-xs" 
+      <div class="col-sm-6"><button *ngIf="superUserLoggedin()"
+                                    class="btn btn-warning btn-xs" 
                                     style="float: right" 
                                     (click)="removeItemFromInventory()">Remove from inventory</button>
       </div>
@@ -102,8 +103,13 @@
   <div class="col-sm-3">
     <h5><span class="badge badge-info">Size</span></h5>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-3" *ngIf="superUserLoggedin()"> 
     <h5><span class="badge badge-default">{{valve.size}}</span></h5>
+  </div>
+  <div class="col-sm-3" *ngIf="!superUserLoggedin()"> 
+   <select name="size" [(ngModel)]="valve.size" class="form-control">
+    <option *ngFor="let an of valveSizes">{{ an.size }}</option>
+   </select>
   </div>
   <div class="col-sm-6"></div>
 </div>

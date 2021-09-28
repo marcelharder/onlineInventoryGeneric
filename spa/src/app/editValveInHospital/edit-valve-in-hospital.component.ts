@@ -65,7 +65,7 @@ export class EditValveInHospitalComponent implements OnInit {
     }
     ngOnInit(): void {
         this.loadDrops();
-        //this.findValveSizes();
+        if(this.superUserLoggedin()){} else {this.findValveSizes()};
         this.auth.currentHospital.subscribe((next)=>{this.HospitalName = next})
     }
 
@@ -74,17 +74,28 @@ export class EditValveInHospitalComponent implements OnInit {
     showDetails(){if (this.sd === 0){ return true; } else { return false; }}
     
 
-    removeItemFromInventory(){ this.alertify.confirm("You want to send a message to order replacement ?", ()=>{ this.sd = 1; }); }
+    removeItemFromInventory(){ 
+        this.alertify.confirm("You want to send a message to order  a replacement ?", ()=>{ this.sd = 1; }, ()=>{
+            this.valveService.deleteValve(this.valve.valveId).subscribe((next)=>{});
+            this.router.navigate(['/home']);
+        });
 
-    handleValveBack(ev: EmailMessage){ this.sd = 0; this.alertify.message("Message sent to " + ev.recipientKnownAs);}
+        
+    }
 
-
-
+    handleValveBack(ev: EmailMessage){ 
+        this.sd = 0; 
+        this.alertify.message("Message sent to " + ev.recipientKnownAs);
+        this.valveService.deleteValve(this.valve.valveId).subscribe((next)=>{});
+        this.router.navigate(['/home']);
+        
+    }
 
     Cancel() { 
-        // remove the already created record from the database
+        // remove the already created record from the database, works only for productTypes
         this.prod.deleteProduct(this.valve.valveId).subscribe((next)=>{});
-        this.router.navigate(['/home']); }
+        this.router.navigate(['/home']);
+     }
 
     Save() {
 

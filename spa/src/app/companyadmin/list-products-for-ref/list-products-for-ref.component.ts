@@ -59,7 +59,7 @@ export class ListProductsForRefComponent implements OnInit {
         this.detailsPage = 0;
         this.listPage = 0;
       });
-    });
+    }, ()=>{});
   }
 
 
